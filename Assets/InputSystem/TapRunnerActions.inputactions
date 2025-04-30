@@ -1,0 +1,74 @@
+{
+    "name": "TapRunnerActions",
+    "maps": [
+        {
+            "name": "Runner",
+            "id": "d477a6fa-8620-438f-91cc-2a9cbf35f693",
+            "actions": [
+                {
+                    "name": "TapKey",
+                    "type": "Button",
+                    "id": "21f0e9f7-70b7-4435-a60b-2e6460e0a27c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "StartKey",
+                    "type": "Button",
+                    "id": "b6426327-5402-4710-bae5-8540e3b43e70",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GameEndKey",
+                    "type": "Button",
+                    "id": "7a6602b9-ebf5-4a84-9072-d06f15dc18aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "10aaef9e-03c8-4a84-a4a9-974e0e66e47d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TapKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bde8a1fa-d8bf-4b16-9576-ce9bc9abe828",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b4ae3084-5fac-42cb-8eee-b1d3bbabae6a",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GameEndKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

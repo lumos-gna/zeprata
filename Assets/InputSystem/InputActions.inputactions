@@ -162,7 +162,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "EndDialouge",
+                    "name": "EndDialogue",
                     "type": "Button",
                     "id": "6a93136c-cf6f-44bb-9ccc-14dd74a55ede",
                     "expectedControlType": "Button",
@@ -190,7 +190,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "EndDialouge",
+                    "action": "EndDialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -13,10 +13,11 @@ public class Npc : MonoBehaviour, ITriggerable<Player>, IInteractable
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         activeSign.SetActive(false);
     }
 
+    
+    
     public void OnEnter(Player player)
     {
         activeSign.SetActive(true);
@@ -29,15 +30,24 @@ public class Npc : MonoBehaviour, ITriggerable<Player>, IInteractable
         player.InteractTarget = null;
     }
     public void OnStay(Player player){}
+    
 
+    
 
-    public void InteractStart(Player player)
+    void IInteractable.Start(Player player)
     {
         dialogueCanvas.enabled = true;
+        player.InputHandler.SwitchType(GameEnum.InputType.Dialogue);
     }
-
-    public void InteractEnd(Player player)
+    
+    void IInteractable.Next(Player player)
+    {
+        Debug.Log("대화 진행");  
+    }
+    
+    void IInteractable.End(Player player)
     {
         dialogueCanvas.enabled = false;
+        player.InputHandler.SwitchType(GameEnum.InputType.Main);
     }
 }
