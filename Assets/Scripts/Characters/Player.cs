@@ -6,66 +6,81 @@ using UnityEngine.InputSystem;
 
 
 [RequireComponent(typeof(Rigidbody2D))]
-
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(PlayerTriggerHandler))]
-[RequireComponent(typeof(PlayerMoveHandler))]
-[RequireComponent(typeof(PlayerInputHandler))]
-[RequireComponent(typeof(PlayerSpriteHandler))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+
 public class Player : MonoBehaviour
 {
-    Rigidbody2D rigidbody;
+    bool isJumping = false;
+
+    Vector2 moveDir;
+
+    Rigidbody2D rigid;
+
+    SpriteRenderer spriteRenderer;
+
+    Animator animator;
 
     PlayerTriggerHandler triggerHandler;
-    PlayerMoveHandler moveHandler;
-    PlayerSpriteHandler spriteHandler;
-    PlayerInputHandler inputHandler;
 
-    public PlayerInputHandler InputHandler => inputHandler;
+    InputManager inputManager;
 
+
+    [SerializeField] float moveSpeed;
 
     void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-
+        rigid = GetComponent<Rigidbody2D>();
         triggerHandler = GetComponent<PlayerTriggerHandler>();
-        moveHandler = GetComponent<PlayerMoveHandler>();
-        spriteHandler = GetComponent<PlayerSpriteHandler>();
-        inputHandler = GetComponent<PlayerInputHandler>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+
+
+        inputManager = InputManager.Instance;
+
+        inputManager.OnMoveEvent += (moveKey) => moveDir = moveKey.normalized;
+
+        inputManager.OnJumpEvent += Jump;
+
+        inputManager.OnInteractEvent += () => triggerHandler.InteractTarget.Interact(this);
     }
+
 
     void FixedUpdate()
     {
-        Move(inputHandler.MoveKey);
+        Move();
     }
 
 
-    void Move(Vector2 moveKey)
+    void Move()
     {
-        Vector2 moveDir =  moveKey.normalized;
+        rigid.MovePosition(rigid.position + (moveDir * moveSpeed * Time.fixedDeltaTime));
 
-        moveHandler.FixedMove(moveDir, rigidbody);
+        spriteRenderer.flipX = moveDir.x < 0;
 
-        spriteHandler.Move(moveDir != Vector2.zero);
-
-        spriteHandler.Flip(moveDir.x < 0);
+        animator.SetBool("isMove", moveDir != Vector2.zero);
     }
 
-    public void StartInteract()
+
+    void Jump()
     {
-        triggerHandler.InteractTarget.Start(this);
-        inputHandler.SwitchType(GameEnum.InputType.Interact);
-    }
-    public void FinishInteract()
-    {
-        triggerHandler.InteractTarget.Finish(this);
-        inputHandler.SwitchType(GameEnum.InputType.Main);
+        if (!isJumping)
+        {
+            isJumping = true;
+
+            animator.SetBool("isJump", isJumping);
+
+            StartCoroutine(FinishJump());
+        }
     }
 
-    public void NextInteract()
+    IEnumerator FinishJump()
     {
-        triggerHandler.InteractTarget.Next(this);
-    }
+        yield return new WaitForSeconds(0.33f);
 
-    public void Jump() => spriteHandler.Jump();
+        isJumping = false;
+        animator.SetBool("isJump", isJumping);
+    }
 }

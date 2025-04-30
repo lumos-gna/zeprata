@@ -6,7 +6,7 @@
             "id": "d477a6fa-8620-438f-91cc-2a9cbf35f693",
             "actions": [
                 {
-                    "name": "TapKey",
+                    "name": "Tap",
                     "type": "Button",
                     "id": "21f0e9f7-70b7-4435-a60b-2e6460e0a27c",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "StartKey",
+                    "name": "Start",
                     "type": "Button",
                     "id": "b6426327-5402-4710-bae5-8540e3b43e70",
                     "expectedControlType": "Button",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GameEndKey",
+                    "name": "End",
                     "type": "Button",
                     "id": "7a6602b9-ebf5-4a84-9072-d06f15dc18aa",
                     "expectedControlType": "Button",
@@ -41,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TapKey",
+                    "action": "Tap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -52,7 +52,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "StartKey",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -63,7 +63,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GameEndKey",
+                    "action": "End",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

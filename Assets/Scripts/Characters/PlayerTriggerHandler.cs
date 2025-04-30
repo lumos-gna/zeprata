@@ -18,44 +18,50 @@ public class PlayerTriggerHandler : MonoBehaviour
     }
 
 
-    void TryTriggerPlayer<T>(T target, UnityAction<ITriggerable> onTrigger) where T : Component
+    void AddInteractTarget(Collider2D collider)
     {
-        if (target.TryGetComponent(out ITriggerable triggerTarget))
+        if(interactTarget == null)
         {
-            onTrigger?.Invoke(triggerTarget);
+            if (collider.TryGetComponent(out IInteractable interactable))
+            {
+                interactTarget = interactable;
+            }
         }
     }
 
-    void CheckInteractTarget<T>(T target) where T : Component
+    void RemoveInteractTarget(Collider2D collider)
     {
-        if (target.TryGetComponent(out IInteractable interactable))
+        if (interactTarget != null)
         {
-            interactTarget = interactable;
+            if (collider.TryGetComponent(out IInteractable interactable))
+            {
+                if (interactTarget == interactable)
+                {
+                    interactTarget = null;
+                }
+            }
         }
     }
-    
+
     
     void OnCollisionEnter2D(Collision2D other)
     {
-        TryTriggerPlayer(other.collider, (target) => target.OnEnter(player));
-        CheckInteractTarget(other.collider);
+        AddInteractTarget(other.collider);
+
     }
 
     void OnCollisionExit2D(Collision2D other)
     {
-        TryTriggerPlayer(other.collider, (target) => target.OnEnter(player));
-        CheckInteractTarget(other.collider);
+        RemoveInteractTarget(other.collider);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        TryTriggerPlayer(other, (target) => target.OnEnter(player));
-        CheckInteractTarget(other);
+        AddInteractTarget(other);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        TryTriggerPlayer(other, (target) => target.OnEnter(player));
-        CheckInteractTarget(other);
+        RemoveInteractTarget(other);
     }
 }

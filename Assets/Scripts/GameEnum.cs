@@ -2,7 +2,8 @@ public static class GameEnum
 {
     public enum InputType
     {
-        Main,
-        Interact
+        Player,
+        Dialogue,
+        TapRunner
     }
 }

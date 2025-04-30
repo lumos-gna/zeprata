@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-[System.Serializable]
-public class DialogueData
+
+[CreateAssetMenu(menuName = "ScriptableObject/DialogueData")]
+public class DialogueData : ScriptableObject
 {
-    public string speakerName;
-    public string text;
+    public List<DialogueScript> dialogueList;
 }

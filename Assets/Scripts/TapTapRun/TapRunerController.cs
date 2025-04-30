@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TapRunnerController : MonoBehaviour
@@ -74,7 +76,7 @@ public class TapRunnerController : MonoBehaviour
 
         for (int i = 0; i < obstacleHandlers.Length; i++)
         {
-            obstacleHandlers[i].Transform.localPosition = obstaclesStartPos * i;
+            obstacleHandlers[i].transform.localPosition = obstaclesStartPos * i;
 
             obstacleHandlers[i].InitChildObstacles(obstacleNeedCount);
         }
@@ -86,7 +88,7 @@ public class TapRunnerController : MonoBehaviour
 
     public void EndGame()
     {
-        Debug.Log("End Game");
+        SceneManager.LoadScene("MainScene");
     }
 
 
@@ -98,7 +100,7 @@ public class TapRunnerController : MonoBehaviour
 
         guideText.enabled = true;
 
-        guideText.text = "Game Over..";
+        guideText.text = $"Game Over..\n {(int)runningTime}";
 
 
         isEndable = true;

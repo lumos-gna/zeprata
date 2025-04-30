@@ -1,8 +1,8 @@
 {
-    "name": "InputActions",
+    "name": "PlayerActions",
     "maps": [
         {
-            "name": "Main",
+            "name": "Player",
             "id": "6667bc10-3f72-4b1d-9998-f2dec0f3c488",
             "actions": [
                 {
@@ -169,11 +169,11 @@
             ]
         },
         {
-            "name": "Interact",
+            "name": "Dialogue",
             "id": "1a6c119b-95c8-44a6-a79e-b47b7c1ff6cd",
             "actions": [
                 {
-                    "name": "NextInteract",
+                    "name": "PlayDialogue",
                     "type": "Button",
                     "id": "e6e60cb4-01b1-4c6a-a7c8-02c6355c4cb4",
                     "expectedControlType": "Button",
@@ -182,8 +182,8 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "FinishInteract",
-                    "type": "Button",
+                    "name": "FinishDialogue",
+                    "type": "Value",
                     "id": "6a93136c-cf6f-44bb-9ccc-14dd74a55ede",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -199,7 +199,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "NextInteract",
+                    "action": "PlayDialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -210,7 +210,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FinishInteract",
+                    "action": "FinishDialogue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

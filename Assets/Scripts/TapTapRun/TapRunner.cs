@@ -8,7 +8,7 @@ using UnityEngine;
 public class TapRunner : MonoBehaviour
 {
     //Animator animator;
-    Rigidbody2D rigidbody;
+    Rigidbody2D rigid;
 
     [SerializeField] float upForce;
 
@@ -18,36 +18,36 @@ public class TapRunner : MonoBehaviour
     private void Awake()
     {
         //animator = GetComponentInChildren<Animator>();
-        rigidbody = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 
 
     public void ReadyToStart()
     {
-        rigidbody.gravityScale = 0;
+        rigid.gravityScale = 0;
     }
 
-    void OnStartKey()
+    void OnStart()
     {
         if(!controller.IsStart)
         {
             controller.StartGame();
 
-            rigidbody.gravityScale = 2;
+            rigid.gravityScale = 2;
         }
     }
 
-    void OnTapKey()
+    void OnTap()
     {
         if (controller.IsStart)
         {
-            Vector3 velocity = rigidbody.velocity;
+            Vector3 velocity = rigid.velocity;
             velocity.y += upForce;
-            rigidbody.velocity = velocity;
+            rigid.velocity = velocity;
         }
     }
 
-    void OnGameEndKey()
+    void OnEnd()
     {
         if (controller.IsEndable)
         {
@@ -59,9 +59,9 @@ public class TapRunner : MonoBehaviour
     {
         controller.GameOver();
 
-        Vector3 velocity = rigidbody.velocity;
+        Vector3 velocity = rigid.velocity;
         velocity.x += 1;
-        rigidbody.velocity = velocity;
+        rigid.velocity = velocity;
 
         //animator.SetInteger("IsDie", 1);
     }

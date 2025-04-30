@@ -6,17 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Transform))]
 public class MainCamera : MonoBehaviour
 {
-    private Transform transform;
 
     [SerializeField] private float camSpeed; 
 
     [SerializeField] private Bounds camBounds;
     [SerializeField] private Player player;
 
-    private void Awake()
-    {
-        transform = GetComponent<Transform>();
-    }
 
     void LateUpdate()
     {

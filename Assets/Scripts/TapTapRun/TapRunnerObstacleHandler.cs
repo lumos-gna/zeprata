@@ -6,20 +6,8 @@ using UnityEngine;
 
 public class TapRunnerObstacleHandler : MonoBehaviour
 {
-    Transform transform;
-
-
     [SerializeField] Transform topObstaclesParent;
     [SerializeField] Transform bottomObstaclesParent;
-
-
-    public Transform Transform => transform;
-
-
-    private void Awake()
-    {
-        transform = GetComponent<Transform>();
-    }
 
 
     public void MoveHandler(Vector2 endPos, Vector2 startPos, float moveSpeed, out bool isLoop)

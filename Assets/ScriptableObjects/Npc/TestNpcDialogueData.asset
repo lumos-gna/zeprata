@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb7625248ed781e4cbb77eeef2afaffd, type: 3}
-  m_Name: TestNpcDialogueScript
+  m_Name: TestNpcDialogueData
   m_EditorClassIdentifier: 
   dialogueList:
-  - speakerName: "\uB098"
-    text: 1111111111
+  - speakerName: player
+    text: hi
   - speakerName: npc
-    text: 2222222222
-  - speakerName: "\uB098"
-    text: 3333333333
+    text: dd
+  - speakerName: player
+    text: dd..;
   - speakerName: npc
-    text: 44444444444
-  - speakerName: "\uB098"
-    text: 555555555
+    text: dz..
+  - speakerName: player
+    text: bye
