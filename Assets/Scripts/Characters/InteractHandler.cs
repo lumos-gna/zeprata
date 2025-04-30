@@ -2,22 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class PlayerTriggerHandler : MonoBehaviour
+public class InteractHandler : MonoBehaviour
 {
-    Player player;
 
     IInteractable interactTarget;
     public IInteractable InteractTarget => interactTarget;
     
-
-    private void Awake()
-    {
-        player = GetComponent<Player>();
-    }
-
-
     void AddInteractTarget(Collider2D collider)
     {
         if(interactTarget == null)
@@ -42,7 +33,6 @@ public class PlayerTriggerHandler : MonoBehaviour
             }
         }
     }
-
     
     void OnCollisionEnter2D(Collision2D other)
     {

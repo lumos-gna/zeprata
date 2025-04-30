@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TapRunnerPortal : ScenePortal
 {
-    public override void Interact(Player player)
+    public override void Interact(GameObject source)
     {
-        base.Interact(player);
+        base.Interact(source);
     }
 }

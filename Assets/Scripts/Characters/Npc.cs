@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(CapsuleCollider2D))]
 public class Npc : MonoBehaviour, IInteractable
 {
 
@@ -11,9 +9,9 @@ public class Npc : MonoBehaviour, IInteractable
     [SerializeField] DialogueData dialogueData;
 
 
-    public void Interact(Player player)
+    public void Interact(GameObject source)
     {
-        DialogueManager.Instance.EnableDialogue(dialogueData);
+        UIManager.Instance.EnableDialogue(dialogueData);
         InputManager.Instance.SwitchInputType(GameEnum.InputType.Dialogue);
     }
 }

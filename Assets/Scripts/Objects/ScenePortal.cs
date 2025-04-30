@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ScenePortal : MonoBehaviour, IInteractable
 {
     public string sceneName;
-    public virtual void Interact(Player player)
+    public virtual void Interact(GameObject source)
     {
         SceneManager.LoadScene(sceneName);
     }

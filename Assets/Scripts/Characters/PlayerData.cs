@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 
 
-[CreateAssetMenu(menuName = "ScriptableObject/PlayerData")]
-public class PlayerData : ScriptableObject
+public class PlayerData
 {
-    
+    public string PlayerName { get; set; }
+    public SpriteLibraryAsset SpriteAsset { get; set; }
 }

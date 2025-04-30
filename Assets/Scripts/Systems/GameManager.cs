@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    void Awake()
+    protected override void Awake()
     {
-        DontDestroyOnLoad(gameObject);   
+        base.Awake();
+
+        //세이브검사
+        StartNewGame();
     }
 
-    public int TapRunnerScore { get; set; }
+    public void StartNewGame()
+    {
+        DataManager.Instance.InitNewGameData();
+    }
 }

@@ -3,45 +3,32 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DialogueManager : Singleton<DialogueManager>
+public class DialogueUI : MonoBehaviour
 {
     int dialogueIndex = 0;
 
-    bool isRunning;
+    DialogueData currentDialogueData;
 
-
-    DialogueData dialogueData;
     InputManager inputManager;
-
 
     [SerializeField] Canvas dialogueCanvas;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI dialogueText;
 
-
-    public bool IsRunning => isRunning;
+    public bool IsRunning => dialogueCanvas.enabled;
 
     private void Awake()
     {
-        dialogueCanvas.enabled = false;
-
         inputManager = InputManager.Instance;
 
         inputManager.OnFinishDialogueEvent += () => DisableDialogue();
 
         inputManager.OnPlayDialogueEvent += () => NextDialogue();
-
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(dialogueCanvas.gameObject);
     }
-
-
 
     public void EnableDialogue(DialogueData dialogueData)
     {
-        isRunning = true;
-
-        this.dialogueData = dialogueData;
+        currentDialogueData = dialogueData;
 
         dialogueCanvas.enabled = true;
 
@@ -53,27 +40,26 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         dialogueIndex++;
 
-        if (dialogueIndex == dialogueData.dialogueList.Count)
+        if (dialogueIndex == currentDialogueData.dialogueList.Count)
         {
             DisableDialogue();
             return;
         }
 
-        nameText.text = dialogueData.dialogueList[dialogueIndex].speakerName;
-        dialogueText.text = dialogueData.dialogueList[dialogueIndex].text;
+        nameText.text = currentDialogueData.dialogueList[dialogueIndex].speakerName;
+        dialogueText.text = currentDialogueData.dialogueList[dialogueIndex].text;
 
     }
 
     public void DisableDialogue()
     {
-        isRunning = false;
-
         dialogueIndex = 0;
 
-        dialogueData = null;
+        currentDialogueData = null;
 
         dialogueCanvas.enabled = false;
 
         inputManager.SwitchInputType(GameEnum.InputType.Player);
     }
+
 }
