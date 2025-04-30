@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITriggerable<T> where T : MonoBehaviour
+public interface ITriggerable
 {
-    public void OnEnter(T target);
-    public void OnExit(T target);
-    public void OnStay(T target);
+    public void OnEnter(Player player);
+    public void OnExit(Player player);
 }

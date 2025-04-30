@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "15514b8b-2d7e-46fc-bc84-d57eb8265cbf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -145,15 +154,26 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30edabd0-c597-4e84-b9bc-3b0c189927a4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Dialogue",
+            "name": "Interact",
             "id": "1a6c119b-95c8-44a6-a79e-b47b7c1ff6cd",
             "actions": [
                 {
-                    "name": "NextDialogue",
+                    "name": "NextInteract",
                     "type": "Button",
                     "id": "e6e60cb4-01b1-4c6a-a7c8-02c6355c4cb4",
                     "expectedControlType": "Button",
@@ -162,7 +182,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "EndDialogue",
+                    "name": "FinishInteract",
                     "type": "Button",
                     "id": "6a93136c-cf6f-44bb-9ccc-14dd74a55ede",
                     "expectedControlType": "Button",
@@ -175,11 +195,11 @@
                 {
                     "name": "",
                     "id": "d615f5cc-9d50-4572-85d4-3f6ceffd1e2b",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "NextDialogue",
+                    "action": "NextInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -190,7 +210,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "EndDialogue",
+                    "action": "FinishInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

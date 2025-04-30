@@ -6,23 +6,29 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    Vector2 moveDir;
     Player player;
     PlayerInput input;
-    
-    public Vector2 MoveDir => moveDir;
+
+
+    Vector2 moveKey;
+    public Vector2 MoveKey => moveKey;
 
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
         player = GetComponent<Player>();
     }
-    
+  
+
     public void SwitchType(GameEnum.InputType inputType) => input.SwitchCurrentActionMap(inputType.ToString());
 
     
-    void OnMove(InputValue value) => moveDir = value.Get<Vector2>().normalized;
-    void OnInteract() =>   player.InteractTarget?.Start(player);
-    void OnNextDialogue() =>   player.InteractTarget?.Next(player);
-    void OnEndDialogue() =>  player.InteractTarget?.End(player);
+    void OnMove(InputValue value) => moveKey = value.Get<Vector2>().normalized;
+    void OnInteract() => player.StartInteract();
+    void OnJump() => player.Jump();
+
+    void OnNextInteract() => player.NextInteract();
+    void OnFinishInteract() => player.FinishInteract();
+
+
 }

@@ -6,5 +6,5 @@ public interface IInteractable
 {
     public void Start(Player player);
     public void Next(Player player);
-    public void End(Player player);
+    public void Finish(Player player);
 }

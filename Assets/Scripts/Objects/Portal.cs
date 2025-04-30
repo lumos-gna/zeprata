@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Portal : MonoBehaviour, ITriggerable<Player>
+public class Portal : MonoBehaviour, ITriggerable
 {
     [SerializeField] private Vector3 targetPos;
     

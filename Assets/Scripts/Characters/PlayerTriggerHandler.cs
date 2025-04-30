@@ -7,6 +7,9 @@ using UnityEngine.Events;
 public class PlayerTriggerHandler : MonoBehaviour
 {
     Player player;
+
+    IInteractable interactTarget;
+    public IInteractable InteractTarget => interactTarget;
     
 
     private void Awake()
@@ -15,21 +18,44 @@ public class PlayerTriggerHandler : MonoBehaviour
     }
 
 
-    public void TryTriggerPlayer<T>(T target, UnityAction<ITriggerable<Player>> onTrigger) where T : Component
+    void TryTriggerPlayer<T>(T target, UnityAction<ITriggerable> onTrigger) where T : Component
     {
-        if (target.TryGetComponent(out ITriggerable<Player> triggerTarget))
+        if (target.TryGetComponent(out ITriggerable triggerTarget))
         {
             onTrigger?.Invoke(triggerTarget);
         }
     }
+
+    void CheckInteractTarget<T>(T target) where T : Component
+    {
+        if (target.TryGetComponent(out IInteractable interactable))
+        {
+            interactTarget = interactable;
+        }
+    }
     
     
-    void OnCollisionEnter2D(Collision2D other)  => TryTriggerPlayer(other.collider, (target) => target.OnEnter(player));
-    void OnCollisionStay2D(Collision2D other) => TryTriggerPlayer(other.collider, (target) => target.OnStay(player));
-    void OnCollisionExit2D(Collision2D other)  => TryTriggerPlayer(other.collider, (target) => target.OnExit(player));
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        TryTriggerPlayer(other.collider, (target) => target.OnEnter(player));
+        CheckInteractTarget(other.collider);
+    }
 
+    void OnCollisionExit2D(Collision2D other)
+    {
+        TryTriggerPlayer(other.collider, (target) => target.OnEnter(player));
+        CheckInteractTarget(other.collider);
+    }
 
-    void OnTriggerEnter2D(Collider2D other) => TryTriggerPlayer(other, (target) => target.OnEnter(player));
-    void OnTriggerStay2D(Collider2D other) => TryTriggerPlayer(other, (target) => target.OnStay(player));
-    void OnTriggerExit2D(Collider2D other)  => TryTriggerPlayer(other, (target) => target.OnExit(player));
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        TryTriggerPlayer(other, (target) => target.OnEnter(player));
+        CheckInteractTarget(other);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        TryTriggerPlayer(other, (target) => target.OnEnter(player));
+        CheckInteractTarget(other);
+    }
 }

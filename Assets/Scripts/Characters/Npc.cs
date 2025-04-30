@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-public class Npc : MonoBehaviour, ITriggerable<Player>, IInteractable
+public class Npc : MonoBehaviour, ITriggerable, IInteractable
 {
     SpriteRenderer spriteRenderer;
 
@@ -18,36 +18,29 @@ public class Npc : MonoBehaviour, ITriggerable<Player>, IInteractable
 
     
     
-    public void OnEnter(Player player)
+    void ITriggerable.OnEnter(Player player)
     {
         activeSign.SetActive(true);
-        player.InteractTarget = this;
     }
 
-    public void OnExit(Player player)
+    void ITriggerable.OnExit(Player player)
     {
         activeSign.SetActive(false);
-        player.InteractTarget = null;
     }
-    public void OnStay(Player player){}
-    
-
     
 
     void IInteractable.Start(Player player)
     {
         dialogueCanvas.enabled = true;
-        player.InputHandler.SwitchType(GameEnum.InputType.Dialogue);
     }
-    
+
     void IInteractable.Next(Player player)
     {
-        Debug.Log("대화 진행");  
+        dialogueCanvas.enabled = true;
     }
-    
-    void IInteractable.End(Player player)
+
+    void IInteractable.Finish(Player player)
     {
         dialogueCanvas.enabled = false;
-        player.InputHandler.SwitchType(GameEnum.InputType.Main);
     }
 }
