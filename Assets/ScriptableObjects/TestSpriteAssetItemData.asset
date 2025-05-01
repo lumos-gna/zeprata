@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: spriteAsset_1
   itemName: PinkSoldier
-  price: 0
+  price: 1000
+  iconSprite: {fileID: 1993449658, guid: 983967335b77a6142b243bce7951c88c, type: 3}
   spriteAsset: {fileID: 7108339969198208228, guid: 95f4fa4a9d82d5644927831376a5a8df, type: 3}

@@ -13,8 +13,8 @@ public class InteractTriggerHandler : MonoBehaviour
     IInteractTriggerable interactTarget;
     public IInteractTriggerable InteractTarget => interactTarget;
 
-    public UnityAction OnTriggerEnter { private get; set; }
-    public UnityAction OnTriggerEixt { private get; set; }
+    public event UnityAction OnTriggerEnter;
+    public event UnityAction OnTriggerEixt;
 
     public void Init(GameObject source)
     {

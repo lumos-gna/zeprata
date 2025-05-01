@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class DataManager : Singleton<DataManager>
 {
+
     [SerializeField] List<SpriteAssetItemData> spriteAssetItemDatas;
 
+
     public int TapRunnerScore { get; set; }
+
+
+    public SpriteLibraryAsset defalutPlayerSpriteAsset;
+
+
+    public List<ShopItemData> ShopItemDatas { get; private set; } = new();
+    public List<InventoryItemData> InventoryItemDatas { get; private set; } = new();
+    public PlayerData PlayerData { get; private set; } = new();
 
 
     protected override void Awake()
@@ -14,26 +25,20 @@ public class DataManager : Singleton<DataManager>
         base.Awake();
     }
 
-    public PlayerData PlayerData { get; private set; }
 
-    public SpriteAssetItemData GetSpriteAssetItemData(string id)
-    {
-        for (int i = 0; i < spriteAssetItemDatas.Count; i++) 
-        {
-            if(id == spriteAssetItemDatas[i].ID)
-            {
-                return spriteAssetItemDatas[i];
-            }
-        }
-
-        return null;
-    }
 
     public void InitNewGameData()
     {
-        PlayerData = new()
+        PlayerData.Gold = 2000;
+       
+        for (int i = 0; i < spriteAssetItemDatas.Count; i++)
         {
-            SpriteAsset = GetSpriteAssetItemData("spriteAsset_1").SpriteAsset
-        };
+            ShopItemDatas.Add(
+                new ShopItemData()
+                {
+                    ItemData = spriteAssetItemDatas[i],
+                    Count = 1
+                });
+        }
     }
 }

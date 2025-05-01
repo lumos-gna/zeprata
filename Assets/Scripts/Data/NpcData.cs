@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "ScriptableObject/NpcData")]
+[CreateAssetMenu(menuName = "ScriptableObjects/NpcData")]
 public class NpcData : ScriptableObject
 {
     [SerializeField] private string npcName;

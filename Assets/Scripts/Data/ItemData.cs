@@ -1,22 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D.Animation;
 
-
-[CreateAssetMenu(menuName = "ScriptableObjects/SpriteAssetItemData")]
-public class SpriteAssetItemData : ScriptableObject
+public abstract class ItemData : ScriptableObject
 {
     [SerializeField] string id;
 
     [SerializeField] string itemName;
-    
+
     [SerializeField] int price;
 
-    [SerializeField] SpriteLibraryAsset spriteAsset;
+    [SerializeField] Sprite iconSprite;
 
     public string ID => id;
     public string Name => itemName;
     public int Price => price;
-    public SpriteLibraryAsset SpriteAsset => spriteAsset;
+    public Sprite IconSprite => iconSprite;
+
 }

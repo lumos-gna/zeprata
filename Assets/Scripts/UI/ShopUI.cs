@@ -1,21 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
-    Vector2 scrollPos;
 
-    [SerializeField] ScrollRect scrollRect;
+    List<ShopItemData> shopItemDatas;
+
+    DataManager dataManager;
+
+    [SerializeField] TextMeshProUGUI playerGoldText;
+
+
+    [SerializeField] ShopSpirteAssetSlot spriteAssetSlotPrefab;
+    [SerializeField] Transform spriteAssetSlotParent;
+
 
     private void Start()
     {
-        InputManager.Instance.OnUIScrollEvent = (value) => MoveScroll(value);
+        dataManager = DataManager.Instance;
+
+
+        shopItemDatas = dataManager.ShopItemDatas;
+
+
+        foreach (var item in shopItemDatas)
+        {
+            Instantiate(spriteAssetSlotPrefab, spriteAssetSlotParent).Init(item);
+        }
     }
 
-    public void MoveScroll(Vector2 scrollPos)
+    private void Update()
     {
-        scrollRect.content.anchoredPosition = scrollPos;
+        playerGoldText.text = dataManager.PlayerData.Gold.ToString() + " G";
+    }
+
+    public void TryBuyItem(ShopItemData shopItemData)
+    {
+        var itemData = shopItemData.ItemData;
+
+        if(itemData.Price <= dataManager.PlayerData.Gold)
+        {
+        }
     }
 }

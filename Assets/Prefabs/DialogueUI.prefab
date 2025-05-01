@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 1846819732781247848}
   - component: {fileID: 124039063992424721}
   m_Layer: 5
-  m_Name: DialogueCanvas
+  m_Name: DialogueUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -460,6 +460,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4491cae23b83c0846805be30860466a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueCanvas: {fileID: 1455520249600425266}
   nameText: {fileID: 9093908157013954795}
   dialogueText: {fileID: 2865878330834570171}

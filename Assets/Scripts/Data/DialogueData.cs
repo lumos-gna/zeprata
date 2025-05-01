@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[CreateAssetMenu(menuName = "ScriptableObject/DialogueData")]
+[CreateAssetMenu(menuName = "ScriptableObjects/DialogueData")]
 public class DialogueData : ScriptableObject
 {
     [SerializeField] List<DialogueScript> dialogueList;

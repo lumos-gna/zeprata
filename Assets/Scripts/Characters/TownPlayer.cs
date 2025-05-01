@@ -13,40 +13,20 @@ public class TownPlayer : MonoBehaviour
 
     Vector2 moveDir;
 
-    PlayerData playerData;
+    [SerializeField] float moveSpeed;
 
     [SerializeField] Rigidbody2D rigid;
+
     [SerializeField] SpriteRenderer spriteRenderer;
+
     [SerializeField] SpriteLibrary spriteLibrary;
+
     [SerializeField] Animator animator;
+
     [SerializeField] InteractTriggerHandler triggerHandler;
 
     [SerializeField] Canvas interactGuideCanvas;
 
-    [SerializeField] float moveSpeed;
-
-
-
-    public void Init(PlayerData playerData)
-    {
-        this.playerData = playerData;
-
-        spriteLibrary.spriteLibraryAsset = playerData.SpriteAsset;
-
-
-        var inputManager = InputManager.Instance;
-
-        inputManager.OnTownMoveEvent = (moveKey) => moveDir = moveKey.normalized;
-
-        inputManager.OnTownJumpEvent = Jump;
-
-        inputManager.OnTownInteractEvent = () => triggerHandler.InteractTarget?.Interact(gameObject);
-
-        triggerHandler.Init(gameObject);
-
-        triggerHandler.OnTriggerEnter = () => interactGuideCanvas.enabled = true;
-        triggerHandler.OnTriggerEixt = () => interactGuideCanvas.enabled = false;
-    }
 
 
     void FixedUpdate()
@@ -54,6 +34,26 @@ public class TownPlayer : MonoBehaviour
         Move();
     }
 
+
+    void OnDestroy()
+    {
+        var inventoryManager = InventoryManager.Instance;
+
+        inventoryManager.OnEquippedItemData -= (itemData) => InitItemSpriteAsset(itemData);
+        inventoryManager.OnUnEquippedItemData -= (itemData) => InitDefalutSpriteAsset();
+    }
+
+
+    void InitItemSpriteAsset(ItemData itemData)
+    {
+        if (itemData is SpriteAssetItemData spriteAssetItemData)
+        {
+            spriteLibrary.spriteLibraryAsset = spriteAssetItemData.SpriteAsset;
+        }
+    }
+
+    void InitDefalutSpriteAsset() => spriteLibrary.spriteLibraryAsset = DataManager.Instance.defalutPlayerSpriteAsset;
+   
 
     void Move()
     {
@@ -89,4 +89,48 @@ public class TownPlayer : MonoBehaviour
         isJumping = false;
         animator.SetBool("isJump", isJumping);
     }
+
+
+
+    public void Init()
+    {
+        var inventoryManager = InventoryManager.Instance;
+        var dataManager = DataManager.Instance;
+        var inputManager = InputManager.Instance;
+
+
+        if (inventoryManager.TryGetEquipItemData(out SpriteAssetItemData itemData))
+        {
+            InitItemSpriteAsset(itemData);
+        }
+        else
+        {
+            InitDefalutSpriteAsset();
+        }
+
+        inventoryManager.OnEquippedItemData += (itemData) => InitItemSpriteAsset(itemData);
+        inventoryManager.OnUnEquippedItemData += (itemData) => InitDefalutSpriteAsset();
+
+
+
+        inputManager.OnTownMoveEvent = (moveKey) => moveDir = moveKey.normalized;
+
+        inputManager.OnTownJumpEvent = Jump;
+
+        inputManager.OnTownInteractEvent = () =>
+        {
+            if (triggerHandler.InteractTarget != null)
+            {
+                triggerHandler.InteractTarget?.Interact(gameObject);
+                interactGuideCanvas.enabled = false;
+            }
+        };
+
+        triggerHandler.Init(gameObject);
+
+        triggerHandler.OnTriggerEnter += () => interactGuideCanvas.enabled = true;
+        triggerHandler.OnTriggerEixt += () => interactGuideCanvas.enabled = false;
+    }
+
+
 }

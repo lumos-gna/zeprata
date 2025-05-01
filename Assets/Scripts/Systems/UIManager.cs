@@ -12,8 +12,10 @@ public class UIManager : Singleton<UIManager>
     Stack<GameObject> popupUIStack = new();
 
     [SerializeField] DialogueUI dialogueUIPrefab;
+    [SerializeField] ShopUI shopUIPrefab;
 
     public DialogueUI DialogueUI { get; private set; }
+    public ShopUI ShopUI { get; private set; }
 
 
     protected override void Awake()
@@ -70,8 +72,14 @@ public class UIManager : Singleton<UIManager>
 
     public void EnableShop()
     {
+        if (ShopUI == null)
+        {
+            ShopUI = Instantiate(shopUIPrefab);
+        }
+
+        EnablePopup(ShopUI.gameObject);
+
+
         inputManager.SwitchInputType(GameEnum.InputType.UI);
     }
-
-
 }
