@@ -36,11 +36,11 @@ public class TownPlayer : MonoBehaviour
 
         var inputManager = InputManager.Instance;
 
-        inputManager.OnMoveEvent = (moveKey) => moveDir = moveKey.normalized;
+        inputManager.OnTownMoveEvent = (moveKey) => moveDir = moveKey.normalized;
 
-        inputManager.OnJumpEvent = Jump;
+        inputManager.OnTownJumpEvent = Jump;
 
-        inputManager.OnInteractEvent = () => triggerHandler.InteractTarget?.Interact(gameObject);
+        inputManager.OnTownInteractEvent = () => triggerHandler.InteractTarget?.Interact(gameObject);
 
         triggerHandler.Init(gameObject);
 

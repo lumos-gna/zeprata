@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CameraManager : Singleton<CameraManager>
 {
-    Camera camera;
+    Camera cam;
     public Camera Camera
     {
         get 
         {
-            if(camera == null)
+            if(cam == null)
             {
-                camera = Camera.main;
+                cam = Camera.main;
             }
 
-            return camera;
+            return cam;
         }
     }
 

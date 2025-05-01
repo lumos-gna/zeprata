@@ -10,12 +10,17 @@ public class InputManager : Singleton<InputManager>
 {
     PlayerInput input;
 
-    public UnityAction OnPlayDialogueEvent { private get; set; }
-    public UnityAction OnFinishDialogueEvent { private get; set; }
-    public UnityAction OnJumpEvent { private get; set; }
-    public UnityAction<Vector2> OnMoveEvent { private get; set; }
-    public UnityAction OnInteractEvent { private get; set; }
-    public UnityAction OnTapRunnerTapEvent { private get; set; }
+    GameEnum.InputType previousInputType;
+    GameEnum.InputType currentInputType;
+
+    public UnityAction OnUIActiveEvent { private get; set; }
+    public UnityAction OnUIDisableEvent { private get; set; }
+    public UnityAction<Vector2> OnUIScrollEvent { private get; set; }
+
+    public UnityAction OnTownJumpEvent { private get; set; }
+    public UnityAction<Vector2> OnTownMoveEvent { private get; set; }
+    public UnityAction OnTownInteractEvent { private get; set; }
+    public UnityAction OnTapRunnerJumpEvent { private get; set; }
 
     protected override void Awake()
     {
@@ -24,11 +29,36 @@ public class InputManager : Singleton<InputManager>
         input = GetComponent<PlayerInput>();
     }
 
-    public void SwitchInputType(GameEnum.InputType inputType) => input.SwitchCurrentActionMap(inputType.ToString());
-    void OnPlayDialogue() => OnPlayDialogueEvent?.Invoke();
-    void OnFinishDialogue() => OnFinishDialogueEvent?.Invoke();
-    void OnMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
-    void OnInteract() => OnInteractEvent?.Invoke();
-    void OnJump() => OnJumpEvent?.Invoke();
-    void OnTap() => OnTapRunnerTapEvent?.Invoke();
+    public void SwitchInputType(GameEnum.InputType inputType)
+    {
+        if(inputType != currentInputType)
+        {
+            previousInputType = currentInputType;
+
+            currentInputType = inputType;
+        }
+
+        input.SwitchCurrentActionMap(currentInputType.ToString());
+    }
+
+    public void SwitchPreviousInputType()
+    {
+        GameEnum.InputType tempCurrentType = currentInputType;
+
+        currentInputType = previousInputType;
+
+        previousInputType = tempCurrentType;
+
+        input.SwitchCurrentActionMap(currentInputType.ToString());
+    }
+
+
+    void OnUIActive() => OnUIActiveEvent?.Invoke();
+    void OnUIDisable() => OnUIDisableEvent?.Invoke();
+    void OnUIScroll(InputValue value) => OnUIScrollEvent?.Invoke(value.Get<Vector2>());
+
+    void OnTownMove(InputValue value) => OnTownMoveEvent?.Invoke(value.Get<Vector2>());
+    void OnTownInteract() => OnTownInteractEvent?.Invoke();
+    void OnTownJump() => OnTownJumpEvent?.Invoke();
+    void OnTapRunnerJump() => OnTapRunnerJumpEvent?.Invoke();
 }

@@ -7,17 +7,20 @@ public class Npc : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
 
     [SerializeField] NpcData npcData;
-    [SerializeField] DialogueData dialogueData;
     [SerializeField] InteractTrigger interactTrigger;
     [SerializeField] Canvas canvas;
 
+    [SerializeField] protected DialogueData dialogueData;
 
-    void Start()
+
+    protected virtual void Awake()
     {
         interactTrigger.OnInteract = (source) =>
         {
-            UIManager.Instance.EnableDialogue(dialogueData);
-            InputManager.Instance.SwitchInputType(GameEnum.InputType.Dialogue);
+            if (dialogueData != null)
+            {
+                UIManager.Instance.EnableDialogue(dialogueData);
+            }
         };
 
         interactTrigger.OnTriggerEnter = (source) =>
@@ -28,6 +31,8 @@ public class Npc : MonoBehaviour
 
         interactTrigger.OnTriggerEixt = (source) => canvas.enabled = false;
     }
+
+  
 
     void TryFilp(GameObject target)
     {

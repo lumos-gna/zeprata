@@ -9,56 +9,34 @@ public class DialogueUI : MonoBehaviour
 
     DialogueData currentDialogueData;
 
-    InputManager inputManager;
 
-    [SerializeField] Canvas dialogueCanvas;
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI dialogueText;
 
-    public bool IsRunning => dialogueCanvas.enabled;
 
-    private void Awake()
+    public void InitDialogue(DialogueData dialogueData)
     {
-        inputManager = InputManager.Instance;
+        dialogueIndex = 0;
 
-        inputManager.OnFinishDialogueEvent = () => DisableDialogue();
-
-        inputManager.OnPlayDialogueEvent = () => NextDialogue();
-    }
-
-    public void EnableDialogue(DialogueData dialogueData)
-    {
         currentDialogueData = dialogueData;
 
-        dialogueCanvas.enabled = true;
-
-        nameText.text = dialogueData.dialogueList[dialogueIndex].speakerName;
-        dialogueText.text = dialogueData.dialogueList[dialogueIndex].text;
+        nameText.text = dialogueData.DialogueList[dialogueIndex].speakerName;
+        dialogueText.text = dialogueData.DialogueList[dialogueIndex].text;
     }
 
     public void NextDialogue()
     {
         dialogueIndex++;
 
-        if (dialogueIndex == currentDialogueData.dialogueList.Count)
+        if (dialogueIndex == currentDialogueData.DialogueList.Count)
         {
-            DisableDialogue();
+            UIManager.Instance.DisablePopup();
+
+            currentDialogueData.OnFinishDialogue?.Invoke();
             return;
         }
 
-        nameText.text = currentDialogueData.dialogueList[dialogueIndex].speakerName;
-        dialogueText.text = currentDialogueData.dialogueList[dialogueIndex].text;
-
-    }
-
-    public void DisableDialogue()
-    {
-        dialogueIndex = 0;
-
-        currentDialogueData = null;
-
-        dialogueCanvas.enabled = false;
-
-        inputManager.SwitchInputType(GameEnum.InputType.Town);
+        nameText.text = currentDialogueData.DialogueList[dialogueIndex].speakerName;
+        dialogueText.text = currentDialogueData.DialogueList[dialogueIndex].text;
     }
 }

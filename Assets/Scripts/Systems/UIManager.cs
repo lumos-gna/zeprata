@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Content;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
+    InputManager inputManager;
+
+
+    Stack<GameObject> popupUIStack = new();
 
     [SerializeField] DialogueUI dialogueUIPrefab;
 
@@ -14,18 +19,59 @@ public class UIManager : Singleton<UIManager>
     protected override void Awake()
     {
         base.Awake();
+        
+
+        inputManager = InputManager.Instance;
+
+        inputManager.OnUIDisableEvent = () => DisablePopup();
+    }
+
+
+
+    void EnablePopup(GameObject targetObject)
+    {
+        popupUIStack.Push(targetObject);
+
+        targetObject.SetActive(true);
+    }
+
+    public void DisablePopup()
+    {
+        if (popupUIStack.Count > 0)
+        {
+            popupUIStack.Pop().SetActive(false);
+
+            if (popupUIStack.Count == 0)
+            {
+                inputManager.SwitchPreviousInputType();
+            }
+        }
     }
 
 
     public void EnableDialogue(DialogueData dialogueData)
     {
-        InputManager.Instance.SwitchInputType(GameEnum.InputType.Dialogue);
-
-        if(DialogueUI == null)
+        if (DialogueUI == null)
         {
             DialogueUI = Instantiate(dialogueUIPrefab);
         }
 
-        DialogueUI.EnableDialogue(dialogueData);
+        DialogueUI.InitDialogue(dialogueData);
+
+
+        EnablePopup(DialogueUI.gameObject);
+
+
+        inputManager.SwitchInputType(GameEnum.InputType.UI);
+
+        inputManager.OnUIActiveEvent = () => DialogueUI.NextDialogue();
     }
+
+
+    public void EnableShop()
+    {
+        inputManager.SwitchInputType(GameEnum.InputType.UI);
+    }
+
+
 }

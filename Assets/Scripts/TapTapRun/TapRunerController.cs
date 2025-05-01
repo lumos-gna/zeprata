@@ -42,9 +42,7 @@ public class TapRunnerController : MonoBehaviour
 
         inputManager = InputManager.Instance;
 
-        inputManager.SwitchInputType(GameEnum.InputType.TapRunner);
-
-        inputManager.OnTapRunnerTapEvent = () =>
+        inputManager.OnTapRunnerJumpEvent = () =>
         {
             if(isEnd)
             {

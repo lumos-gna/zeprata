@@ -12,7 +12,7 @@
             "id": "6667bc10-3f72-4b1d-9998-f2dec0f3c488",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "TownMove",
                     "type": "Value",
                     "id": "ed8a6f89-a49b-415f-af82-301c31645eb6",
                     "expectedControlType": "Vector2",
@@ -21,7 +21,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
+                    "name": "TownInteract",
                     "type": "Button",
                     "id": "a2bc13e9-c3d3-4bf4-ae65-ba42c04b8018",
                     "expectedControlType": "Button",
@@ -30,7 +30,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "TownJump",
                     "type": "Button",
                     "id": "15514b8b-2d7e-46fc-bc84-d57eb8265cbf",
                     "expectedControlType": "Button",
@@ -47,7 +47,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -58,7 +58,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -69,7 +69,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -80,7 +80,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -91,7 +91,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -102,7 +102,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -113,7 +113,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -124,7 +124,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -135,7 +135,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -146,7 +146,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "TownMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -157,7 +157,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "TownInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -168,55 +168,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Dialogue",
-            "id": "1a6c119b-95c8-44a6-a79e-b47b7c1ff6cd",
-            "actions": [
-                {
-                    "name": "PlayDialogue",
-                    "type": "Button",
-                    "id": "e6e60cb4-01b1-4c6a-a7c8-02c6355c4cb4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "FinishDialogue",
-                    "type": "Value",
-                    "id": "6a93136c-cf6f-44bb-9ccc-14dd74a55ede",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "d615f5cc-9d50-4572-85d4-3f6ceffd1e2b",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PlayDialogue",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9c15c617-988f-4d9d-ac21-3fb8af209e79",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FinishDialogue",
+                    "action": "TownJump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -227,7 +179,7 @@
             "id": "00238441-940d-44f8-8fcd-5ca2f64ee2f6",
             "actions": [
                 {
-                    "name": "Tap",
+                    "name": "TapRunnerJump",
                     "type": "Button",
                     "id": "58ef7793-b876-4aa1-a878-9703bd2c0607",
                     "expectedControlType": "Button",
@@ -244,7 +196,75 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tap",
+                    "action": "TapRunnerJump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "64451915-6cf8-4ecd-a62e-0baac8ffd6f8",
+            "actions": [
+                {
+                    "name": "UIDisable",
+                    "type": "Button",
+                    "id": "dbe21236-9c63-4eef-984a-6f3c357663b4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UIActive",
+                    "type": "Button",
+                    "id": "ec135dcc-34a4-4dd4-9acc-1c7c1645b3f9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UIScroll",
+                    "type": "Value",
+                    "id": "5d1845ff-f6df-43be-92f8-09bfc995815f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b86859a8-409c-48f9-b85e-40bc6482e53c",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UIDisable",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30437fc4-9b2d-464c-b9dd-3c0086c4e6b2",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UIActive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f4869024-9c15-4e62-ac63-eb3c9faff327",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UIScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
