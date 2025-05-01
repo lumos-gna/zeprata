@@ -10,17 +10,18 @@ public class InputManager : Singleton<InputManager>
 {
     PlayerInput input;
 
-    public event UnityAction OnPlayDialogueEvent;
-    public event UnityAction OnFinishDialogueEvent;
-    public event UnityAction OnJumpEvent;
-    public event UnityAction<Vector2> OnMoveEvent;
-    public event UnityAction OnInteractEvent;
+    public UnityAction OnPlayDialogueEvent { private get; set; }
+    public UnityAction OnFinishDialogueEvent { private get; set; }
+    public UnityAction OnJumpEvent { private get; set; }
+    public UnityAction<Vector2> OnMoveEvent { private get; set; }
+    public UnityAction OnInteractEvent { private get; set; }
+    public UnityAction OnTapRunnerTapEvent { private get; set; }
 
-    void Awake()
+    protected override void Awake()
     {
-        input = GetComponent<PlayerInput>();
+        base.Awake();
 
-        DontDestroyOnLoad(gameObject);
+        input = GetComponent<PlayerInput>();
     }
 
     public void SwitchInputType(GameEnum.InputType inputType) => input.SwitchCurrentActionMap(inputType.ToString());
@@ -29,4 +30,5 @@ public class InputManager : Singleton<InputManager>
     void OnMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
     void OnInteract() => OnInteractEvent?.Invoke();
     void OnJump() => OnJumpEvent?.Invoke();
+    void OnTap() => OnTapRunnerTapEvent?.Invoke();
 }

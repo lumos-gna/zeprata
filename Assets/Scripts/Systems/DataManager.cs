@@ -6,6 +6,9 @@ public class DataManager : Singleton<DataManager>
 {
     [SerializeField] List<SpriteAssetItemData> spriteAssetItemDatas;
 
+    public int TapRunnerScore { get; set; }
+
+
     protected override void Awake()
     {
         base.Awake();

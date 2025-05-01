@@ -12,6 +12,7 @@ public class GameManager : Singleton<GameManager>
         StartNewGame();
     }
 
+
     public void StartNewGame()
     {
         DataManager.Instance.InitNewGameData();

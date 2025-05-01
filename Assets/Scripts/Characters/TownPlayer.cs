@@ -6,12 +6,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
 
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CapsuleCollider2D))]
-[RequireComponent(typeof(InteractHandler))]
-[RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(SpriteLibrary))]
-[RequireComponent(typeof(Animator))]
 
 public class TownPlayer : MonoBehaviour
 {
@@ -19,23 +13,16 @@ public class TownPlayer : MonoBehaviour
 
     Vector2 moveDir;
 
-    Rigidbody2D rigid;
-    SpriteRenderer spriteRenderer;
-    SpriteLibrary spriteLibrary;
-    Animator animator;
-    InteractHandler interactHandler;
     PlayerData playerData;
+
+    [SerializeField] Rigidbody2D rigid;
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] SpriteLibrary spriteLibrary;
+    [SerializeField] Animator animator;
+    [SerializeField] InteractTriggerHandler triggerHandler;
 
     [SerializeField] float moveSpeed;
 
-    private void Awake()
-    {
-        rigid = GetComponent<Rigidbody2D>();
-        interactHandler = GetComponent<InteractHandler>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        spriteLibrary = GetComponent<SpriteLibrary>();
-    }
 
 
     public void Init(PlayerData playerData)
@@ -47,11 +34,11 @@ public class TownPlayer : MonoBehaviour
 
         var inputManager = InputManager.Instance;
 
-        inputManager.OnMoveEvent += (moveKey) => moveDir = moveKey.normalized;
+        inputManager.OnMoveEvent = (moveKey) => moveDir = moveKey.normalized;
 
-        inputManager.OnJumpEvent += Jump;
+        inputManager.OnJumpEvent = Jump;
 
-        inputManager.OnInteractEvent += () => interactHandler.InteractTarget.Interact(gameObject);
+        inputManager.OnInteractEvent = () => triggerHandler.InteractTarget?.Interact(gameObject);
     }
 
 

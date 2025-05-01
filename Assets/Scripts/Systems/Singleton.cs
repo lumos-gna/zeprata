@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -14,12 +16,26 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             {
                 instance = FindObjectOfType<T>();
             }
+
             return instance;
         }
     }
 
     protected virtual void Awake()
     {
+        if (instance != null)
+        {
+            if (instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+        else
+        {
+            instance = this as T;
+        }
+
         DontDestroyOnLoad(gameObject);
     }
 }

@@ -18,42 +18,26 @@ public class TapRunner : MonoBehaviour
     private void Awake()
     {
         //animator = GetComponentInChildren<Animator>();
+        
         rigid = GetComponent<Rigidbody2D>();
-    }
 
-
-    public void ReadyToStart()
-    {
         rigid.gravityScale = 0;
     }
 
-    void OnStart()
-    {
-        if(!controller.IsStart)
-        {
-            controller.StartGame();
 
-            rigid.gravityScale = 2;
-        }
+    public void StartPlay()
+    {
+        rigid.gravityScale = 2;
     }
 
-    void OnTap()
+    public void Jump()
     {
-        if (controller.IsStart)
-        {
-            Vector3 velocity = rigid.velocity;
-            velocity.y += upForce;
-            rigid.velocity = velocity;
-        }
+        Vector3 velocity = rigid.velocity;
+        velocity.y += upForce;
+        rigid.velocity = velocity;
     }
 
-    void OnEnd()
-    {
-        if (controller.IsEndable)
-        {
-            controller.EndGame();
-        }
-    }
+
 
     public void OnCollisionEnter2D(Collision2D collision)
     {

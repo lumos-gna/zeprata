@@ -21,9 +21,9 @@ public class DialogueUI : MonoBehaviour
     {
         inputManager = InputManager.Instance;
 
-        inputManager.OnFinishDialogueEvent += () => DisableDialogue();
+        inputManager.OnFinishDialogueEvent = () => DisableDialogue();
 
-        inputManager.OnPlayDialogueEvent += () => NextDialogue();
+        inputManager.OnPlayDialogueEvent = () => NextDialogue();
     }
 
     public void EnableDialogue(DialogueData dialogueData)
@@ -59,7 +59,6 @@ public class DialogueUI : MonoBehaviour
 
         dialogueCanvas.enabled = false;
 
-        inputManager.SwitchInputType(GameEnum.InputType.Player);
+        inputManager.SwitchInputType(GameEnum.InputType.Town);
     }
-
 }

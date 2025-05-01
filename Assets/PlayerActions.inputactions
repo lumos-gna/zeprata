@@ -2,7 +2,13 @@
     "name": "PlayerActions",
     "maps": [
         {
-            "name": "Player",
+            "name": "None",
+            "id": "18eaab34-3161-4cb5-b594-0ec35ce83362",
+            "actions": [],
+            "bindings": []
+        },
+        {
+            "name": "Town",
             "id": "6667bc10-3f72-4b1d-9998-f2dec0f3c488",
             "actions": [
                 {
@@ -179,7 +185,7 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "FinishDialogue",
@@ -211,6 +217,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "FinishDialogue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "TapRunner",
+            "id": "00238441-940d-44f8-8fcd-5ca2f64ee2f6",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Button",
+                    "id": "58ef7793-b876-4aa1-a878-9703bd2c0607",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2755e984-5648-44be-bcbb-e7980b31584e",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

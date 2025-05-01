@@ -8,10 +8,12 @@ using UnityEngine.UI;
 
 public class TapRunnerController : MonoBehaviour
 {
-    bool isStart;
-    bool isEndable;
+    bool isPlay;
+    bool isEnd;
     float runningTime;
     float currentSpeed;
+
+    InputManager inputManager;
 
 
     [SerializeField] int obstacleNeedCount;
@@ -28,25 +30,49 @@ public class TapRunnerController : MonoBehaviour
 
     [SerializeField] TapRunner runner;
 
-    public bool IsStart => isStart;
-    public bool IsEndable => isEndable;
 
     private void Start()
     {
-        runner.ReadyToStart();
-
         guideText.text = "Press To Start!";
-
 
         timerText.enabled = false;
 
         guideText.enabled = true;
+
+
+        inputManager = InputManager.Instance;
+
+        inputManager.SwitchInputType(GameEnum.InputType.TapRunner);
+
+        inputManager.OnTapRunnerTapEvent = () =>
+        {
+            if(isEnd)
+            {
+                EndGame();
+            }
+            else
+            {
+                if (!isPlay)
+                {
+                    StartGame();
+
+                    runner.StartPlay();
+
+                }
+                else
+                {
+                    runner.Jump();
+                }
+            }
+        };
+
+        StartCoroutine(InputBlockDelay());
     }
 
 
     private void Update()
     {
-        if(isStart)
+        if (isPlay)
         {
             runningTime += Time.deltaTime;
             timerText.text = $"{(int)runningTime}";
@@ -66,9 +92,9 @@ public class TapRunnerController : MonoBehaviour
     }
 
 
-    public void StartGame()
+    void StartGame()
     {
-        isStart = true;
+        isPlay = true;
 
         runningTime = 0;
 
@@ -86,15 +112,28 @@ public class TapRunnerController : MonoBehaviour
         guideText.enabled = false;
     }
 
-    public void EndGame()
+    void EndGame()
     {
         SceneManager.LoadScene("MainScene");
+
     }
+
+
+    IEnumerator InputBlockDelay()
+    {
+        inputManager.SwitchInputType(GameEnum.InputType.None);
+
+        yield return new WaitForSeconds(0.33f);
+
+        inputManager.SwitchInputType(GameEnum.InputType.TapRunner);
+    }
+
 
 
     public void GameOver()
     {
-        isStart = false;
+        isPlay = false;
+        isEnd = true;
 
         timerText.enabled = false;
 
@@ -102,8 +141,8 @@ public class TapRunnerController : MonoBehaviour
 
         guideText.text = $"Game Over..\n {(int)runningTime}";
 
+        DataManager.Instance.TapRunnerScore = (int)runningTime;
 
-        isEndable = true;
-
+        StartCoroutine(InputBlockDelay());
     }
 }
