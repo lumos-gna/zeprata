@@ -2,11 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+
+[RequireComponent(typeof(Collider2D))]
 public class InteractTriggerHandler : MonoBehaviour
 {
+    GameObject source;
+
     IInteractTriggerable interactTarget;
     public IInteractTriggerable InteractTarget => interactTarget;
+
+    public UnityAction OnTriggerEnter { private get; set; }
+    public UnityAction OnTriggerEixt { private get; set; }
+
+    public void Init(GameObject source)
+    {
+        this.source = source;
+    }
     
 
     void OnTriggerEnter2D(Collider2D other)
@@ -17,7 +30,9 @@ public class InteractTriggerHandler : MonoBehaviour
             {
                 interactTarget = interactable;
 
-                interactTarget.TriggerEnter(gameObject);
+                interactTarget.TriggerEnter(source);
+
+                OnTriggerEnter?.Invoke();
             }
         }
     }
@@ -28,9 +43,11 @@ public class InteractTriggerHandler : MonoBehaviour
         {
             if (interactTarget == interactable)
             {
-                interactTarget.TriggerExit(gameObject);
+                interactTarget.TriggerExit(source);
 
                 interactTarget = null;
+
+                OnTriggerEixt?.Invoke();
             }
         }
     }

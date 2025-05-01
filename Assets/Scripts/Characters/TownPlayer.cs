@@ -21,6 +21,8 @@ public class TownPlayer : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] InteractTriggerHandler triggerHandler;
 
+    [SerializeField] Canvas interactGuideCanvas;
+
     [SerializeField] float moveSpeed;
 
 
@@ -39,6 +41,11 @@ public class TownPlayer : MonoBehaviour
         inputManager.OnJumpEvent = Jump;
 
         inputManager.OnInteractEvent = () => triggerHandler.InteractTarget?.Interact(gameObject);
+
+        triggerHandler.Init(gameObject);
+
+        triggerHandler.OnTriggerEnter = () => interactGuideCanvas.enabled = true;
+        triggerHandler.OnTriggerEixt = () => interactGuideCanvas.enabled = false;
     }
 
 
