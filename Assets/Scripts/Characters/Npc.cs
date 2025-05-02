@@ -19,7 +19,7 @@ public class Npc : MonoBehaviour
         {
             if (dialogueData != null)
             {
-                UIManager.Instance.EnableDialogue(dialogueData);
+                //UIManager.Instance.EnableDialogue(dialogueData);
             }
         };
 

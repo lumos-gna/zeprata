@@ -9,10 +9,6 @@ using UnityEngine.U2D.Animation;
 
 public class TownPlayer : MonoBehaviour
 {
-    bool isJumping = false;
-
-    Vector2 moveDir;
-
     [SerializeField] float moveSpeed;
 
     [SerializeField] Rigidbody2D rigid;
@@ -29,32 +25,61 @@ public class TownPlayer : MonoBehaviour
 
 
 
+    bool isJumping = false;
+
+    Vector2 moveDir;
+
+    DataManager dataManager;
+
     void FixedUpdate()
     {
         Move();
     }
 
 
-
     void OnDestroy()
     {
-        var inventoryManager = InventoryManager.Instance;
-
-        inventoryManager.OnEquippedItemData -= (itemData) => InitItemSpriteAsset(itemData);
-        inventoryManager.OnUnEquippedItemData -= (itemData) => InitDefalutSpriteAsset();
+        dataManager.OnChangedAppearanceData -= (data) => InitSpriteLibrary(data.LibraryAsset);
     }
 
 
-    void InitItemSpriteAsset(ItemData itemData)
+    public void Init()
     {
-        if (itemData is SpriteAssetItemData spriteAssetItemData)
+        dataManager = DataManager.Instance;
+
+        InitSpriteLibrary(dataManager.AppearanceData.LibraryAsset);
+
+        dataManager.OnChangedAppearanceData += (data) => InitSpriteLibrary(data.LibraryAsset);
+
+
+        var inputManager = InputManager.Instance;
+
+        inputManager.OnMoveEvent = (moveKey) => moveDir = moveKey.normalized;
+
+        inputManager.OnJumpEvent = Jump;
+
+        inputManager.OnInteractEvent = () =>
         {
-            spriteLibrary.spriteLibraryAsset = spriteAssetItemData.SpriteAsset;
-        }
+            if (triggerHandler.InteractTarget != null)
+            {
+                triggerHandler.InteractTarget?.Interact(gameObject);
+                interactGuideCanvas.enabled = false;
+            }
+        };
+
+
+        triggerHandler.Init(gameObject);
+
+        triggerHandler.OnTriggerEnter += () => interactGuideCanvas.enabled = true;
+
+        triggerHandler.OnTriggerEixt += () => interactGuideCanvas.enabled = false;
     }
 
-    void InitDefalutSpriteAsset() => spriteLibrary.spriteLibraryAsset = DataManager.Instance.DefalutPlayerSpriteAsset;
-   
+
+    void InitSpriteLibrary(SpriteLibraryAsset asset) => spriteLibrary.spriteLibraryAsset = asset;
+
+
+
 
     void Move()
     {
@@ -93,45 +118,7 @@ public class TownPlayer : MonoBehaviour
 
 
 
-    public void Init()
-    {
-        var inventoryManager = InventoryManager.Instance;
-        var dataManager = DataManager.Instance;
-        var inputManager = InputManager.Instance;
-
-
-        if (inventoryManager.TryGetEquipItemData(out SpriteAssetItemData itemData))
-        {
-            InitItemSpriteAsset(itemData);
-        }
-        else
-        {
-            InitDefalutSpriteAsset();
-        }
-
-        inventoryManager.OnEquippedItemData += (itemData) => InitItemSpriteAsset(itemData);
-        inventoryManager.OnUnEquippedItemData += (itemData) => InitDefalutSpriteAsset();
-
-
-
-        inputManager.OnMoveEvent = (moveKey) => moveDir = moveKey.normalized;
-
-        inputManager.OnJumpEvent = Jump;
-
-        inputManager.OnInteractEvent = () =>
-        {
-            if (triggerHandler.InteractTarget != null)
-            {
-                triggerHandler.InteractTarget?.Interact(gameObject);
-                interactGuideCanvas.enabled = false;
-            }
-        };
-
-        triggerHandler.Init(gameObject);
-
-        triggerHandler.OnTriggerEnter += () => interactGuideCanvas.enabled = true;
-        triggerHandler.OnTriggerEixt += () => interactGuideCanvas.enabled = false;
-    }
+   
 
 
 }

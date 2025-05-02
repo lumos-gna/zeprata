@@ -30,7 +30,7 @@ public class DialogueUI : MonoBehaviour
 
         if (dialogueIndex == currentDialogueData.DialogueList.Count)
         {
-            UIManager.Instance.DisablePopup();
+            //UIManager.Instance.DisablePopup();
 
             currentDialogueData.OnFinishDialogue?.Invoke();
             return;

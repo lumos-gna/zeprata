@@ -61,10 +61,10 @@ public class InputManager : Singleton<InputManager>
     void OnUIDisable() => OnUIDisableEvent?.Invoke();
     void OnUIScroll(InputValue value) => OnUIScrollEvent?.Invoke(value.Get<Vector2>());
 
-    void OnMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
-    void OnInteract() => OnInteractEvent?.Invoke();
-    void OnJump() => OnJumpEvent?.Invoke();
-    void OnInventory() => OnInventoryEvent?.Invoke();
+    void OnMainMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
+    void OnMainInteract() => OnInteractEvent?.Invoke();
+    void OnMainJump() => OnJumpEvent?.Invoke();
+    void OnMainDisablePopup() => OnInventoryEvent?.Invoke();
 
     void OnTapRunnerJump() => OnTapRunnerJumpEvent?.Invoke();
 

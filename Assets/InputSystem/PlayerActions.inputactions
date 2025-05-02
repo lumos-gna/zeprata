@@ -8,11 +8,11 @@
             "bindings": []
         },
         {
-            "name": "Player",
+            "name": "Main",
             "id": "6667bc10-3f72-4b1d-9998-f2dec0f3c488",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "MainMove",
                     "type": "Value",
                     "id": "ed8a6f89-a49b-415f-af82-301c31645eb6",
                     "expectedControlType": "Vector2",
@@ -21,7 +21,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
+                    "name": "MainInteract",
                     "type": "Button",
                     "id": "a2bc13e9-c3d3-4bf4-ae65-ba42c04b8018",
                     "expectedControlType": "Button",
@@ -30,7 +30,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "MainJump",
                     "type": "Button",
                     "id": "15514b8b-2d7e-46fc-bc84-d57eb8265cbf",
                     "expectedControlType": "Button",
@@ -39,9 +39,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Inventory",
+                    "name": "MainDisableUI",
                     "type": "Button",
-                    "id": "a3763b4a-e808-4e3a-af24-0f074c54c592",
+                    "id": "15412b12-23e4-4292-b6cb-bff97e5cde81",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -56,7 +56,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -67,7 +67,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -78,7 +78,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -89,7 +89,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -100,7 +100,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -111,7 +111,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -122,7 +122,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -133,7 +133,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -144,7 +144,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -155,7 +155,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MainMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -166,7 +166,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "MainInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -177,18 +177,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "MainJump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b8c2ca3f-5480-477d-ad07-6c3bed7af9b1",
-                    "path": "<Keyboard>/i",
+                    "id": "32c05383-cd72-4bd9-9f60-4368a78e7ed2",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Inventory",
+                    "action": "MainDisableUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

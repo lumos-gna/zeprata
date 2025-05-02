@@ -1,25 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.U2D.Animation;
 
 public class DataManager : Singleton<DataManager>
 {
-    [SerializeField] SpriteLibraryAsset defalutPlayerSpriteAsset;
-
-    [SerializeField] List<SpriteAssetItemData> spriteAssetItemDatas;
-
-
     public int TapRunnerScore { get; set; }
-
-
-
-    public SpriteLibraryAsset DefalutPlayerSpriteAsset => defalutPlayerSpriteAsset;
-    public List<ShopItemData> ShopItemDatas { get; private set; } = new();
-    public List<InventoryItemData> InventoryItemDatas { get; private set; } = new();
     public PlayerData PlayerData { get; private set; } = new();
+    public AppearanceData AppearanceData
+    {
+        get { return appearanceData; }
+        set
+        {
+            if (appearanceData != value)
+            {
+                appearanceData = value;
+
+                OnChangedAppearanceData?.Invoke(appearanceData);
+            }
+        }
+    }
+    public List<AppearanceData> AppearanceDatas => appearanceDatas;
 
 
+    public event UnityAction<AppearanceData> OnChangedAppearanceData;
+
+
+    [SerializeField] List<AppearanceData> appearanceDatas;
+
+
+    AppearanceData appearanceData;
 
 
     protected override void Awake()
@@ -32,15 +43,9 @@ public class DataManager : Singleton<DataManager>
     public void InitNewGameData()
     {
         PlayerData.Gold = 2000;
-       
-        for (int i = 0; i < spriteAssetItemDatas.Count; i++)
-        {
-            ShopItemDatas.Add(
-                new ShopItemData()
-                {
-                    ItemData = spriteAssetItemDatas[i],
-                    Count = 1
-                });
-        }
+
+        int rand = Random.Range(0, appearanceDatas.Count);
+
+        AppearanceData = appearanceDatas[rand];
     }
 }

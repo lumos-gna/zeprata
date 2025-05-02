@@ -9,6 +9,5 @@ public class ShopNpc : Npc
     {
         base.Awake();
 
-        dialogueData.OnFinishDialogue = () => UIManager.Instance.EnableShop();
     }
 }
