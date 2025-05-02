@@ -17,9 +17,13 @@ public class InputManager : Singleton<InputManager>
     public UnityAction OnUIDisableEvent { private get; set; }
     public UnityAction<Vector2> OnUIScrollEvent { private get; set; }
 
-    public UnityAction OnTownJumpEvent { private get; set; }
-    public UnityAction<Vector2> OnTownMoveEvent { private get; set; }
-    public UnityAction OnTownInteractEvent { private get; set; }
+
+    public UnityAction<Vector2> OnMoveEvent { private get; set; }
+    public UnityAction OnJumpEvent { private get; set; }
+    public UnityAction OnInteractEvent { private get; set; }
+    public UnityAction OnInventoryEvent { private get; set; }
+
+
     public UnityAction OnTapRunnerJumpEvent { private get; set; }
 
     protected override void Awake()
@@ -57,8 +61,11 @@ public class InputManager : Singleton<InputManager>
     void OnUIDisable() => OnUIDisableEvent?.Invoke();
     void OnUIScroll(InputValue value) => OnUIScrollEvent?.Invoke(value.Get<Vector2>());
 
-    void OnTownMove(InputValue value) => OnTownMoveEvent?.Invoke(value.Get<Vector2>());
-    void OnTownInteract() => OnTownInteractEvent?.Invoke();
-    void OnTownJump() => OnTownJumpEvent?.Invoke();
+    void OnMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
+    void OnInteract() => OnInteractEvent?.Invoke();
+    void OnJump() => OnJumpEvent?.Invoke();
+    void OnInventory() => OnInventoryEvent?.Invoke();
+
     void OnTapRunnerJump() => OnTapRunnerJumpEvent?.Invoke();
+
 }

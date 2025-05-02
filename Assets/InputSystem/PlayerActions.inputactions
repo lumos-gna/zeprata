@@ -8,11 +8,11 @@
             "bindings": []
         },
         {
-            "name": "Town",
+            "name": "Player",
             "id": "6667bc10-3f72-4b1d-9998-f2dec0f3c488",
             "actions": [
                 {
-                    "name": "TownMove",
+                    "name": "Move",
                     "type": "Value",
                     "id": "ed8a6f89-a49b-415f-af82-301c31645eb6",
                     "expectedControlType": "Vector2",
@@ -21,7 +21,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "TownInteract",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "a2bc13e9-c3d3-4bf4-ae65-ba42c04b8018",
                     "expectedControlType": "Button",
@@ -30,9 +30,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "TownJump",
+                    "name": "Jump",
                     "type": "Button",
                     "id": "15514b8b-2d7e-46fc-bc84-d57eb8265cbf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "a3763b4a-e808-4e3a-af24-0f074c54c592",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -47,7 +56,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -58,7 +67,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -69,7 +78,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -80,7 +89,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -91,7 +100,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -102,7 +111,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -113,7 +122,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -124,7 +133,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -135,7 +144,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -146,7 +155,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -157,7 +166,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownInteract",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -168,7 +177,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TownJump",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8c2ca3f-5480-477d-ad07-6c3bed7af9b1",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

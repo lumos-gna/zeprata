@@ -73,7 +73,9 @@ public class TapRunnerController : MonoBehaviour
         if (isPlay)
         {
             runningTime += Time.deltaTime;
+
             timerText.text = $"{(int)runningTime}";
+
 
             float moveSpeed = currentSpeed < maxSpeed ? currentSpeed += Time.deltaTime : maxSpeed;
 

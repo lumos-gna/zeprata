@@ -8,7 +8,6 @@ using UnityEngine.Events;
 public class DialogueData : ScriptableObject
 {
     [SerializeField] List<DialogueScript> dialogueList;
-
     public List<DialogueScript> DialogueList => dialogueList;
     public UnityAction OnFinishDialogue { get; set; }
 }

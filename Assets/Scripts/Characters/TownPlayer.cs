@@ -35,6 +35,7 @@ public class TownPlayer : MonoBehaviour
     }
 
 
+
     void OnDestroy()
     {
         var inventoryManager = InventoryManager.Instance;
@@ -52,7 +53,7 @@ public class TownPlayer : MonoBehaviour
         }
     }
 
-    void InitDefalutSpriteAsset() => spriteLibrary.spriteLibraryAsset = DataManager.Instance.defalutPlayerSpriteAsset;
+    void InitDefalutSpriteAsset() => spriteLibrary.spriteLibraryAsset = DataManager.Instance.DefalutPlayerSpriteAsset;
    
 
     void Move()
@@ -113,11 +114,11 @@ public class TownPlayer : MonoBehaviour
 
 
 
-        inputManager.OnTownMoveEvent = (moveKey) => moveDir = moveKey.normalized;
+        inputManager.OnMoveEvent = (moveKey) => moveDir = moveKey.normalized;
 
-        inputManager.OnTownJumpEvent = Jump;
+        inputManager.OnJumpEvent = Jump;
 
-        inputManager.OnTownInteractEvent = () =>
+        inputManager.OnInteractEvent = () =>
         {
             if (triggerHandler.InteractTarget != null)
             {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class ItemData : ScriptableObject
 {
+    [SerializeField] GameEnum.ItemType type;
+
     [SerializeField] string id;
 
     [SerializeField] string itemName;
@@ -12,6 +14,8 @@ public abstract class ItemData : ScriptableObject
 
     [SerializeField] Sprite iconSprite;
 
+
+    public GameEnum.ItemType Type => type;
     public string ID => id;
     public string Name => itemName;
     public int Price => price;

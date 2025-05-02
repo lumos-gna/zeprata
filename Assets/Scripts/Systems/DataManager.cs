@@ -5,6 +5,7 @@ using UnityEngine.U2D.Animation;
 
 public class DataManager : Singleton<DataManager>
 {
+    [SerializeField] SpriteLibraryAsset defalutPlayerSpriteAsset;
 
     [SerializeField] List<SpriteAssetItemData> spriteAssetItemDatas;
 
@@ -12,12 +13,13 @@ public class DataManager : Singleton<DataManager>
     public int TapRunnerScore { get; set; }
 
 
-    public SpriteLibraryAsset defalutPlayerSpriteAsset;
 
-
+    public SpriteLibraryAsset DefalutPlayerSpriteAsset => defalutPlayerSpriteAsset;
     public List<ShopItemData> ShopItemDatas { get; private set; } = new();
     public List<InventoryItemData> InventoryItemDatas { get; private set; } = new();
     public PlayerData PlayerData { get; private set; } = new();
+
+
 
 
     protected override void Awake()

@@ -14,7 +14,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI playerGoldText;
 
 
-    [SerializeField] ShopSpirteAssetSlot spriteAssetSlotPrefab;
+    [SerializeField] ShopItemSlot spriteAssetSlotPrefab;
     [SerializeField] Transform spriteAssetSlotParent;
 
 
@@ -35,14 +35,5 @@ public class ShopUI : MonoBehaviour
     private void Update()
     {
         playerGoldText.text = dataManager.PlayerData.Gold.ToString() + " G";
-    }
-
-    public void TryBuyItem(ShopItemData shopItemData)
-    {
-        var itemData = shopItemData.ItemData;
-
-        if(itemData.Price <= dataManager.PlayerData.Gold)
-        {
-        }
     }
 }

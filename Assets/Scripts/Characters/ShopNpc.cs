@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShoNpc : Npc
+public class ShopNpc : Npc
 {
 
     protected override void Awake()
