@@ -7,7 +7,9 @@ using UnityEngine.U2D.Animation;
 
 public class PlayerData
 {
-    public string PlayerName { get; set; }
-    public int Gold { get; set; }
-    public SpriteLibraryAsset SpriteAsset { get; set; }
+    public string name;
+ 
+    public int gold;
+
+    public StatData statData;
 }

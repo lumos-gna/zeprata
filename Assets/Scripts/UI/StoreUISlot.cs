@@ -7,7 +7,11 @@ using UnityEngine.UI;
 
 public class StoreUISlot : MonoBehaviour
 {
-    StoreItemData storeItemData;
+    public StoreItemData StoreItemData => storeItemData;
+
+    public Image LockCoverImage => lockCoverImage;
+    public Image SelectedImage => selectedImage;
+
 
     [SerializeField] Image iconImage;
 
@@ -19,23 +23,21 @@ public class StoreUISlot : MonoBehaviour
 
     [SerializeField] Button selectButton;
 
-    public StoreItemData StoreItemData => storeItemData;
 
-    public Image LockCoverImage => lockCoverImage;
-    public Image SelectedImage => selectedImage;
+    StoreItemData storeItemData;
 
     public void InitToItemData(StoreItemData storeItemData)
     {
         this.storeItemData = storeItemData;
 
-        var itemData = storeItemData.ItemData;
+        var itemData = DataManager.Instance.ItemDataDict[storeItemData.itemName];
 
         iconImage.sprite = itemData.IconSprite;
         iconImage.SetNativeSize();
 
-        nameText.text = itemData.Name;
+        nameText.text = itemData.ItemName;
 
-        lockCoverImage.enabled = !storeItemData.IsPurchased;
+        lockCoverImage.enabled = !storeItemData.isPurchased;
     }
 
     public void OnCreated(UnityAction<StoreUISlot> onSelectAction)

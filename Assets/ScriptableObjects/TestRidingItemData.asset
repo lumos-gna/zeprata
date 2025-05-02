@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a09677701f1da3841a3e86f095160a3f, type: 3}
-  m_Name: TestSpriteAssetItemData
+  m_Name: TestRidingItemData
   m_EditorClassIdentifier: 
-  id: spriteAsset_1
+  type: 0
   itemName: PinkSoldier
   price: 1000
   iconSprite: {fileID: 1993449658, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+  statData:
+    moveSpeed: 2
   spriteAsset: {fileID: 7108339969198208228, guid: 95f4fa4a9d82d5644927831376a5a8df, type: 3}

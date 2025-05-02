@@ -21,7 +21,8 @@ public class InputManager : Singleton<InputManager>
     public UnityAction<Vector2> OnMoveEvent { private get; set; }
     public UnityAction OnJumpEvent { private get; set; }
     public UnityAction OnInteractEvent { private get; set; }
-    public UnityAction OnInventoryEvent { private get; set; }
+
+    public event UnityAction OnMainDisableUIEvent;
 
 
     public UnityAction OnTapRunnerJumpEvent { private get; set; }
@@ -64,7 +65,7 @@ public class InputManager : Singleton<InputManager>
     void OnMainMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
     void OnMainInteract() => OnInteractEvent?.Invoke();
     void OnMainJump() => OnJumpEvent?.Invoke();
-    void OnMainDisablePopup() => OnInventoryEvent?.Invoke();
+    void OnMainDisableUI() => OnMainDisableUIEvent?.Invoke();
 
     void OnTapRunnerJump() => OnTapRunnerJumpEvent?.Invoke();
 

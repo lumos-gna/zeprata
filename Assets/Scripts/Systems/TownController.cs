@@ -25,7 +25,7 @@ public class TownController : MonoBehaviour
     {
         townPlayer.Init();
 
-        InputManager.Instance.SwitchInputType(GameEnum.InputType.Player);
+        InputManager.Instance.SwitchInputType(GameEnum.InputType.Main);
     }
 
 

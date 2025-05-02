@@ -8,13 +8,9 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
 
-        //세이브검사
-        StartNewGame();
-    }
-
-
-    public void StartNewGame()
-    {
+        DataManager.Instance.Init();
         DataManager.Instance.InitNewGameData();
+
+      
     }
 }

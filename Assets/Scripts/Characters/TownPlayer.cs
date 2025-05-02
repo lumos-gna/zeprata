@@ -36,21 +36,23 @@ public class TownPlayer : MonoBehaviour
         Move();
     }
 
+    private void OnEnable()
+    {
+        dataManager = DataManager.Instance;
 
-    void OnDestroy()
+        dataManager.OnChangedAppearanceData += (data) => InitSpriteLibrary(data.LibraryAsset);
+    }
+
+    private void OnDisable()
     {
         dataManager.OnChangedAppearanceData -= (data) => InitSpriteLibrary(data.LibraryAsset);
     }
 
 
+   
     public void Init()
     {
-        dataManager = DataManager.Instance;
-
         InitSpriteLibrary(dataManager.AppearanceData.LibraryAsset);
-
-        dataManager.OnChangedAppearanceData += (data) => InitSpriteLibrary(data.LibraryAsset);
-
 
         var inputManager = InputManager.Instance;
 

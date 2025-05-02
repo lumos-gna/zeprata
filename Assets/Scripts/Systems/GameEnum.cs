@@ -3,14 +3,13 @@ public static class GameEnum
     public enum InputType
     {
         None,
-        Player,
+        Main,
         TapRunner,
         UI
     }
 
     public enum ItemType
     {
-        Character,
         Riding
     }
 }

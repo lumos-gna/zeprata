@@ -6,16 +6,7 @@ using UnityEngine.UI;
 
 public class StoreUI : MonoBehaviour
 {
-    StoreUISlot previousSlot;
-    StoreUISlot currentSlot;
-    List<StoreUISlot> storeUISlots = new();
-
-    Dictionary<GameEnum.ItemType, string> titleTextDict;
-    Dictionary<GameEnum.ItemType, string> equipTextDict;
-    Dictionary<bool, Button> stateButtonDict;
-
-    Vector2 goldInfoDefalutSize;
-    Vector2 priceInfoDefalutSize;
+    
 
     [Space(20f)]
     [SerializeField] StoreUISlot slotPreafb;
@@ -50,26 +41,35 @@ public class StoreUI : MonoBehaviour
     [SerializeField] Button closeButton;
 
 
-    [Space(20f)]
-    [SerializeField] List<StoreItemData> tesStoreItemList = new();
+    StoreUISlot previousSlot;
+    StoreUISlot currentSlot;
+    List<StoreUISlot> storeUISlots = new();
 
-    [SerializeField] List<ItemData> testItemDataList = new();
+    Dictionary<GameEnum.ItemType, string> titleTextDict;
+    Dictionary<GameEnum.ItemType, string> equipTextDict;
+    Dictionary<bool, Button> stateButtonDict;
 
+    DataManager dataManager;
+    PlayerData playerData;
+
+    Vector2 goldInfoDefalutSize;
+    Vector2 priceInfoDefalutSize;
 
 
     private void Awake()
     {
+        dataManager = DataManager.Instance;
+        playerData = dataManager.PlayerData;
+
         layoutGroup.cellSize = slotPreafb.GetComponent<RectTransform>().sizeDelta;
 
         equipTextDict = new()
         {
-            { GameEnum.ItemType.Character, "Equip"},
             { GameEnum.ItemType.Riding, "Ride"}
         };
 
         titleTextDict = new()
         {
-            { GameEnum.ItemType.Character, "Character"},
             { GameEnum.ItemType.Riding, "Riding"}
         };
 
@@ -81,27 +81,10 @@ public class StoreUI : MonoBehaviour
 
         goldInfoDefalutSize = goldTextParent.sizeDelta;
         priceInfoDefalutSize = priceTextParent.sizeDelta;
-    }
-
-    private void Start()
-    {
-        for (int i = 0; i < testItemDataList.Count; i++)
-        {
-            tesStoreItemList.Add(
-                new()
-                {
-                    ItemData = testItemDataList[i],
-                    IsPurchased = false
-                }
-            );
-        }
-
-        Init(GameEnum.ItemType.Character, tesStoreItemList);
-
-        SelectSlot(storeUISlots[0]);
 
         buyButton.onClick.AddListener(BuyItem);
     }
+
 
     List<StoreItemData> GetTypeItemList(GameEnum.ItemType itemType, List<StoreItemData> allItemList)
     {
@@ -109,7 +92,7 @@ public class StoreUI : MonoBehaviour
 
         for (int i = 0; i < allItemList.Count; i++)
         {
-            if (allItemList[i].ItemData.Type == itemType)
+            if (dataManager.ItemDataDict[allItemList[i].itemName].Type == itemType)
             {
                 tpyeItmeList.Add(allItemList[i]);
             }
@@ -162,35 +145,42 @@ public class StoreUI : MonoBehaviour
         currentSlot.SelectedImage.gameObject.SetActive(true);
 
 
-        InitNumberText(priceText, priceTextParent, priceInfoDefalutSize, currentSlot.StoreItemData.ItemData.Price);
+        var storeItem = currentSlot.StoreItemData;
+
+        InitNumberText(
+            priceText, 
+            priceTextParent, 
+            priceInfoDefalutSize, 
+            dataManager.ItemDataDict[storeItem.itemName].Price);
 
 
         foreach (var item in stateButtonDict)
         {
-            item.Value.gameObject.SetActive(item.Key == currentSlot.StoreItemData.IsPurchased);
+            item.Value.gameObject.SetActive(item.Key == storeItem.isPurchased);
         }
     }
 
     void BuyItem()
     {
-        var dataManager = DataManager.Instance;
+        var targetStoreItemData = currentSlot.StoreItemData;
 
-        var targetItemData = currentSlot.StoreItemData;
+        var itemData = dataManager.ItemDataDict[targetStoreItemData.itemName];
 
-        if(targetItemData.ItemData.Price <= dataManager.PlayerData.Gold)
+
+        if(itemData.Price <= playerData.gold)
         {
             currentSlot.LockCoverImage.enabled = false;
 
-            targetItemData.IsPurchased = true;
+            targetStoreItemData.isPurchased = true;
 
-            dataManager.PlayerData.Gold -= targetItemData.ItemData.Price;
+            playerData.gold -= itemData.Price;
 
 
-            InitNumberText(goldText, goldTextParent, goldInfoDefalutSize, dataManager.PlayerData.Gold);
+            InitNumberText(goldText, goldTextParent, goldInfoDefalutSize, playerData.gold);
 
             foreach (var item in stateButtonDict)
             {
-                item.Value.gameObject.SetActive(item.Key == currentSlot.StoreItemData.IsPurchased);
+                item.Value.gameObject.SetActive(item.Key == currentSlot.StoreItemData.isPurchased);
             }
         }
     }
@@ -228,7 +218,7 @@ public class StoreUI : MonoBehaviour
         titleText.text = titleTextDict[itemType];
         equipButtonText.text = equipTextDict[itemType];
 
-        InitNumberText(goldText, goldTextParent, goldInfoDefalutSize, DataManager.Instance.PlayerData.Gold);
+        InitNumberText(goldText, goldTextParent, goldInfoDefalutSize, playerData.gold);
 
 
         var typeCustomizeItemList = GetTypeItemList(itemType, allItemDatas);

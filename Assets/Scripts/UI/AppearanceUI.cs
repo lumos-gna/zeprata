@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AppearanceUI : MonoBehaviour
+public class AppearanceUI : MonoBehaviour, IPopupUI
 {
 
     [SerializeField] GridLayoutGroup layoutGroup;
@@ -27,8 +28,22 @@ public class AppearanceUI : MonoBehaviour
 
     AppearanceUISlot currentSlot;
     AppearanceUISlot previousSlot;
+    
+    List<AppearanceUISlot> slotList;
 
     UnityAction<AppearanceUISlot> OnSelectSlotAction;
+
+
+    public void Enable()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
 
 
     public void Init()
@@ -37,7 +52,7 @@ public class AppearanceUI : MonoBehaviour
 
         applyButton.onClick.AddListener(ApplyData);
 
-        closeButton.onClick.AddListener(() => gameObject.SetActive(false));
+        closeButton.onClick.AddListener(() => Disable());
 
         OnSelectSlotAction = (slot) =>
         {
@@ -46,23 +61,26 @@ public class AppearanceUI : MonoBehaviour
         };
 
 
+        slotList = new();
 
         dataManager = DataManager.Instance;
 
-        var appearanceDatas = dataManager.AppearanceDatas;
+        var appearanceDataDict = dataManager.AppearanceDataDict;
 
-        for (int i = 0; i < appearanceDatas.Count; i++)
+        foreach (var item in appearanceDataDict)
         {
             var createSlot = Instantiate(slotPrefab, slotParent);
 
-            createSlot.Init(appearanceDatas[i], OnSelectSlotAction);
+            createSlot.Init(item.Value, OnSelectSlotAction);
 
-            if (i == 0)
-            {
-                OnSelectSlotAction?.Invoke(createSlot);
-            }
+            slotList.Add(createSlot);
         }
+
+        var targetSlot = slotList.Find(slot => slot.AppearanceData == dataManager.AppearanceData);
+
+        OnSelectSlotAction?.Invoke(targetSlot);
     }
+
 
 
     void SelectSlot(AppearanceUISlot targetSlot)
@@ -90,11 +108,15 @@ public class AppearanceUI : MonoBehaviour
 
     void ApplyData()
     {
-        dataManager.AppearanceData = currentSlot?.AppearanceData;
+        if(currentSlot != null)
+        {
+            dataManager.SetAppearanceData(currentSlot.AppearanceData);
 
-        ActiveApplyBlock(true);
+            ActiveApplyBlock(true);
+        }
     }
 
     void ActiveApplyBlock(bool isActive) => applyBlockImage.enabled = isActive;
+
    
 }

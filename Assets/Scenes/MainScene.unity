@@ -6774,7 +6774,7 @@ GameObject:
   - component: {fileID: 761110265}
   - component: {fileID: 761110264}
   m_Layer: 5
-  m_Name: CustomizeUI
+  m_Name: StoreUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6829,12 +6829,6 @@ MonoBehaviour:
   equipButton: {fileID: 866255629}
   buyButton: {fileID: 1147575685}
   closeButton: {fileID: 1062226044}
-  testItemDataList:
-  - {fileID: 11400000, guid: 9247e7fe0ba2313458364ee22ac0c17b, type: 2}
-  - {fileID: 11400000, guid: 9247e7fe0ba2313458364ee22ac0c17b, type: 2}
-  - {fileID: 11400000, guid: 9247e7fe0ba2313458364ee22ac0c17b, type: 2}
-  - {fileID: 11400000, guid: 9247e7fe0ba2313458364ee22ac0c17b, type: 2}
-  - {fileID: 11400000, guid: 9247e7fe0ba2313458364ee22ac0c17b, type: 2}
 --- !u!114 &761110265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10910,6 +10904,8 @@ MonoBehaviour:
   appearanceDatas:
   - {fileID: 11400000, guid: 88b9e244a4c7d61449430c8ae4dee86b, type: 2}
   - {fileID: 11400000, guid: 3c778e3d0a6d7c847a164ea4c787018c, type: 2}
+  itemDatas:
+  - {fileID: 11400000, guid: 9247e7fe0ba2313458364ee22ac0c17b, type: 2}
 --- !u!95 &9190485534012718669
 Animator:
   serializedVersion: 5

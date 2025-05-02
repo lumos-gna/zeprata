@@ -6,7 +6,7 @@ using UnityEngine.U2D.Animation;
 [CreateAssetMenu(menuName = "ScriptableObjects/AppearanceData")]
 public class AppearanceData : ScriptableObject
 {
-    [SerializeField] string dataName;
+    [SerializeField] string appearanceName;
 
     [SerializeField] Sprite iconSprite;
 
@@ -15,7 +15,7 @@ public class AppearanceData : ScriptableObject
     [SerializeField] SpriteLibraryAsset libraryAsset;
 
 
-    public string Name => dataName;
+    public string AppearanceName => appearanceName;
     public Sprite IconSprite => iconSprite;
     public Sprite PreviewSprite => previewSprite;
     public SpriteLibraryAsset LibraryAsset => libraryAsset;

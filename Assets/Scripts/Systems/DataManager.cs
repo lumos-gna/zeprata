@@ -1,36 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.U2D.Animation;
 
 public class DataManager : Singleton<DataManager>
 {
-    public int TapRunnerScore { get; set; }
-    public PlayerData PlayerData { get; private set; } = new();
-    public AppearanceData AppearanceData
-    {
-        get { return appearanceData; }
-        set
-        {
-            if (appearanceData != value)
-            {
-                appearanceData = value;
-
-                OnChangedAppearanceData?.Invoke(appearanceData);
-            }
-        }
-    }
-    public List<AppearanceData> AppearanceDatas => appearanceDatas;
-
-
     public event UnityAction<AppearanceData> OnChangedAppearanceData;
 
+    public AppearanceData AppearanceData { get; private set; }
 
-    [SerializeField] List<AppearanceData> appearanceDatas;
+
+    public int TapRunnerScore { get; set; }
+    public PlayerData PlayerData { get; private set; }
+    public List<StoreItemData> StoreItemDatas { get; private set; }
+    public Dictionary<string, ItemData> ItemDataDict { get; private set; }
+    public Dictionary<string, AppearanceData> AppearanceDataDict { get; private set; }
+
+  
 
 
-    AppearanceData appearanceData;
+    [SerializeField] AppearanceData[] appearanceDatas;
+    [SerializeField] ItemData[] itemDatas;
 
 
     protected override void Awake()
@@ -38,14 +31,38 @@ public class DataManager : Singleton<DataManager>
         base.Awake();
     }
 
+    public void Init()
+    {
+        AppearanceDataDict = appearanceDatas.ToDictionary(item => item.AppearanceName);
+        ItemDataDict = itemDatas.ToDictionary(item => item.ItemName);
+    }
 
 
     public void InitNewGameData()
     {
-        PlayerData.Gold = 2000;
+        PlayerData = new()
+        {
+            gold = 2000
+        };
 
-        int rand = Random.Range(0, appearanceDatas.Count);
+        AppearanceData = appearanceDatas[Random.Range(0, appearanceDatas.Length)];
 
-        AppearanceData = appearanceDatas[rand];
+        StoreItemDatas = new();
+
+        foreach (var item in ItemDataDict)
+        {
+            StoreItemDatas.Add(
+                new()
+                {
+                    itemName = item.Key
+                });
+        }
+    }
+
+    public void SetAppearanceData(AppearanceData appearanceData)
+    {
+        AppearanceData = appearanceData;
+
+        OnChangedAppearanceData?.Invoke(appearanceData);
     }
 }

@@ -5,8 +5,9 @@ using UnityEngine.U2D.Animation;
 
 
 [CreateAssetMenu(menuName = "ScriptableObjects/SpriteAssetItemData")]
-public class SpriteAssetItemData : ItemData
+public class EquipmentItemData : ItemData
 {
+
     [SerializeField] SpriteLibraryAsset spriteAsset;
 
     public SpriteLibraryAsset SpriteAsset => spriteAsset;
