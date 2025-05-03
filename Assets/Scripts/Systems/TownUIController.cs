@@ -4,11 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainUIController : MonoBehaviour
+public class TownUIController : MonoBehaviour
 {
     [SerializeField] Button appearanceUIButton;
+    [SerializeField] Button ridingUIButton;
 
     [SerializeField] AppearanceUI appearanceUI;
+    [SerializeField] StoreUI storeUI;
 
     Stack<IPopupUI> popupUIStack = new();
 
@@ -17,12 +19,23 @@ public class MainUIController : MonoBehaviour
     private void Awake()
     {
         inputManager = InputManager.Instance;
+
+        appearanceUI.Init();
+        storeUI.Init();
+
+        appearanceUIButton.onClick.AddListener(() =>
+        {
+            popupUIStack.Push(appearanceUI);
+            appearanceUI.Enable();
+        });
+
+        ridingUIButton.onClick.AddListener(() =>
+        {
+            storeUI.InitToSlots(GameEnum.ItemType.Riding);
+            storeUI.gameObject.SetActive(true);
+        });
     }
 
-    private void Start()
-    {
-        Init();
-    }
 
     private void OnEnable()
     {
@@ -41,16 +54,6 @@ public class MainUIController : MonoBehaviour
     }
 
 
-    public void Init()
-    {
-        appearanceUI.Init();
-
-        appearanceUIButton.onClick.AddListener(() =>
-        {
-            popupUIStack.Push(appearanceUI);
-            appearanceUI.Enable();
-        });
-    }
 
     void DisablePopup() => popupUIStack.Pop().Disable();
 

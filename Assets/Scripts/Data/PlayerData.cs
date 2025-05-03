@@ -12,4 +12,5 @@ public class PlayerData
     public int gold;
 
     public StatData statData;
+
 }

@@ -29,31 +29,28 @@ public class TownPlayer : MonoBehaviour
 
     Vector2 moveDir;
 
-    DataManager dataManager;
+
 
     void FixedUpdate()
     {
         Move();
     }
 
+
     private void OnEnable()
     {
-        dataManager = DataManager.Instance;
-
-        dataManager.OnChangedAppearanceData += (data) => InitSpriteLibrary(data.LibraryAsset);
+        AppearanceManager.Instance.OnChangeAppearance += (data) => InitSpriteLibrary(data.LibraryAsset);
     }
 
     private void OnDisable()
     {
-        dataManager.OnChangedAppearanceData -= (data) => InitSpriteLibrary(data.LibraryAsset);
+        AppearanceManager.Instance.OnChangeAppearance -= (data) => InitSpriteLibrary(data.LibraryAsset);
     }
 
 
-   
+
     public void Init()
     {
-        InitSpriteLibrary(dataManager.AppearanceData.LibraryAsset);
-
         var inputManager = InputManager.Instance;
 
         inputManager.OnMoveEvent = (moveKey) => moveDir = moveKey.normalized;

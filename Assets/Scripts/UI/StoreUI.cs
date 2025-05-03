@@ -56,7 +56,7 @@ public class StoreUI : MonoBehaviour
     Vector2 priceInfoDefalutSize;
 
 
-    private void Awake()
+    public void Init()
     {
         dataManager = DataManager.Instance;
         playerData = dataManager.PlayerData;
@@ -84,6 +84,21 @@ public class StoreUI : MonoBehaviour
 
         buyButton.onClick.AddListener(BuyItem);
     }
+
+
+    public void InitToSlots(GameEnum.ItemType itemType)
+    {
+        titleText.text = titleTextDict[itemType];
+        equipButtonText.text = equipTextDict[itemType];
+
+        InitNumberText(goldText, goldTextParent, goldInfoDefalutSize, playerData.gold);
+
+
+        var typeCustomizeItemList = GetTypeItemList(itemType, dataManager.StoreItemDatas);
+
+        InitSlots(typeCustomizeItemList);
+    }
+
 
 
     List<StoreItemData> GetTypeItemList(GameEnum.ItemType itemType, List<StoreItemData> allItemList)
@@ -213,16 +228,5 @@ public class StoreUI : MonoBehaviour
 
 
 
-    public void Init(GameEnum.ItemType itemType, List<StoreItemData> allItemDatas)
-    {
-        titleText.text = titleTextDict[itemType];
-        equipButtonText.text = equipTextDict[itemType];
-
-        InitNumberText(goldText, goldTextParent, goldInfoDefalutSize, playerData.gold);
-
-
-        var typeCustomizeItemList = GetTypeItemList(itemType, allItemDatas);
-
-        InitSlots(typeCustomizeItemList);
-    }
+ 
 }

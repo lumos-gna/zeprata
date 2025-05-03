@@ -12,4 +12,9 @@ public static class GameEnum
     {
         Riding
     }
+
+    public enum AppearanceType
+    {
+        Character
+    }
 }

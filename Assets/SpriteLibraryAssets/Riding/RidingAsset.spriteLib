@@ -13,22 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library:
-  - m_Name: Idle
-    m_Hash: 1008081451
-    m_CategoryList: []
-    m_OverrideEntries:
-    - m_Name: 01
-      m_Hash: 255927350
-      m_Sprite: {fileID: 0}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 0}
-    - m_Name: 02
-      m_Hash: 373847436
-      m_Sprite: {fileID: 0}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 0}
-    m_FromMain: 0
-    m_EntryOverrideCount: 2
   - m_Name: Move
     m_Hash: 252483654
     m_CategoryList: []
@@ -55,8 +39,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
     m_EntryOverrideCount: 4
-  - m_Name: Jump
-    m_Hash: 125937960
+  - m_Name: Idle
+    m_Hash: 1008081451
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: 01
@@ -64,8 +48,13 @@ MonoBehaviour:
       m_Sprite: {fileID: 0}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 0}
+    - m_Name: 02
+      m_Hash: 373847436
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
-    m_EntryOverrideCount: 1
+    m_EntryOverrideCount: 2
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638816144244507651
+  m_ModificationHash: 638818160270959399
   m_Version: 1

@@ -20,14 +20,14 @@ MonoBehaviour:
     - m_Name: 01
       m_Hash: 255927350
       m_Sprite: {fileID: 0}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 1681650136, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
     - m_Name: 02
       m_Hash: 373847436
       m_Sprite: {fileID: 0}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 1578991781, guid: 983967335b77a6142b243bce7951c88c, type: 3}
-    m_FromMain: 1
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    m_FromMain: 0
     m_EntryOverrideCount: 2
   - m_Name: Move
     m_Hash: 252483654
@@ -36,24 +36,24 @@ MonoBehaviour:
     - m_Name: 01
       m_Hash: 255927350
       m_Sprite: {fileID: 0}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -1824746052, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
     - m_Name: 02
       m_Hash: 373847436
       m_Sprite: {fileID: 0}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 2096837537, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
     - m_Name: 03
       m_Hash: 558843162
       m_Sprite: {fileID: 0}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: 750630279, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
     - m_Name: 04
       m_Hash: 1059836089
       m_Sprite: {fileID: 0}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -71344605, guid: 983967335b77a6142b243bce7951c88c, type: 3}
-    m_FromMain: 1
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    m_FromMain: 0
     m_EntryOverrideCount: 4
   - m_Name: Jump
     m_Hash: 125937960
@@ -62,10 +62,21 @@ MonoBehaviour:
     - m_Name: 01
       m_Hash: 255927350
       m_Sprite: {fileID: 0}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -1167880554, guid: 983967335b77a6142b243bce7951c88c, type: 3}
-    m_FromMain: 1
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    m_FromMain: 0
     m_EntryOverrideCount: 1
-  m_PrimaryLibraryGUID: 1cddd7309da03084aaa561aebdf12f52
-  m_ModificationHash: 638816144833219632
+  - m_Name: RidingMove
+    m_Hash: 327167142
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    m_FromMain: 0
+    m_EntryOverrideCount: 1
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 638818158895519268
   m_Version: 1

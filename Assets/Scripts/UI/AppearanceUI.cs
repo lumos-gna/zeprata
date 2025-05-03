@@ -23,8 +23,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     [SerializeField] RectTransform slotParent;
 
 
-
-    DataManager dataManager;
+    AppearanceManager appearanceManager;
 
     AppearanceUISlot currentSlot;
     AppearanceUISlot previousSlot;
@@ -37,6 +36,12 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     public void Enable()
     {
         gameObject.SetActive(true);
+
+
+        if(TryGetSlot(appearanceManager.EquippedData.dataName, out AppearanceUISlot targetSlot))
+        {
+            OnSelectSlotAction(targetSlot);
+        }
     }
 
     public void Disable()
@@ -48,6 +53,9 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
 
     public void Init()
     {
+        appearanceManager = AppearanceManager.Instance;
+
+
         layoutGroup.cellSize = slotPrefab.GetComponent<RectTransform>().sizeDelta;
 
         applyButton.onClick.AddListener(ApplyData);
@@ -61,11 +69,33 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
         };
 
 
+        CreateSlot();
+    }
+
+
+    bool TryGetSlot(string targetDataName, out AppearanceUISlot slot)
+    {
+        for (int i = 0; i < slotList.Count; i++)
+        {
+            if (slotList[i].AppearanceData.DataName == targetDataName)
+            {
+                slot = slotList[i];
+
+                return true;
+            }
+        }
+        slot = null;
+
+        return false;
+    }
+
+
+
+    void CreateSlot()
+    {
         slotList = new();
 
-        dataManager = DataManager.Instance;
-
-        var appearanceDataDict = dataManager.AppearanceDataDict;
+        var appearanceDataDict = DataManager.Instance.AppearanceDataDict;
 
         foreach (var item in appearanceDataDict)
         {
@@ -75,17 +105,13 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
 
             slotList.Add(createSlot);
         }
-
-        var targetSlot = slotList.Find(slot => slot.AppearanceData == dataManager.AppearanceData);
-
-        OnSelectSlotAction?.Invoke(targetSlot);
     }
 
 
 
     void SelectSlot(AppearanceUISlot targetSlot)
     {
-        ActiveApplyBlock(dataManager.AppearanceData == targetSlot.AppearanceData);
+        ActiveApplyBlock(appearanceManager.EquippedData.dataName == targetSlot.AppearanceData.DataName);
 
         bool isNewTarget = currentSlot != targetSlot;
 
@@ -110,7 +136,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     {
         if(currentSlot != null)
         {
-            dataManager.SetAppearanceData(currentSlot.AppearanceData);
+            appearanceManager.ChangeAppearance(currentSlot.AppearanceData);
 
             ActiveApplyBlock(true);
         }
