@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.U2D.Animation;
 
 
 
@@ -13,38 +12,36 @@ public class TownPlayer : MonoBehaviour
 
     [SerializeField] Rigidbody2D rigid;
 
-    [SerializeField] SpriteRenderer spriteRenderer;
-
-    [SerializeField] SpriteLibrary spriteLibrary;
-
     [SerializeField] Animator animator;
 
     [SerializeField] InteractTriggerHandler triggerHandler;
 
+
     [SerializeField] Canvas interactGuideCanvas;
 
+    [SerializeField] ObjectSpriteRendererHandler rendererHandler;
 
+    [SerializeField] AppearanceHandler appearanceHandler;
+
+    [SerializeField] EquipmentHandler equipmentHandler;
 
     bool isJumping = false;
 
     Vector2 moveDir;
 
 
+    private void Awake()
+    {
+        appearanceHandler.OnChangeEvent += (data) => rendererHandler.ChangeLibraryAsset(data.Type.ToString(), data.LibraryAsset);
+
+        equipmentHandler.OnEquippedItem += (data) => Equip(data);
+        equipmentHandler.OnUnEquippedItem += (data) => UnEquip(data);
+    }
+
 
     void FixedUpdate()
     {
         Move();
-    }
-
-
-    private void OnEnable()
-    {
-        AppearanceManager.Instance.OnChangeAppearance += (data) => InitSpriteLibrary(data.LibraryAsset);
-    }
-
-    private void OnDisable()
-    {
-        AppearanceManager.Instance.OnChangeAppearance -= (data) => InitSpriteLibrary(data.LibraryAsset);
     }
 
 
@@ -75,8 +72,27 @@ public class TownPlayer : MonoBehaviour
     }
 
 
-    void InitSpriteLibrary(SpriteLibraryAsset asset) => spriteLibrary.spriteLibraryAsset = asset;
+    void Equip(EquipmentItemData itemData)
+    {
+        switch(itemData)
+        {
+            case RidingItemData data:
+                animator.SetBool("isRide", true);
+                //플레이어 위치를 ridingData 에 맞게 수정 로직
+                break;
+        }
+    }
 
+    void UnEquip(EquipmentItemData itemData)
+    {
+        switch (itemData)
+        {
+            case RidingItemData:
+                animator.SetBool("isRide", false);
+                break;
+        }
+
+    }
 
 
 
@@ -90,7 +106,7 @@ public class TownPlayer : MonoBehaviour
 
         if (isMove)
         {
-            spriteRenderer.flipX = moveDir.x < 0;
+            rendererHandler.SetRenderersFlipX(moveDir.x < 0);
         }
     }
 
@@ -114,10 +130,5 @@ public class TownPlayer : MonoBehaviour
         isJumping = false;
         animator.SetBool("isJump", isJumping);
     }
-
-
-
-   
-
 
 }

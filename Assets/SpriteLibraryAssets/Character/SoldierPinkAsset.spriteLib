@@ -66,8 +66,40 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 892395154, guid: 983967335b77a6142b243bce7951c88c, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 1
+  - m_Name: RidingIdle
+    m_Hash: 547008203
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 892395154, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+    - m_Name: 02
+      m_Hash: 373847436
+      m_Sprite: {fileID: 0}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 892395154, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 2
   - m_Name: RidingMove
     m_Hash: 327167142
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 892395154, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+    - m_Name: 02
+      m_Hash: 373847436
+      m_Sprite: {fileID: 0}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 892395154, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 2
+  - m_Name: RidingJump
+    m_Hash: 453844424
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: 01
@@ -78,5 +110,5 @@ MonoBehaviour:
     m_FromMain: 1
     m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: 1cddd7309da03084aaa561aebdf12f52
-  m_ModificationHash: 638818159572387524
+  m_ModificationHash: 638819005766116528
   m_Version: 1

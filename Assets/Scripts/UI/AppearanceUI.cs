@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class AppearanceUI : MonoBehaviour, IPopupUI
 {
+    [SerializeField] AppearanceDataTable appearanceDataTable;
 
     [SerializeField] GridLayoutGroup layoutGroup;
 

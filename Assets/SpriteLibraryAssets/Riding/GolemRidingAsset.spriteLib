@@ -13,6 +13,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Library:
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1021032258, guid: d9e6d1158a727274bbec8769845f29a9, type: 3}
+    - m_Name: 02
+      m_Hash: 373847436
+      m_Sprite: {fileID: 0}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1613930694, guid: d9e6d1158a727274bbec8769845f29a9, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 2
   - m_Name: Move
     m_Hash: 252483654
     m_CategoryList: []
@@ -39,22 +55,17 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: -278991332, guid: d9e6d1158a727274bbec8769845f29a9, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 4
-  - m_Name: Idle
-    m_Hash: 1008081451
+  - m_Name: Jump
+    m_Hash: 125937960
     m_CategoryList: []
     m_OverrideEntries:
-    - m_Name: 01
-      m_Hash: 255927350
+    - m_Name: New Label
+      m_Hash: 259326342
       m_Sprite: {fileID: 0}
       m_FromMain: 1
-      m_SpriteOverride: {fileID: -1021032258, guid: d9e6d1158a727274bbec8769845f29a9, type: 3}
-    - m_Name: 02
-      m_Hash: 373847436
-      m_Sprite: {fileID: 0}
-      m_FromMain: 1
-      m_SpriteOverride: {fileID: -1613930694, guid: d9e6d1158a727274bbec8769845f29a9, type: 3}
+      m_SpriteOverride: {fileID: -1179694478, guid: d9e6d1158a727274bbec8769845f29a9, type: 3}
     m_FromMain: 1
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: d0085d8af47189e4cad147dc88d90871
-  m_ModificationHash: 638818161795988902
+  m_ModificationHash: 638819007357131866
   m_Version: 1

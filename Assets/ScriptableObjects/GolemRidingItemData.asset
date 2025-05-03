@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa8ba2b8db35e047a9d9d64f49a15a1, type: 3}
+  m_Name: GolemRidingItemData
+  m_EditorClassIdentifier: 
+  type: 0
+  itemName: Golem
+  price: 0
+  iconSprite: {fileID: 837906979, guid: d9e6d1158a727274bbec8769845f29a9, type: 3}
+  statData:
+    moveSpeed: 5
+  spriteAsset: {fileID: 7108339969198208228, guid: 23875f0c1e5e2d74a992c29d352e1462, type: 3}
+  mountPoint: {x: 0, y: 0.9}

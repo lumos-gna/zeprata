@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 
-[CreateAssetMenu(menuName = "ScriptableObjects/SpriteAssetItemData")]
+[CreateAssetMenu(menuName = "ScriptableObjects/EquipmentItemData")]
 public class EquipmentItemData : ItemData
 {
 

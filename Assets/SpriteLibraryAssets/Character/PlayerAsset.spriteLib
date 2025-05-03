@@ -22,13 +22,8 @@ MonoBehaviour:
       m_Sprite: {fileID: 0}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 0}
-    - m_Name: 02
-      m_Hash: 373847436
-      m_Sprite: {fileID: 0}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 1
   - m_Name: Move
     m_Hash: 252483654
     m_CategoryList: []
@@ -66,8 +61,35 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
     m_EntryOverrideCount: 1
+  - m_Name: RidingIdle
+    m_Hash: 547008203
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    m_FromMain: 0
+    m_EntryOverrideCount: 1
   - m_Name: RidingMove
     m_Hash: 327167142
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: 01
+      m_Hash: 255927350
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    - m_Name: 02
+      m_Hash: 373847436
+      m_Sprite: {fileID: 0}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 0}
+    m_FromMain: 0
+    m_EntryOverrideCount: 2
+  - m_Name: RidingJump
+    m_Hash: 453844424
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: 01
@@ -78,5 +100,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638818158895519268
+  m_ModificationHash: 638819089062864025
   m_Version: 1
