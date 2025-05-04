@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EquipmentHandler : MonoBehaviour
+public class EquipmentController : MonoBehaviour
 {
     public Dictionary<GameEnum.ItemType, EquipmentItemData> ItemDatas => itemDatas;
 
@@ -13,6 +13,7 @@ public class EquipmentHandler : MonoBehaviour
 
 
     Dictionary<GameEnum.ItemType, EquipmentItemData> itemDatas;
+
 
     private void Awake()
     {

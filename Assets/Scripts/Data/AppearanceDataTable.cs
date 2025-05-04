@@ -5,5 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/AppearanceDataTable")]
 public class AppearanceDataTable : ScriptableObject
 {
-    [SerializeField] AppearanceData[] appearanceDatas;
+    [SerializeField] AppearanceData[] datas;
+
+    public AppearanceData[] Datas => datas;
 }

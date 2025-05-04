@@ -4,10 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class AppearanceUI : MonoBehaviour, IPopupUI
 {
     [SerializeField] AppearanceDataTable appearanceDataTable;
+
+    [Space(20f)]
 
     [SerializeField] GridLayoutGroup layoutGroup;
 
@@ -24,14 +27,17 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     [SerializeField] RectTransform slotParent;
 
 
-    AppearanceManager appearanceManager;
+    AppearanceController appearanceController;
+
+
+    List<AppearanceUISlot> slotList;
 
     AppearanceUISlot currentSlot;
     AppearanceUISlot previousSlot;
-    
-    List<AppearanceUISlot> slotList;
+
 
     UnityAction<AppearanceUISlot> OnSelectSlotAction;
+
 
 
     public void Enable()
@@ -39,7 +45,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
         gameObject.SetActive(true);
 
 
-        if(TryGetSlot(appearanceManager.EquippedData.dataName, out AppearanceUISlot targetSlot))
+        if(TryGetSlot(appearanceController.EquipData, out AppearanceUISlot targetSlot))
         {
             OnSelectSlotAction(targetSlot);
         }
@@ -52,9 +58,9 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
 
 
 
-    public void Init()
+    public void Init(AppearanceController appearanceController)
     {
-        appearanceManager = AppearanceManager.Instance;
+        this.appearanceController = appearanceController;
 
 
         layoutGroup.cellSize = slotPrefab.GetComponent<RectTransform>().sizeDelta;
@@ -74,11 +80,11 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     }
 
 
-    bool TryGetSlot(string targetDataName, out AppearanceUISlot slot)
+    bool TryGetSlot(AppearanceData targetData, out AppearanceUISlot slot)
     {
         for (int i = 0; i < slotList.Count; i++)
         {
-            if (slotList[i].AppearanceData.DataName == targetDataName)
+            if (slotList[i].AppearanceData == targetData)
             {
                 slot = slotList[i];
 
@@ -96,13 +102,11 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     {
         slotList = new();
 
-        var appearanceDataDict = DataManager.Instance.AppearanceDataDict;
-
-        foreach (var item in appearanceDataDict)
+        for (int i = 0; i < appearanceDataTable.Datas.Length; i++)
         {
             var createSlot = Instantiate(slotPrefab, slotParent);
 
-            createSlot.Init(item.Value, OnSelectSlotAction);
+            createSlot.Init(appearanceDataTable.Datas[i], OnSelectSlotAction);
 
             slotList.Add(createSlot);
         }
@@ -112,7 +116,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
 
     void SelectSlot(AppearanceUISlot targetSlot)
     {
-        ActiveApplyBlock(appearanceManager.EquippedData.dataName == targetSlot.AppearanceData.DataName);
+        ActiveApplyBlock(appearanceController.EquipData == targetSlot.AppearanceData);
 
         bool isNewTarget = currentSlot != targetSlot;
 
@@ -137,7 +141,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     {
         if(currentSlot != null)
         {
-            appearanceManager.ChangeAppearance(currentSlot.AppearanceData);
+            appearanceController.Change(currentSlot.AppearanceData);
 
             ActiveApplyBlock(true);
         }

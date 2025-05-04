@@ -8,11 +8,11 @@
             "bindings": []
         },
         {
-            "name": "Main",
+            "name": "Player",
             "id": "6667bc10-3f72-4b1d-9998-f2dec0f3c488",
             "actions": [
                 {
-                    "name": "MainMove",
+                    "name": "Move",
                     "type": "Value",
                     "id": "ed8a6f89-a49b-415f-af82-301c31645eb6",
                     "expectedControlType": "Vector2",
@@ -21,7 +21,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MainInteract",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "a2bc13e9-c3d3-4bf4-ae65-ba42c04b8018",
                     "expectedControlType": "Button",
@@ -30,18 +30,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MainJump",
+                    "name": "Jump",
                     "type": "Button",
                     "id": "15514b8b-2d7e-46fc-bc84-d57eb8265cbf",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "MainDisableUI",
-                    "type": "Button",
-                    "id": "15412b12-23e4-4292-b6cb-bff97e5cde81",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -56,7 +47,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -67,7 +58,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -78,7 +69,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -89,7 +80,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -100,7 +91,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -111,7 +102,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -122,7 +113,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -133,7 +124,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -144,7 +135,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -155,7 +146,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -166,7 +157,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainInteract",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -177,18 +168,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MainJump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "32c05383-cd72-4bd9-9f60-4368a78e7ed2",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MainDisableUI",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -236,7 +216,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UIActive",
+                    "name": "UIEnable",
                     "type": "Button",
                     "id": "ec135dcc-34a4-4dd4-9acc-1c7c1645b3f9",
                     "expectedControlType": "Button",
@@ -273,7 +253,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UIActive",
+                    "action": "UIEnable",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -3,7 +3,7 @@ public static class GameEnum
     public enum InputType
     {
         None,
-        Main,
+        Player,
         TapRunner,
         UI
     }

@@ -6,21 +6,36 @@ using UnityEngine.UI;
 
 public class TownUIController : MonoBehaviour
 {
+    [Header("HUD")]
+    [SerializeField] Canvas canvasHUD;
     [SerializeField] Button appearanceUIButton;
     [SerializeField] Button ridingUIButton;
 
+    [Space(10f)]
+    [Header("Popup")]
+    [SerializeField] Canvas canvasPopup;
     [SerializeField] AppearanceUI appearanceUI;
     [SerializeField] StoreUI storeUI;
 
     Stack<IPopupUI> popupUIStack = new();
 
-    InputManager inputManager;
+    Player player;
 
-    private void Awake()
+
+    void OnEnable()
+        => player.InputController.OnUIToggleEvent += (enabled) => DisablePopup();
+
+    void OnDisable()
+        => player.InputController.OnUIToggleEvent -= (enabled) => DisablePopup();
+
+
+    public void Init(Player player)
     {
-        inputManager = InputManager.Instance;
+        this.player = player;
 
-        appearanceUI.Init();
+
+        appearanceUI.Init(player.AppearanceController);
+
         storeUI.Init();
 
         appearanceUIButton.onClick.AddListener(() =>
@@ -35,24 +50,6 @@ public class TownUIController : MonoBehaviour
             storeUI.gameObject.SetActive(true);
         });
     }
-
-
-    private void OnEnable()
-    {
-        if(inputManager != null) 
-        {
-            inputManager.OnMainDisableUIEvent += () => DisablePopup();
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (inputManager != null)
-        {
-            inputManager.OnMainDisableUIEvent -= () => DisablePopup();
-        }
-    }
-
 
 
     void DisablePopup() => popupUIStack.Pop().Disable();

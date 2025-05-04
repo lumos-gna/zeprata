@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.U2D.Animation;
 
-public class ObjectSpriteRendererHandler : MonoBehaviour
+public class ObjectSpriteRendererController : MonoBehaviour
 {
     [SerializeField] ObjectSpriteRenderer[] renderers;
 

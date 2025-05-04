@@ -13,7 +13,7 @@ public class TapRunnerController : MonoBehaviour
     float runningTime;
     float currentSpeed;
 
-    InputManager inputManager;
+    //InputManager inputManager;
 
 
     [SerializeField] int obstacleNeedCount;
@@ -40,11 +40,11 @@ public class TapRunnerController : MonoBehaviour
         guideText.enabled = true;
 
 
-        inputManager = InputManager.Instance;
+      /*  inputManager = InputManager.Instance;
 
         inputManager.OnTapRunnerJumpEvent = () =>
         {
-            if(isEnd)
+            if (isEnd)
             {
                 EndGame();
             }
@@ -62,7 +62,7 @@ public class TapRunnerController : MonoBehaviour
                     runner.Jump();
                 }
             }
-        };
+        };*/
 
         StartCoroutine(InputBlockDelay());
     }
@@ -121,11 +121,11 @@ public class TapRunnerController : MonoBehaviour
 
     IEnumerator InputBlockDelay()
     {
-        inputManager.SwitchInputType(GameEnum.InputType.None);
+        //inputManager.SwitchInputType(GameEnum.InputType.None);
 
         yield return new WaitForSeconds(0.33f);
 
-        inputManager.SwitchInputType(GameEnum.InputType.TapRunner);
+        //inputManager.SwitchInputType(GameEnum.InputType.TapRunner);
     }
 
 

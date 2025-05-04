@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8815b10ecc78684bbc222ae2ede6a77, type: 3}
   m_Name: AppearanceDataTable
   m_EditorClassIdentifier: 
-  appearanceDatas:
+  datas:
   - {fileID: 11400000, guid: 88b9e244a4c7d61449430c8ae4dee86b, type: 2}
   - {fileID: 11400000, guid: 3c778e3d0a6d7c847a164ea4c787018c, type: 2}
