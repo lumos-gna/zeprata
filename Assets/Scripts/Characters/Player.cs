@@ -63,13 +63,30 @@ public class Player : MonoBehaviour
             mountDefalutHeight = target.transform.localPosition.y;
         }
 
+        InitAppearacneController();
 
+        InitEquipmentController();
+
+        InitTriggerController();
+
+        InitInputController();
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+
+    void InitAppearacneController()
+    {
         appearanceController.OnToggleAppearanceEvent += (appearanceData) =>
         {
             rendererController.ChangeLibraryAsset(appearanceData.Type.ToString(), appearanceData.LibraryAsset);
         };
+    }
 
-        equipmentController.Init(new(), data.statData);
+
+    void InitEquipmentController()
+    {
+        equipmentController.Init(data.statData);
 
         equipmentController.OnToggleEquipEvent += (isEquip, targetData) =>
         {
@@ -82,17 +99,21 @@ public class Player : MonoBehaviour
                 case RidingItemData ridingItemData: ToggleMount(isEquip, ridingItemData); break;
             }
         };
+    }
 
-       
 
+    void InitTriggerController()
+    {
         triggerController.Init(gameObject);
 
         triggerController.OnTriggerEnter += () => interactGuideCanvas.enabled = true;
 
         triggerController.OnTriggerEixt += () => interactGuideCanvas.enabled = false;
+    }
 
 
-
+    void InitInputController()
+    {
         inputController.OnMoveEvent += (moveKey) => moveDir = moveKey.normalized;
 
         inputController.OnJumpEvent += Jump;
@@ -105,11 +126,7 @@ public class Player : MonoBehaviour
                 interactGuideCanvas.enabled = false;
             }
         };
-
-
-        DontDestroyOnLoad(gameObject);
     }
-
 
 
     void ToggleMount(bool isMount, RidingItemData data)

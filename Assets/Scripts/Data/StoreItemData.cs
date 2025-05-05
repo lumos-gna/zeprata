@@ -3,9 +3,7 @@
 
 public class StoreItemData
 {
-    public GameEnum.ItemType type;
+    public ItemData ItemData { get; set; }
 
-    public string itemName;
-
-    public bool isPurchased;
+    public bool IsPurchased { get; set; }
 }

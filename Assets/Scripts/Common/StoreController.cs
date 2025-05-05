@@ -4,26 +4,53 @@ using UnityEngine;
 
 public class StoreController : MonoBehaviour
 {
+    public Dictionary<GameEnum.ItemType, List<StoreItemData>> StoreItemDatasByType => storeItemDatasByType;
+
+
     [SerializeField] ItemDataTable itemDataTable;
 
+
+    Dictionary<GameEnum.ItemType, List<StoreItemData>> storeItemDatasByType;
+
+
     PlayerData playerData;
+
 
     public void Init(PlayerData playerData)
     {
         this.playerData = playerData;
+
+        SetStoreItemDatasTypeDict(DataManager.Instance.StoreItemDatas);
+    }
+
+    void SetStoreItemDatasTypeDict(List<StoreItemData> storeItemDatas)
+    {
+        storeItemDatasByType = new();
+
+        for (int i = 0; i < storeItemDatas.Count; i++)
+        {
+            var targetData = storeItemDatas[i];
+
+            var dataType = targetData.ItemData.Type;
+
+            if (!storeItemDatasByType.ContainsKey(dataType))
+            {
+                storeItemDatasByType.Add(dataType, new());
+            }
+
+            storeItemDatasByType[dataType].Add(targetData);
+        }
     }
 
     public bool TryPurchaseItem(StoreItemData targetItem)
     {
-        var price = itemDataTable.TryGetItemData(targetItem.itemName, out ItemData itemData) ?
-        itemData.Price :
-        0;
+        int itemPrice = targetItem.ItemData.Price;
 
-        if (price <= playerData.gold)
+        if (itemPrice <= playerData.gold)
         {
-            targetItem.isPurchased = true;
+            targetItem.IsPurchased = true;
 
-            playerData.gold -= price;
+            playerData.gold -= itemPrice;
 
             return true;
         }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
 {
-
     public int TapRunnerScore { get; set; }
     public PlayerData PlayerData { get; private set; }
     public List<StoreItemData> StoreItemDatas { get; private set; } = new();
@@ -40,8 +39,8 @@ public class DataManager : Singleton<DataManager>
             StoreItemDatas.Add(
                 new StoreItemData()
                 {
-                    itemName = itemDataTable.Datas[i].ItemName,
-                    isPurchased = false
+                    ItemData = itemDataTable.Datas[i],
+                    IsPurchased = false
                 }); ;
         }
     }

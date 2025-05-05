@@ -6895,18 +6895,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc80b9f77e5dab48b24b92bdb13d93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDataTable: {fileID: 11400000, guid: 0edc2f7ff8a1e4f43be825f906e757de, type: 2}
   storeController: {fileID: 761110267}
   slotPreafb: {fileID: 8918129433117069316, guid: 3b91c488487d9e84d82eed85606d4da0, type: 3}
-  slotsParent: {fileID: 557959110}
-  layoutGroup: {fileID: 557959112}
+  slotsLayoutGroup: {fileID: 557959112}
+  applyButton: {fileID: 866255629}
+  purchaseButton: {fileID: 1147575685}
+  closeButton: {fileID: 1062226044}
   titleText: {fileID: 42802831}
+  applyButtonText: {fileID: 667707889}
   playerGoldInfo: {fileID: 1050955149}
   priceInfo: {fileID: 1147575688}
-  equipButtonText: {fileID: 667707889}
-  applyButton: {fileID: 866255629}
-  buyButton: {fileID: 1147575685}
-  closeButton: {fileID: 1062226044}
 --- !u!114 &761110265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8640,6 +8638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1197534218}
   - component: {fileID: 1197534217}
+  - component: {fileID: 1197534222}
   - component: {fileID: 1197534220}
   - component: {fileID: 1197534221}
   m_Layer: 0
@@ -8770,6 +8769,18 @@ MonoBehaviour:
   interactTrigger: {fileID: 1578908824}
   canvas: {fileID: 1134456273}
   dialogueData: {fileID: 11400000, guid: 20f639b9ae75e4240b95ca86afb41ba7, type: 2}
+--- !u!210 &1197534222
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197534216}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &1304340812
 GameObject:
   m_ObjectHideFlags: 0

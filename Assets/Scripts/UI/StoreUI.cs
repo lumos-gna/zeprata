@@ -7,153 +7,114 @@ using UnityEngine.UI;
 
 public class StoreUI : MonoBehaviour, IPopupUI
 {
-    [SerializeField] ItemDataTable itemDataTable;
     [SerializeField] StoreController storeController;
 
     [Space(20f)]
     [SerializeField] StoreUISlot slotPreafb;
+    [SerializeField] GridLayoutGroup slotsLayoutGroup;
 
-    [Space(20f)]
-    [SerializeField] GridLayoutGroup layoutGroup;
-
-    [Space(20f)]
-    [SerializeField] TextMeshProUGUI titleText;
-
-    [Space(20f)]
-    [SerializeField] DynamicTextBox playerGoldInfo;
-    [SerializeField] DynamicTextBox priceInfo;
- 
-    [Space(20f)]
-    [SerializeField] TextMeshProUGUI equipButtonText;
-
-
-    [Space(20f)]
+    [Space(10f)]
     [SerializeField] Button applyButton;
-    [SerializeField] Button buyButton;
+    [SerializeField] Button purchaseButton;
     [SerializeField] Button closeButton;
 
+    [Space(10f)]
+    [SerializeField] TextMeshProUGUI titleText;
+    [SerializeField] TextMeshProUGUI applyButtonText;
+
+    [Space(10f)]
+    [SerializeField] DynamicTextBox playerGoldInfo;
+    [SerializeField] DynamicTextBox priceInfo;
+
+
+    PlayerData playerData;
+    EquipmentController equipmentController;
 
     StoreUISlot previousSlot;
     StoreUISlot currentSlot;
     List<StoreUISlot> storeUISlots = new();
 
-    Dictionary<GameEnum.ItemType, string> titleTextDict;
-    Dictionary<bool, Button> stateButtonDict;
-
-    DataManager dataManager;
-    PlayerData playerData;
-    EquipmentController equipmentController;
 
 
-    Dictionary<GameEnum.ItemType, List<StoreItemData>> typeStoreItemDatas;
-
-
-    public void Enable()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public void Disable()
-    {
-        gameObject.SetActive(false);
-    }
+    public void Enable() => gameObject.SetActive(true);
+    public void Disable() => gameObject.SetActive(false);
 
 
     public void Init(TownUIController townUIController, Player player)
     {
         playerData = player.Data;
-
         equipmentController = player.EquipmentController;
 
         storeController.Init(playerData);
 
 
-        dataManager = DataManager.Instance;
+        purchaseButton.onClick.AddListener(OnPurchase);
 
+        applyButton.onClick.AddListener(OnApply);
 
         closeButton.onClick.AddListener(townUIController.DisablePopup);
 
 
-        InitTypeStoreItemDatas(dataManager.StoreItemDatas);
-
-
-
-        layoutGroup.cellSize = slotPreafb.GetComponent<RectTransform>().sizeDelta;
-
-      
-        titleTextDict = new()
-        {
-            { GameEnum.ItemType.Riding, "Riding"}
-        };
-
-        stateButtonDict = new()
-        {
-            { true, applyButton },
-            { false, buyButton },
-        };
-
-
-
-        buyButton.onClick.AddListener(OnTryPurchase);
-        applyButton.onClick.AddListener(OnToggleEquip);
+        slotsLayoutGroup.cellSize = slotPreafb.GetComponent<RectTransform>().sizeDelta;
     }
 
 
-    public void InitUISate(GameEnum.ItemType targetType)
+    public void SetUISate(GameEnum.ItemType targetType)
     {
-        titleText.text = titleTextDict[targetType];
+        var targetStoreItemList = storeController.StoreItemDatasByType[targetType];
 
-        equipButtonText.text = GetApplyText(currentSlot.StoreItemData.isPurchased, currentSlot.StoreItemData);
-
-        playerGoldInfo.UpdateText(playerData.gold.ToString());
-
-        InitSlots(typeStoreItemDatas[targetType]);
-    }
+        CreateSlots(targetStoreItemList);
 
 
-    void InitTypeStoreItemDatas(List<StoreItemData> storeItemDatas)
-    {
-        typeStoreItemDatas = new();
-
-        for (int i = 0; i < storeItemDatas.Count; i++)
+        for (int i = 0; i < storeUISlots.Count; i++)
         {
-            var targetData = storeItemDatas[i];
+            storeUISlots[i].SetSlot(targetStoreItemList[i]);
 
-            if (!typeStoreItemDatas.ContainsKey(targetData.type))
+            if (i == 0)
             {
-                typeStoreItemDatas.Add(targetData.type, new());
+                SelectSlot(storeUISlots[i]);
             }
 
-            typeStoreItemDatas[targetData.type].Add(targetData);
+
+            var equipSlot = equipmentController.EquippedSlot[targetType];
+
+            if(equipSlot != null)
+            {
+                if (equipSlot == storeUISlots[i].StoreItemData.ItemData)
+                {
+                    SelectSlot(storeUISlots[i]);
+                }
+            }
         }
+
+
+        SetTittleText(targetType);
+
+        SetApplyText(currentSlot.StoreItemData.IsPurchased, targetType);
+
+        playerGoldInfo.UpdateText(playerData.gold.ToString());
     }
 
 
-
-    void InitSlots(List<StoreItemData> typeStoreItemList)
+    void CreateSlots(List<StoreItemData> typeStoreItemList)
     {
         for (int i = 0; i < typeStoreItemList.Count; i++)
         {
             if (storeUISlots.Count < typeStoreItemList.Count)
             {
-                var createSlot = Instantiate(slotPreafb, layoutGroup.transform);
+                var createSlot = Instantiate(slotPreafb, slotsLayoutGroup.transform);
 
-                createSlot.OnCreated(SelectSlot);
+                createSlot.Init(SelectSlot);
 
                 storeUISlots.Add(createSlot);
             }
-        }
-
-
-        for (int i = 0; i < storeUISlots.Count; i++)
-        {
-            if (i < typeStoreItemList.Count)
+            else if(storeUISlots.Count > typeStoreItemList.Count)
             {
-                storeUISlots[i].InitToItemData(typeStoreItemList[i], itemDataTable);
-            }
-            else
-            {
-                storeUISlots[i].gameObject.SetActive(false);
+                var targetSlot = storeUISlots[storeUISlots.Count - 1];
+
+                targetSlot.gameObject.SetActive(false);
+
+                storeUISlots.Remove(targetSlot);
             }
         }
     }
@@ -176,60 +137,81 @@ public class StoreUI : MonoBehaviour, IPopupUI
 
         var slotItem = currentSlot.StoreItemData;
 
-        var price = itemDataTable.TryGetItemData(slotItem.itemName, out ItemData data) ? 
-            data.Price :
-            0;
 
-        priceInfo.UpdateText(price.ToString());
+        SetButtonState(slotItem.IsPurchased);
 
-
-        foreach (var item in stateButtonDict)
-        {
-            item.Value.gameObject.SetActive(item.Key == slotItem.isPurchased);
-        }
+        priceInfo.UpdateText(slotItem.ItemData.Price.ToString());
     }
 
 
+    void SetApplyText(bool isEquipped, GameEnum.ItemType type)
+    {
+        string text;
 
-    void OnTryPurchase()
+        switch (type)
+        {
+            case GameEnum.ItemType.Riding: text = isEquipped ?  "Dismount" : "Mount";
+                break;
+            default: text = ""; 
+                break;
+        }
+
+        applyButtonText.text = text;
+    }
+
+    void SetTittleText(GameEnum.ItemType type)
+    {
+        string text;
+
+        switch (type)
+        {
+            case GameEnum.ItemType.Riding: text = "Riding"; 
+                break;
+            default: text =  "";
+                break;
+        }
+
+        titleText.text = text;
+    }
+
+    void SetButtonState(bool isPurchased)
+    {
+        applyButton.gameObject.SetActive(isPurchased);
+        purchaseButton.gameObject.SetActive(!isPurchased);
+    }
+
+    void OnPurchase()
     {
         if (storeController.TryPurchaseItem(currentSlot.StoreItemData))
         {
+            SetButtonState(true);
+
+            SetApplyText(false, currentSlot.StoreItemData.ItemData.Type);
+
             currentSlot.LockCoverImage.enabled = false;
 
             playerGoldInfo.UpdateText(playerData.gold.ToString());
         }
     }
 
-
-    void OnToggleEquip()
+    void OnApply()
     {
-        EquipmentItemData targetData = null;
-
-
-        if(itemDataTable.TryGetItemData(currentSlot.StoreItemData.itemName, out ItemData itemData))
+        if (currentSlot.StoreItemData.ItemData is EquipmentItemData targetData)
         {
-            if(itemData is EquipmentItemData equipmentData)
-            {
-                targetData = equipmentData;
+            var targetSlot = equipmentController.EquippedSlot[targetData.Type];
 
+            if (targetSlot != null)
+            {
+                equipmentController.UnEquip(targetSlot);
+
+                SetApplyText(false, currentSlot.StoreItemData.ItemData.Type);
+            }
+            else
+            {
+                equipmentController.Equip(targetData);
+
+                SetApplyText(true, currentSlot.StoreItemData.ItemData.Type);
             }
         }
-
-        equipmentController.ToggleEquip(targetData);
     }
-
-
-    string GetApplyText(bool isEquip, StoreItemData itemData)
-    {
-        switch (itemData.type)
-        {
-            case GameEnum.ItemType.Riding:
-                return isEquip ? "Mount" : "Dismount";
-
-            default: return "";
-        }
-    }
-
-    
 }

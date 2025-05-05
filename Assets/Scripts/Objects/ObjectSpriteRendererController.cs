@@ -27,9 +27,9 @@ public class ObjectSpriteRendererController : MonoBehaviour
         return false;
     }
 
-    public void ChangeLibraryAsset(string partsKey, SpriteLibraryAsset asset)
+    public void ChangeLibraryAsset(string rendererName, SpriteLibraryAsset asset)
     {
-        if(TryGetRenderer(partsKey, out ObjectSpriteRenderer target)) 
+        if(TryGetRenderer(rendererName, out ObjectSpriteRenderer target)) 
         {
             target.SpriteLibrary.spriteLibraryAsset = asset;
         }
