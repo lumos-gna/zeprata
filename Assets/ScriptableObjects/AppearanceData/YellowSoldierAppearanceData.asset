@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   dataName: YellowSolider
-  iconSprite: {fileID: 1681650136, guid: 983967335b77a6142b243bce7951c88c, type: 3}
-  previewSprite: {fileID: 1578991781, guid: 983967335b77a6142b243bce7951c88c, type: 3}
+  iconSprite: {fileID: -1778869977, guid: 654fd0a8eebc2f24d931f1285de1dc37, type: 3}
+  previewSprite: {fileID: 1770147234, guid: 654fd0a8eebc2f24d931f1285de1dc37, type: 3}
   libraryAsset: {fileID: 7108339969198208228, guid: 4440fec91883b4c4ca9a0001f45e5fec, type: 3}

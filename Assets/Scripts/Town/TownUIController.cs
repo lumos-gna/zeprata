@@ -9,6 +9,7 @@ public class TownUIController : MonoBehaviour
     [Header("HUD")]
     [SerializeField] Canvas canvasHUD;
     [SerializeField] Button appearanceUIButton;
+    [SerializeField] Image appearanceUIIcon;
     [SerializeField] Button ridingUIButton;
 
     [Space(10f)]
@@ -23,10 +24,18 @@ public class TownUIController : MonoBehaviour
 
 
     void OnEnable()
-        => player.InputController.OnUIToggleEvent += (enabled) => DisablePopup();
+    {
+        player.InputController.OnUIToggleEvent += (enabled) => DisablePopup();
+        player.AppearanceController.OnToggleAppearanceEvent += (data) =>
+            appearanceUIIcon.sprite = data.IconSprite;
+    }
 
     void OnDisable()
-        => player.InputController.OnUIToggleEvent -= (enabled) => DisablePopup();
+    {
+        player.InputController.OnUIToggleEvent -= (enabled) => DisablePopup();
+        player.AppearanceController.OnToggleAppearanceEvent -= (data) =>
+          appearanceUIIcon.sprite = data.IconSprite;
+    }
 
 
     public void Init(Player player)
@@ -37,6 +46,8 @@ public class TownUIController : MonoBehaviour
         appearanceUI.Init(this, player.AppearanceController);
 
         storeUI.Init(this, player);
+
+        appearanceUIIcon.sprite = player.AppearanceController.EquipData.IconSprite;
 
 
         appearanceUIButton.onClick.AddListener(() => EnablePopup(appearanceUI));

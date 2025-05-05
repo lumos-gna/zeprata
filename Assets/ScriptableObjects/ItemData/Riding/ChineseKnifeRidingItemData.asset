@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa8ba2b8db35e047a9d9d64f49a15a1, type: 3}
+  m_Name: ChineseKnifeRidingItemData
+  m_EditorClassIdentifier: 
+  type: 0
+  itemName: ChineseKnife
+  price: 100
+  iconSprite: {fileID: 1272401286, guid: b04776ddc0e89c244b71a619ee8f3d61, type: 3}
+  statData:
+    moveSpeed: 1.5
+  spriteAsset: {fileID: 7108339969198208228, guid: 93ed4f8db7ad32144a4b0767be562e28, type: 3}
+  mountHeight: 0.6
