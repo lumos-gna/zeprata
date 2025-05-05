@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+
 
 public class AppearanceUI : MonoBehaviour, IPopupUI
 {
@@ -58,7 +58,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
 
 
 
-    public void Init(AppearanceController appearanceController)
+    public void Init(TownUIController townUIController, AppearanceController appearanceController)
     {
         this.appearanceController = appearanceController;
 
@@ -67,7 +67,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
 
         applyButton.onClick.AddListener(ApplyData);
 
-        closeButton.onClick.AddListener(() => Disable());
+        closeButton.onClick.AddListener(townUIController.DisablePopup);
 
         OnSelectSlotAction = (slot) =>
         {
@@ -141,7 +141,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     {
         if(currentSlot != null)
         {
-            appearanceController.Change(currentSlot.AppearanceData);
+            appearanceController.ToggleAppearance(currentSlot.AppearanceData);
 
             ActiveApplyBlock(true);
         }

@@ -26,18 +26,20 @@ public class StoreUISlot : MonoBehaviour
 
     StoreItemData storeItemData;
 
-    public void InitToItemData(StoreItemData storeItemData)
+    public void InitToItemData(StoreItemData storeItemData, ItemDataTable itemTable)
     {
         this.storeItemData = storeItemData;
 
-        var itemData = DataManager.Instance.ItemDataDict[storeItemData.itemName];
 
-        iconImage.sprite = itemData.IconSprite;
-        iconImage.SetNativeSize();
+        if(itemTable.TryGetItemData(storeItemData.itemName, out ItemData targetData))
+        {
+            iconImage.sprite = targetData.IconSprite;
+            iconImage.SetNativeSize();
 
-        nameText.text = itemData.ItemName;
+            nameText.text = targetData.ItemName;
 
-        lockCoverImage.enabled = !storeItemData.isPurchased;
+            lockCoverImage.enabled = !storeItemData.isPurchased;
+        }
     }
 
     public void OnCreated(UnityAction<StoreUISlot> onSelectAction)

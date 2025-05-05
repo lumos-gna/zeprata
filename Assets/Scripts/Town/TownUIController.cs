@@ -34,24 +34,38 @@ public class TownUIController : MonoBehaviour
         this.player = player;
 
 
-        appearanceUI.Init(player.AppearanceController);
+        appearanceUI.Init(this, player.AppearanceController);
 
-        storeUI.Init();
+        storeUI.Init(this, player);
 
-        appearanceUIButton.onClick.AddListener(() =>
-        {
-            popupUIStack.Push(appearanceUI);
-            appearanceUI.Enable();
-        });
+
+        appearanceUIButton.onClick.AddListener(() => EnablePopup(appearanceUI));
 
         ridingUIButton.onClick.AddListener(() =>
         {
-            storeUI.InitToSlots(GameEnum.ItemType.Riding);
-            storeUI.gameObject.SetActive(true);
+            EnablePopup(storeUI);
+
+            storeUI.InitUISate(GameEnum.ItemType.Riding);
         });
     }
 
 
-    void DisablePopup() => popupUIStack.Pop().Disable();
+    public void DisablePopup()
+    {
+        popupUIStack.Pop().Disable();
 
+        if(popupUIStack.Count == 0 ) 
+        {
+            player.InputController.SwitchInputType(GameEnum.InputType.Player);
+        }
+    }
+
+    public void EnablePopup(IPopupUI popupUI)
+    {
+        popupUIStack.Push(popupUI);
+
+        popupUI.Enable();
+
+        player.InputController.SwitchInputType(GameEnum.InputType.UI);
+    }
 }

@@ -8,17 +8,11 @@ public class DataManager : Singleton<DataManager>
 
     public int TapRunnerScore { get; set; }
     public PlayerData PlayerData { get; private set; }
-    public List<EquippedItemData> EquippedItemDatas { get; private set; }
-    public List<StoreItemData> StoreItemDatas { get; private set; }
+    public List<StoreItemData> StoreItemDatas { get; private set; } = new();
 
 
 
-
-    public Dictionary<string, ItemData> ItemDataDict { get; private set; }
-
-  
-
-    [SerializeField] ItemData[] itemDatas;
+    [SerializeField] ItemDataTable itemDataTable;
 
 
     protected override void Awake()
@@ -33,14 +27,22 @@ public class DataManager : Singleton<DataManager>
     {
         PlayerData = new()
         {
-            gold = 2000
+            gold = 2000,
+            statData = new()
+            {
+                moveSpeed = 4
+            }
         };
 
 
-        StoreItemDatas = new();
-
-
-        EquippedItemDatas = new();
+        for (int i = 0; i < itemDataTable.Datas.Length; i++)
+        {
+            StoreItemDatas.Add(
+                new StoreItemData()
+                {
+                    itemName = itemDataTable.Datas[i].ItemName,
+                    isPurchased = false
+                }); ;
+        }
     }
-  
 }

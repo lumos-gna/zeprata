@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public PlayerData Data => data;
     public InputController InputController => inputController;
     public AppearanceController AppearanceController => appearanceController;
+    public EquipmentController EquipmentController => equipmentController;  
 
-
-    [SerializeField] float moveSpeed;
 
     [SerializeField] Canvas interactGuideCanvas;
 
@@ -35,9 +35,14 @@ public class Player : MonoBehaviour
 
     bool isJumping = false;
 
+    float mountDefalutHeight;
+
     Vector2 moveDir;
 
-    Vector2 characterRendererDefalutPos;
+
+    PlayerData data;
+
+    DataManager dataManager;
 
 
     void FixedUpdate()
@@ -48,29 +53,37 @@ public class Player : MonoBehaviour
 
     public void Init()
     {
+        dataManager = DataManager.Instance;
+
+        data = dataManager.PlayerData;
+
+
         if (rendererController.TryGetRenderer("Characetr", out ObjectSpriteRenderer target))
         {
-            characterRendererDefalutPos = target.transform.position;
+            mountDefalutHeight = target.transform.localPosition.y;
         }
 
 
-        appearanceController.OnChangeEvent += (data) => rendererController.ChangeLibraryAsset(data.Type.ToString(), data.LibraryAsset);
-
-
-        equipmentController.OnEquippedItem += (data) =>
+        appearanceController.OnToggleAppearanceEvent += (appearanceData) =>
         {
-            switch (data)
+            rendererController.ChangeLibraryAsset(appearanceData.Type.ToString(), appearanceData.LibraryAsset);
+        };
+
+        equipmentController.Init(new(), data.statData);
+
+        equipmentController.OnToggleEquipEvent += (isEquip, targetData) =>
+        {
+            var changedAsset = isEquip ? targetData.SpriteAsset : null;
+
+            rendererController.ChangeLibraryAsset(targetData.Type.ToString(), changedAsset);
+
+            switch (targetData)
             {
-                case RidingItemData ridingItemData: ToggleMount(true, ridingItemData); break;
+                case RidingItemData ridingItemData: ToggleMount(isEquip, ridingItemData); break;
             }
         };
-        equipmentController.OnUnEquippedItem += (data) =>
-        {
-            switch (data)
-            {
-                case RidingItemData ridingItemData: ToggleMount(false, ridingItemData); break;
-            }
-        };
+
+       
 
         triggerController.Init(gameObject);
 
@@ -101,11 +114,20 @@ public class Player : MonoBehaviour
 
     void ToggleMount(bool isMount, RidingItemData data)
     {
-        animator.SetBool("isRide", isMount);
+        animator.SetBool("isMount", isMount);
 
-        if (rendererController.TryGetRenderer("Characetr", out ObjectSpriteRenderer target))
+        if (rendererController.TryGetRenderer("Character", out ObjectSpriteRenderer character))
         {
-            target.transform.position = isMount ? data.MountPoint : characterRendererDefalutPos;
+            Vector2 tempLocalPos = character.transform.localPosition;
+
+            tempLocalPos.y = isMount ? data.MountHeight : mountDefalutHeight;
+
+            character.transform.localPosition = tempLocalPos;
+        }
+
+        if (rendererController.TryGetRenderer("Riding", out ObjectSpriteRenderer riding))
+        {
+            riding.gameObject.SetActive(isMount);
         }
     }
 
@@ -113,13 +135,13 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        rigid.MovePosition(rigid.position + (moveDir * moveSpeed * Time.fixedDeltaTime));
+        rigid.MovePosition(rigid.position + (moveDir * data.statData.moveSpeed * Time.fixedDeltaTime));
 
-        bool isMove = moveDir != Vector2.zero;
+        float speed = moveDir != Vector2.zero ? data.statData.moveSpeed : 0;
 
-        animator.SetBool("isMove", isMove);
+        animator.SetFloat("Speed", speed);
 
-        if (isMove)
+        if (speed > 0 && moveDir.x != 0)
         {
             rendererController.SetRenderersFlipX(moveDir.x < 0);
         }

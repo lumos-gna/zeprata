@@ -5,48 +5,40 @@ using UnityEngine.Events;
 
 public class EquipmentController : MonoBehaviour
 {
+    public event UnityAction<bool, EquipmentItemData> OnToggleEquipEvent;
+
     public Dictionary<GameEnum.ItemType, EquipmentItemData> ItemDatas => itemDatas;
 
-    public event UnityAction<EquipmentItemData> OnEquippedItem;
 
-    public event UnityAction<EquipmentItemData> OnUnEquippedItem;
+    Dictionary<GameEnum.ItemType, EquipmentItemData> itemDatas = new();
 
-
-    Dictionary<GameEnum.ItemType, EquipmentItemData> itemDatas;
+    StatData targetStat;
 
 
-    private void Awake()
+    public void Init(List<EquipmentItemData> equipmentItemDatas, StatData targetStat)
     {
-        itemDatas = new();
+        this.targetStat = targetStat;
+
+
+        for (int i = 0; i < equipmentItemDatas.Count; i++) 
+        {
+            var targetData = equipmentItemDatas[i];
+
+            itemDatas[targetData.Type] = targetData;
+        }
     }
 
 
-    public void Equip(EquipmentItemData itemData)
-    {
-        GameEnum.ItemType type = itemData.Type;
-
-        if(itemDatas.ContainsKey(type)) 
-        {
-            itemDatas[type] = itemData;
-        }
-        else
-        {
-            itemDatas.Add(type, itemData);
-        }
-
-        OnEquippedItem?.Invoke(itemData);
-    }
-
-    public void UnEquip(EquipmentItemData itemData)
+    public void ToggleEquip(EquipmentItemData itemData)
     {
         GameEnum.ItemType type = itemData.Type;
 
-        if (itemDatas.ContainsKey(type))
-        {
-            itemDatas.Remove(type);
-        }
+        itemDatas[type] = itemData;
 
-        OnUnEquippedItem?.Invoke(itemData); 
+        bool isEquip = itemData != null;
+
+        targetStat.ApplyTarget(isEquip, itemData.StatData);
+
+        OnToggleEquipEvent?.Invoke(isEquip, itemData);
     }
-   
 }

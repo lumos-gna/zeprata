@@ -27,7 +27,7 @@ public class GameManager : Singleton<GameManager>
 
         player.Init();
 
-        player.AppearanceController.Change(randAppearance);
+        player.AppearanceController.ToggleAppearance(randAppearance);
     }
 
 }

@@ -38,18 +38,8 @@ MonoBehaviour:
       m_Sprite: {fileID: 0}
       m_FromMain: 0
       m_SpriteOverride: {fileID: 0}
-    - m_Name: 03
-      m_Hash: 558843162
-      m_Sprite: {fileID: 0}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 0}
-    - m_Name: 04
-      m_Hash: 1059836089
-      m_Sprite: {fileID: 0}
-      m_FromMain: 0
-      m_SpriteOverride: {fileID: 0}
     m_FromMain: 0
-    m_EntryOverrideCount: 4
+    m_EntryOverrideCount: 2
   - m_Name: Jump
     m_Hash: 125937960
     m_CategoryList: []
@@ -62,5 +52,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 1
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638819089137372643
+  m_ModificationHash: 638820370493211745
   m_Version: 1

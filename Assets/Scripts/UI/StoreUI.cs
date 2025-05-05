@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StoreUI : MonoBehaviour
+public class StoreUI : MonoBehaviour, IPopupUI
 {
-    
+    [SerializeField] ItemDataTable itemDataTable;
+    [SerializeField] StoreController storeController;
 
     [Space(20f)]
     [SerializeField] StoreUISlot slotPreafb;
-
-    [SerializeField] Transform slotsParent;
 
     [Space(20f)]
     [SerializeField] GridLayoutGroup layoutGroup;
@@ -20,24 +20,16 @@ public class StoreUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI titleText;
 
     [Space(20f)]
-    [SerializeField] TextMeshProUGUI goldText;
-
-    [SerializeField] RectTransform goldTextParent;
-
-    [Space(20f)]
-    [SerializeField] TextMeshProUGUI priceText;
-
-    [SerializeField] RectTransform priceTextParent;
-
+    [SerializeField] DynamicTextBox playerGoldInfo;
+    [SerializeField] DynamicTextBox priceInfo;
+ 
     [Space(20f)]
     [SerializeField] TextMeshProUGUI equipButtonText;
 
 
     [Space(20f)]
-    [SerializeField] Button equipButton;
-
+    [SerializeField] Button applyButton;
     [SerializeField] Button buyButton;
-
     [SerializeField] Button closeButton;
 
 
@@ -46,28 +38,49 @@ public class StoreUI : MonoBehaviour
     List<StoreUISlot> storeUISlots = new();
 
     Dictionary<GameEnum.ItemType, string> titleTextDict;
-    Dictionary<GameEnum.ItemType, string> equipTextDict;
     Dictionary<bool, Button> stateButtonDict;
 
     DataManager dataManager;
     PlayerData playerData;
-
-    Vector2 goldInfoDefalutSize;
-    Vector2 priceInfoDefalutSize;
+    EquipmentController equipmentController;
 
 
-    public void Init()
+    Dictionary<GameEnum.ItemType, List<StoreItemData>> typeStoreItemDatas;
+
+
+    public void Enable()
     {
+        gameObject.SetActive(true);
+    }
+
+    public void Disable()
+    {
+        gameObject.SetActive(false);
+    }
+
+
+    public void Init(TownUIController townUIController, Player player)
+    {
+        playerData = player.Data;
+
+        equipmentController = player.EquipmentController;
+
+        storeController.Init(playerData);
+
+
         dataManager = DataManager.Instance;
-        playerData = dataManager.PlayerData;
+
+
+        closeButton.onClick.AddListener(townUIController.DisablePopup);
+
+
+        InitTypeStoreItemDatas(dataManager.StoreItemDatas);
+
+
 
         layoutGroup.cellSize = slotPreafb.GetComponent<RectTransform>().sizeDelta;
 
-        equipTextDict = new()
-        {
-            { GameEnum.ItemType.Riding, "Ride"}
-        };
-
+      
         titleTextDict = new()
         {
             { GameEnum.ItemType.Riding, "Riding"}
@@ -75,46 +88,47 @@ public class StoreUI : MonoBehaviour
 
         stateButtonDict = new()
         {
-            { true, equipButton },
+            { true, applyButton },
             { false, buyButton },
         };
 
-        goldInfoDefalutSize = goldTextParent.sizeDelta;
-        priceInfoDefalutSize = priceTextParent.sizeDelta;
 
-        buyButton.onClick.AddListener(BuyItem);
+
+        buyButton.onClick.AddListener(OnTryPurchase);
+        applyButton.onClick.AddListener(OnToggleEquip);
     }
 
 
-    public void InitToSlots(GameEnum.ItemType itemType)
+    public void InitUISate(GameEnum.ItemType targetType)
     {
-        titleText.text = titleTextDict[itemType];
-        equipButtonText.text = equipTextDict[itemType];
+        titleText.text = titleTextDict[targetType];
 
-        InitNumberText(goldText, goldTextParent, goldInfoDefalutSize, playerData.gold);
+        equipButtonText.text = GetApplyText(currentSlot.StoreItemData.isPurchased, currentSlot.StoreItemData);
 
+        playerGoldInfo.UpdateText(playerData.gold.ToString());
 
-        var typeCustomizeItemList = GetTypeItemList(itemType, dataManager.StoreItemDatas);
-
-        InitSlots(typeCustomizeItemList);
+        InitSlots(typeStoreItemDatas[targetType]);
     }
 
 
-
-    List<StoreItemData> GetTypeItemList(GameEnum.ItemType itemType, List<StoreItemData> allItemList)
+    void InitTypeStoreItemDatas(List<StoreItemData> storeItemDatas)
     {
-        var tpyeItmeList = new List<StoreItemData>();
+        typeStoreItemDatas = new();
 
-        for (int i = 0; i < allItemList.Count; i++)
+        for (int i = 0; i < storeItemDatas.Count; i++)
         {
-            if (dataManager.ItemDataDict[allItemList[i].itemName].Type == itemType)
-            {
-                tpyeItmeList.Add(allItemList[i]);
-            }
-        }
+            var targetData = storeItemDatas[i];
 
-        return tpyeItmeList;
+            if (!typeStoreItemDatas.ContainsKey(targetData.type))
+            {
+                typeStoreItemDatas.Add(targetData.type, new());
+            }
+
+            typeStoreItemDatas[targetData.type].Add(targetData);
+        }
     }
+
+
 
     void InitSlots(List<StoreItemData> typeStoreItemList)
     {
@@ -122,7 +136,7 @@ public class StoreUI : MonoBehaviour
         {
             if (storeUISlots.Count < typeStoreItemList.Count)
             {
-                var createSlot = Instantiate(slotPreafb, slotsParent);
+                var createSlot = Instantiate(slotPreafb, layoutGroup.transform);
 
                 createSlot.OnCreated(SelectSlot);
 
@@ -135,7 +149,7 @@ public class StoreUI : MonoBehaviour
         {
             if (i < typeStoreItemList.Count)
             {
-                storeUISlots[i].InitToItemData(typeStoreItemList[i]);
+                storeUISlots[i].InitToItemData(typeStoreItemList[i], itemDataTable);
             }
             else
             {
@@ -160,73 +174,62 @@ public class StoreUI : MonoBehaviour
         currentSlot.SelectedImage.gameObject.SetActive(true);
 
 
-        var storeItem = currentSlot.StoreItemData;
+        var slotItem = currentSlot.StoreItemData;
 
-        InitNumberText(
-            priceText, 
-            priceTextParent, 
-            priceInfoDefalutSize, 
-            dataManager.ItemDataDict[storeItem.itemName].Price);
+        var price = itemDataTable.TryGetItemData(slotItem.itemName, out ItemData data) ? 
+            data.Price :
+            0;
+
+        priceInfo.UpdateText(price.ToString());
 
 
         foreach (var item in stateButtonDict)
         {
-            item.Value.gameObject.SetActive(item.Key == storeItem.isPurchased);
+            item.Value.gameObject.SetActive(item.Key == slotItem.isPurchased);
         }
     }
 
-    void BuyItem()
+
+
+    void OnTryPurchase()
     {
-        var targetStoreItemData = currentSlot.StoreItemData;
-
-        var itemData = dataManager.ItemDataDict[targetStoreItemData.itemName];
-
-
-        if(itemData.Price <= playerData.gold)
+        if (storeController.TryPurchaseItem(currentSlot.StoreItemData))
         {
             currentSlot.LockCoverImage.enabled = false;
 
-            targetStoreItemData.isPurchased = true;
+            playerGoldInfo.UpdateText(playerData.gold.ToString());
+        }
+    }
 
-            playerData.gold -= itemData.Price;
+
+    void OnToggleEquip()
+    {
+        EquipmentItemData targetData = null;
 
 
-            InitNumberText(goldText, goldTextParent, goldInfoDefalutSize, playerData.gold);
-
-            foreach (var item in stateButtonDict)
+        if(itemDataTable.TryGetItemData(currentSlot.StoreItemData.itemName, out ItemData itemData))
+        {
+            if(itemData is EquipmentItemData equipmentData)
             {
-                item.Value.gameObject.SetActive(item.Key == currentSlot.StoreItemData.isPurchased);
+                targetData = equipmentData;
+
             }
         }
-    }
 
-    void EquipItem()
-    {
-
+        equipmentController.ToggleEquip(targetData);
     }
 
 
-    void InitNumberText(TextMeshProUGUI targetText, RectTransform textParent, Vector2 defalutSize, int number)
+    string GetApplyText(bool isEquip, StoreItemData itemData)
     {
-        targetText.text = number.ToString();
-
-        int placeCount = 0;
-
-        while(number > 0) 
+        switch (itemData.type)
         {
-            number /= 10;
+            case GameEnum.ItemType.Riding:
+                return isEquip ? "Mount" : "Dismount";
 
-            placeCount++;
-
+            default: return "";
         }
-
-        defalutSize.x += targetText.fontSize / 2 * placeCount;
-
-        textParent.sizeDelta = defalutSize;
-
     }
 
-
-
- 
+    
 }

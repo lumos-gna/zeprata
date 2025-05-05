@@ -34,7 +34,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_SpriteHash
-    path: ObjectSpriteRendererHandler/Character
+    path: Sprites/Character
     classID: 114
     script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
     flags: 1
@@ -55,7 +55,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_SpriteHash
-    path: ObjectSpriteRendererHandler/Riding
+    path: Sprites/Riding
     classID: 114
     script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
     flags: 1
@@ -68,7 +68,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1755977665
+      path: 1744681313
       attribute: 3843704414
       script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
       typeID: 114
@@ -77,7 +77,7 @@ AnimationClip:
       isIntCurve: 1
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 3142931859
+      path: 792722485
       attribute: 3843704414
       script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
       typeID: 114
@@ -124,7 +124,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_SpriteHash
-    path: ObjectSpriteRendererHandler/Character
+    path: Sprites/Character
     classID: 114
     script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
     flags: 1
@@ -145,7 +145,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_SpriteHash
-    path: ObjectSpriteRendererHandler/Riding
+    path: Sprites/Riding
     classID: 114
     script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
     flags: 1

@@ -6,6 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/RidingItemData")]
 public class RidingItemData : EquipmentItemData
 {
-    [SerializeField] Vector2 mountPoint; 
-    public Vector2 MountPoint => mountPoint;
+    [SerializeField] float mountHeight;
+    public float MountHeight => mountHeight;
 }
