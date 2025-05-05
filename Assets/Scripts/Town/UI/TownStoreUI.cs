@@ -5,12 +5,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StoreUI : MonoBehaviour, IPopupUI
+public class TownStoreUI : MonoBehaviour, IPopupUI
 {
     [SerializeField] StoreController storeController;
 
     [Space(20f)]
-    [SerializeField] StoreUISlot slotPreafb;
+    [SerializeField] TownStoreUISlot slotPreafb;
     [SerializeField] GridLayoutGroup slotsLayoutGroup;
 
     [Space(10f)]
@@ -30,9 +30,9 @@ public class StoreUI : MonoBehaviour, IPopupUI
     PlayerData playerData;
     EquipmentController equipmentController;
 
-    StoreUISlot previousSlot;
-    StoreUISlot currentSlot;
-    List<StoreUISlot> storeUISlots = new();
+    TownStoreUISlot previousSlot;
+    TownStoreUISlot currentSlot;
+    List<TownStoreUISlot> storeUISlots = new();
 
 
 
@@ -120,7 +120,7 @@ public class StoreUI : MonoBehaviour, IPopupUI
     }
 
 
-    void SelectSlot(StoreUISlot targetSlot)
+    void SelectSlot(TownStoreUISlot targetSlot)
     {
         previousSlot = currentSlot;
 

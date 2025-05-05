@@ -1,7 +1,5 @@
 
 
-
-
 [System.Serializable]
 public class StatData
 {

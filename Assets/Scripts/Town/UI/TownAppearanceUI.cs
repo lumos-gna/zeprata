@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 
-public class AppearanceUI : MonoBehaviour, IPopupUI
+public class TownAppearanceUI : MonoBehaviour, IPopupUI
 {
     [SerializeField] AppearanceDataTable appearanceDataTable;
 
@@ -23,20 +23,20 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     [SerializeField] Button closeButton;
 
     [Space(20f)]
-    [SerializeField] AppearanceUISlot slotPrefab;
+    [SerializeField] TownAppearanceUISlot slotPrefab;
     [SerializeField] RectTransform slotParent;
 
 
     AppearanceController appearanceController;
 
 
-    List<AppearanceUISlot> slotList;
+    List<TownAppearanceUISlot> slotList;
 
-    AppearanceUISlot currentSlot;
-    AppearanceUISlot previousSlot;
+    TownAppearanceUISlot currentSlot;
+    TownAppearanceUISlot previousSlot;
 
 
-    UnityAction<AppearanceUISlot> OnSelectSlotAction;
+    UnityAction<TownAppearanceUISlot> OnSelectSlotAction;
 
 
 
@@ -45,7 +45,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
         gameObject.SetActive(true);
 
 
-        if(TryGetSlot(appearanceController.EquipData, out AppearanceUISlot targetSlot))
+        if(TryGetSlot(appearanceController.EquipData, out TownAppearanceUISlot targetSlot))
         {
             OnSelectSlotAction(targetSlot);
         }
@@ -80,7 +80,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
     }
 
 
-    bool TryGetSlot(AppearanceData targetData, out AppearanceUISlot slot)
+    bool TryGetSlot(AppearanceData targetData, out TownAppearanceUISlot slot)
     {
         for (int i = 0; i < slotList.Count; i++)
         {
@@ -114,7 +114,7 @@ public class AppearanceUI : MonoBehaviour, IPopupUI
 
 
 
-    void SelectSlot(AppearanceUISlot targetSlot)
+    void SelectSlot(TownAppearanceUISlot targetSlot)
     {
         ActiveApplyBlock(appearanceController.EquipData == targetSlot.AppearanceData);
 

@@ -15,8 +15,8 @@ public class TownUIController : MonoBehaviour
     [Space(10f)]
     [Header("Popup")]
     [SerializeField] Canvas canvasPopup;
-    [SerializeField] AppearanceUI appearanceUI;
-    [SerializeField] StoreUI storeUI;
+    [SerializeField] TownAppearanceUI appearanceUI;
+    [SerializeField] TownStoreUI storeUI;
 
     Stack<IPopupUI> popupUIStack = new();
 

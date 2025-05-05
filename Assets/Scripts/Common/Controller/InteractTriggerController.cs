@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 
 [RequireComponent(typeof(Collider2D))]
-public class InteractTriggerHandler : MonoBehaviour
+public class InteractTriggerController : MonoBehaviour
 {
     GameObject source;
 

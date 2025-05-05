@@ -5387,7 +5387,7 @@ GameObject:
   - component: {fileID: 257056345}
   - component: {fileID: 257056344}
   m_Layer: 5
-  m_Name: AppearanceUI
+  m_Name: TownAppearanceUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6793,7 +6793,7 @@ GameObject:
   - component: {fileID: 761110264}
   - component: {fileID: 761110267}
   m_Layer: 5
-  m_Name: StoreUI
+  m_Name: TownStoreUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6909,7 +6909,7 @@ GameObject:
   - component: {fileID: 788323467}
   - component: {fileID: 788323466}
   m_Layer: 5
-  m_Name: MenuUI
+  m_Name: MenuHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

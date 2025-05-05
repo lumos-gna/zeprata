@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AppearanceUISlot : MonoBehaviour
+public class TownAppearanceUISlot : MonoBehaviour
 {
     public AppearanceData AppearanceData => appearanceData;
 
@@ -16,7 +16,7 @@ public class AppearanceUISlot : MonoBehaviour
     AppearanceData appearanceData;
 
 
-    public void Init(AppearanceData appearanceData, UnityAction<AppearanceUISlot> selectCallback)
+    public void Init(AppearanceData appearanceData, UnityAction<TownAppearanceUISlot> selectCallback)
     {
         this.appearanceData = appearanceData;
 

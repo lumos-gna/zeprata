@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] InputController inputController;
 
-    [SerializeField] InteractTriggerHandler triggerController;
+    [SerializeField] InteractTriggerController triggerController;
 
 
     PlayerData data;

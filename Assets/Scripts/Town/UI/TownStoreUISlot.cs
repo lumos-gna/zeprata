@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class StoreUISlot : MonoBehaviour
+public class TownStoreUISlot : MonoBehaviour
 {
     public StoreItemData StoreItemData => storeItemData;
 
@@ -26,7 +26,7 @@ public class StoreUISlot : MonoBehaviour
 
     StoreItemData storeItemData;
 
-    public void Init(UnityAction<StoreUISlot> onSelectAction)
+    public void Init(UnityAction<TownStoreUISlot> onSelectAction)
     {
         selectButton.onClick.AddListener(() => onSelectAction?.Invoke(this));
     }
