@@ -59,7 +59,7 @@ public class StoreUI : MonoBehaviour, IPopupUI
     }
 
 
-    public void SetUISate(GameEnum.ItemType targetType)
+    public void SetUIState(GameEnum.ItemType targetType)
     {
         var targetStoreItemList = storeController.StoreItemDatasByType[targetType];
 
@@ -90,7 +90,7 @@ public class StoreUI : MonoBehaviour, IPopupUI
 
         SetTittleText(targetType);
 
-        SetApplyText(currentSlot.StoreItemData.IsPurchased, targetType);
+        SetApplyText(currentSlot.StoreItemData);
 
         playerGoldInfo.UpdateText(playerData.gold.ToString());
     }
@@ -140,18 +140,24 @@ public class StoreUI : MonoBehaviour, IPopupUI
 
         SetButtonState(slotItem.IsPurchased);
 
+        SetApplyText(slotItem);
+
         priceInfo.UpdateText(slotItem.ItemData.Price.ToString());
     }
 
 
-    void SetApplyText(bool isEquipped, GameEnum.ItemType type)
+    void SetApplyText(StoreItemData storeItemData)
     {
         string text;
 
-        switch (type)
+        var itemData = storeItemData.ItemData;
+
+        switch (itemData.Type)
         {
-            case GameEnum.ItemType.Riding: text = isEquipped ?  "Dismount" : "Mount";
+            case GameEnum.ItemType.Riding: 
+                text = equipmentController.EquippedSlot[itemData.Type] == itemData ?  "Dismount" : "Mount";
                 break;
+
             default: text = ""; 
                 break;
         }
@@ -184,13 +190,13 @@ public class StoreUI : MonoBehaviour, IPopupUI
     {
         if (storeController.TryPurchaseItem(currentSlot.StoreItemData))
         {
-            SetButtonState(true);
-
-            SetApplyText(false, currentSlot.StoreItemData.ItemData.Type);
-
             currentSlot.LockCoverImage.enabled = false;
 
             playerGoldInfo.UpdateText(playerData.gold.ToString());
+
+            SetButtonState(true);
+
+            SetApplyText(currentSlot.StoreItemData);
         }
     }
 
@@ -200,18 +206,16 @@ public class StoreUI : MonoBehaviour, IPopupUI
         {
             var targetSlot = equipmentController.EquippedSlot[targetData.Type];
 
-            if (targetSlot != null)
+            if (targetSlot == currentSlot.StoreItemData.ItemData)
             {
                 equipmentController.UnEquip(targetSlot);
-
-                SetApplyText(false, currentSlot.StoreItemData.ItemData.Type);
             }
             else
             {
                 equipmentController.Equip(targetData);
-
-                SetApplyText(true, currentSlot.StoreItemData.ItemData.Type);
             }
+
+            SetApplyText(currentSlot.StoreItemData);
         }
     }
 }

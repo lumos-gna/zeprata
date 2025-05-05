@@ -8,24 +8,19 @@ using UnityEngine.InputSystem;
 public class InputController : MonoBehaviour
 {
     public event UnityAction<bool> OnUIToggleEvent;
-    public UnityAction<Vector2> OnUIScrollEvent { private get; set; }
-
-
     public event UnityAction<Vector2> OnMoveEvent;
     public event UnityAction OnJumpEvent;
     public event UnityAction OnInteractEvent;
 
-
-
     public UnityAction OnTapRunnerJumpEvent { private get; set; }
-
-
-    [SerializeField] PlayerInput input;
-
 
     GameEnum.InputType previousInputType;
     GameEnum.InputType currentInputType;
 
+    PlayerInput input;
+  
+
+    public void Init(PlayerInput input) => this.input = input;
 
     public void SwitchInputType(GameEnum.InputType inputType)
     {
@@ -53,7 +48,6 @@ public class InputController : MonoBehaviour
 
     void OnUIEnable() => OnUIToggleEvent?.Invoke(true);
     void OnUIDisable() => OnUIToggleEvent?.Invoke(false);
-    void OnUIScroll(InputValue value) => OnUIScrollEvent?.Invoke(value.Get<Vector2>());
 
     void OnMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
     void OnInteract() => OnInteractEvent?.Invoke();

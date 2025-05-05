@@ -45,7 +45,7 @@ public class TownUIController : MonoBehaviour
         {
             EnablePopup(storeUI);
 
-            storeUI.SetUISate(GameEnum.ItemType.Riding);
+            storeUI.SetUIState(GameEnum.ItemType.Riding);
         });
     }
 

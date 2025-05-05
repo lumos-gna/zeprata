@@ -23,9 +23,15 @@ public class EquipmentController : MonoBehaviour
         equippedSlot.Add(GameEnum.ItemType.Riding, null);
     }
 
+
     public void Equip(EquipmentItemData targetData)
     {
         GameEnum.ItemType type = targetData.Type;
+
+        if (equippedSlot[type] != null)
+        {
+            UnEquip(equippedSlot[type]);
+        }
 
         equippedSlot[type] = targetData;
 

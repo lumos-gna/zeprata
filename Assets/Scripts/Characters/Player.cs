@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XInput;
 
 
 public class Player : MonoBehaviour
@@ -22,6 +24,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] Animator animator;
 
+    [SerializeField] PlayerInput playerInput;
+
+    [SerializeField] PlayerMovementController movementController;
+
+    [SerializeField] PlayerRidingController ridingController;
+
     [SerializeField] ObjectSpriteRendererController rendererController;
 
     [SerializeField] AppearanceController appearanceController;
@@ -33,13 +41,6 @@ public class Player : MonoBehaviour
     [SerializeField] InteractTriggerHandler triggerController;
 
 
-    bool isJumping = false;
-
-    float mountDefalutHeight;
-
-    Vector2 moveDir;
-
-
     PlayerData data;
 
     DataManager dataManager;
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        movementController.Move(data.statData.moveSpeed);
     }
 
 
@@ -58,10 +59,9 @@ public class Player : MonoBehaviour
         data = dataManager.PlayerData;
 
 
-        if (rendererController.TryGetRenderer("Characetr", out ObjectSpriteRenderer target))
-        {
-            mountDefalutHeight = target.transform.localPosition.y;
-        }
+        ridingController.Init(animator, rendererController);
+
+        movementController.Init(rigid, animator, rendererController);
 
         InitAppearacneController();
 
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
 
             switch (targetData)
             {
-                case RidingItemData ridingItemData: ToggleMount(isEquip, ridingItemData); break;
+                case RidingItemData ridingItemData: ridingController.ToggleMount(isEquip, ridingItemData); break;
             }
         };
     }
@@ -114,9 +114,11 @@ public class Player : MonoBehaviour
 
     void InitInputController()
     {
-        inputController.OnMoveEvent += (moveKey) => moveDir = moveKey.normalized;
+        inputController.Init(playerInput);
+        
+        inputController.OnMoveEvent += (moveKey) => movementController.SetMoveDir(moveKey.normalized);
 
-        inputController.OnJumpEvent += Jump;
+        inputController.OnJumpEvent += movementController.Jump;
 
         inputController.OnInteractEvent += () =>
         {
@@ -126,63 +128,6 @@ public class Player : MonoBehaviour
                 interactGuideCanvas.enabled = false;
             }
         };
-    }
-
-
-    void ToggleMount(bool isMount, RidingItemData data)
-    {
-        animator.SetBool("isMount", isMount);
-
-        if (rendererController.TryGetRenderer("Character", out ObjectSpriteRenderer character))
-        {
-            Vector2 tempLocalPos = character.transform.localPosition;
-
-            tempLocalPos.y = isMount ? data.MountHeight : mountDefalutHeight;
-
-            character.transform.localPosition = tempLocalPos;
-        }
-
-        if (rendererController.TryGetRenderer("Riding", out ObjectSpriteRenderer riding))
-        {
-            riding.gameObject.SetActive(isMount);
-        }
-    }
-
- 
-
-    void Move()
-    {
-        rigid.MovePosition(rigid.position + (moveDir * data.statData.moveSpeed * Time.fixedDeltaTime));
-
-        float speed = moveDir != Vector2.zero ? data.statData.moveSpeed : 0;
-
-        animator.SetFloat("Speed", speed);
-
-        if (speed > 0 && moveDir.x != 0)
-        {
-            rendererController.SetRenderersFlipX(moveDir.x < 0);
-        }
-    }
-
-
-    void Jump()
-    {
-        if (!isJumping)
-        {
-            isJumping = true;
-
-            animator.SetBool("isJump", isJumping);
-
-            StartCoroutine(FinishJump());
-        }
-    }
-
-    IEnumerator FinishJump()
-    {
-        yield return new WaitForSeconds(0.33f);
-
-        isJumping = false;
-        animator.SetBool("isJump", isJumping);
     }
 
 }
