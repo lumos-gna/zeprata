@@ -52,7 +52,7 @@ public class TownStoreUI : MonoBehaviour, IPopupUI
 
         applyButton.onClick.AddListener(OnApply);
 
-        closeButton.onClick.AddListener(townUIController.DisablePopup);
+        closeButton.onClick.AddListener(() => townUIController.DisablePopup(false));
 
 
         slotsLayoutGroup.cellSize = slotPreafb.GetComponent<RectTransform>().sizeDelta;

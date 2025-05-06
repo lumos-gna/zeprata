@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [SerializeField] Vector2 jumpForce;
+
     Rigidbody2D rigid;
     Animator animator;
     ObjectSpriteRendererController rendererController;
@@ -56,6 +58,7 @@ public class PlayerMovementController : MonoBehaviour
         yield return new WaitForSeconds(0.33f);
 
         isJumping = false;
+
         animator.SetBool("isJump", isJumping);
     }
 }

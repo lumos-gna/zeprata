@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DialogueUI : MonoBehaviour
+public class DialogueUI : MonoBehaviour, IPopupUI
 {
-    int dialogueIndex = 0;
-
-    DialogueData currentDialogueData;
-
-
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI dialogueText;
 
 
+    int dialogueIndex = 0;
+
+    DialogueData currentDialogueData;
+
+    public void Disable() => gameObject.SetActive(false);
+
+    public void Enable() => gameObject.SetActive(true);
+   
     public void InitDialogue(DialogueData dialogueData)
     {
         dialogueIndex = 0;
@@ -24,15 +27,16 @@ public class DialogueUI : MonoBehaviour
         dialogueText.text = dialogueData.DialogueList[dialogueIndex].text;
     }
 
-    public void NextDialogue()
+    public void PlayDialogue(out bool isFinish)
     {
+        isFinish = false;
+
         dialogueIndex++;
 
         if (dialogueIndex == currentDialogueData.DialogueList.Count)
         {
-            //UIManager.Instance.DisablePopup();
+            isFinish = true;
 
-            currentDialogueData.OnFinishDialogue?.Invoke();
             return;
         }
 

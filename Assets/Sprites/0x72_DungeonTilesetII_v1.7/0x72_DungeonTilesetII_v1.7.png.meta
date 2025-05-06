@@ -311,6 +311,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: 0x72_DungeonTilesetII_v1.7_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 548
+        width: 15
+        height: 17
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a56ab83f28813b34c98b4b09b458cff4
+      internalID: -1358361705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -331,6 +352,7 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.7_6: -278991332
       0x72_DungeonTilesetII_v1.7_7: -1021032258
       0x72_DungeonTilesetII_v1.7_8: -1613930694
+      0x72_DungeonTilesetII_v1.7_9: -1358361705
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

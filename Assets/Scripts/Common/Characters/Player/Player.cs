@@ -8,8 +8,9 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public PlayerData Data => data;
-
     public Rigidbody2D Rigid => rigid;
+    public Animator Animator => animator;
+
     public InputController InputController => inputController;
     public AppearanceController AppearanceController => appearanceController;
     public EquipmentController EquipmentController => equipmentController;  

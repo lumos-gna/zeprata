@@ -22,8 +22,11 @@ public class TapRunnerGate : MonoBehaviour, ITriggerEventable, IInteractable
 
     public void Interact(GameObject source)
     {
-        SceneLoadManager.Instance.LoadScene("TapRunnerScene",
-            () => GameManager.Instance.PlayerData.townPos = source.transform.position);
+        if(source.TryGetComponent(out Player player))
+        {
+            SceneLoadManager.Instance.LoadScene("TapRunnerScene",
+                () => player.Data.townPos = source.transform.position);
+        }
     }
 
     public void OnTriggerEntered(GameObject source)

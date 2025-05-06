@@ -11,6 +11,7 @@ public class Npc : MonoBehaviour, ITriggerEventable, IInteractable
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Canvas canvas;
 
+    [SerializeField] TownUIController uiController;
 
     void Flip(GameObject target)
     {
@@ -39,5 +40,6 @@ public class Npc : MonoBehaviour, ITriggerEventable, IInteractable
 
     public void Interact(GameObject source)
     {
+        uiController.ShowDialogue(dialogueData);
     }
 }

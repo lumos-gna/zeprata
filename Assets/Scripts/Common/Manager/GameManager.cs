@@ -35,10 +35,10 @@ public class GameManager : MonoBehaviour
         }
 
 
-        InitNewGame();
+        StartNewGame();
     }
 
-    void InitNewGame()
+    void StartNewGame()
     {
         PlayerData = new()
         {

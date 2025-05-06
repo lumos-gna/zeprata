@@ -17,6 +17,7 @@ public class TownUIController : MonoBehaviour
     [SerializeField] Canvas canvasPopup;
     [SerializeField] TownAppearanceUI appearanceUI;
     [SerializeField] TownStoreUI storeUI;
+    [SerializeField] DialogueUI dialogueUI;
 
     Stack<IPopupUI> popupUIStack = new();
 
@@ -25,18 +26,23 @@ public class TownUIController : MonoBehaviour
 
     void OnEnable()
     {
-        player.InputController.OnUIToggleEvent += (enabled) => DisablePopup();
-        player.AppearanceController.OnToggleAppearanceEvent += (data) =>
-            appearanceUIIcon.sprite = data.IconSprite;
+        player.InputController.OnUIToggleEvent += DisablePopup;
+
+        player.InputController.OnUIPlayDialogueEvent += PlayerDialogue;
+
+        player.AppearanceController.OnToggleAppearanceEvent += ChangeUIIcon;
     }
 
     void OnDisable()
     {
-        player.InputController.OnUIToggleEvent -= (enabled) => DisablePopup();
-        player.AppearanceController.OnToggleAppearanceEvent -= (data) =>
-          appearanceUIIcon.sprite = data.IconSprite;
+        player.InputController.OnUIToggleEvent -= DisablePopup;
+
+        player.InputController.OnUIPlayDialogueEvent -= PlayerDialogue;
+
+        player.AppearanceController.OnToggleAppearanceEvent -= ChangeUIIcon;
     }
 
+    void ChangeUIIcon(AppearanceData data) => appearanceUIIcon.sprite = data.IconSprite;
 
     public void Init(Player player)
     {
@@ -61,7 +67,7 @@ public class TownUIController : MonoBehaviour
     }
 
 
-    public void DisablePopup()
+    public void DisablePopup(bool enabled)
     {
         popupUIStack.Pop().Disable();
 
@@ -78,5 +84,22 @@ public class TownUIController : MonoBehaviour
         popupUI.Enable();
 
         player.InputController.SwitchInputType(GameEnum.InputType.UI);
+    }
+
+    public void ShowDialogue(DialogueData dialogueData)
+    {
+        dialogueUI.InitDialogue(dialogueData);
+
+        EnablePopup(dialogueUI);
+    }
+
+    void PlayerDialogue()
+    {
+        dialogueUI.PlayDialogue(out bool isFinish);
+
+        if (isFinish)
+        {
+            DisablePopup(true);
+        }
     }
 }
