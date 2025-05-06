@@ -9,14 +9,17 @@ public class TapRunnerPlayerController : MonoBehaviour
     [SerializeField] Vector2 collisionForce;
 
     [SerializeField] Transform startPoint;
-    [SerializeField] TapRunnerController parentController;
+
+    TapRunnerController parentController;
 
     Player player;
 
     bool isAlive;
 
-    private void Awake()
+    public void Init(TapRunnerController parentController)
     {
+        this.parentController = parentController;
+
         player = FindAnyObjectByType<Player>();
 
         player.transform.position = startPoint.position;
@@ -36,7 +39,7 @@ public class TapRunnerPlayerController : MonoBehaviour
         StartCoroutine(InputBlockDelay());
     }
     
-    void StartRunner()
+    public void StartRunner()
     {
         player.Rigid.gravityScale = 2;
 
@@ -45,9 +48,11 @@ public class TapRunnerPlayerController : MonoBehaviour
         isAlive = true;
     }
 
-    void EndRunner()
+    public void EndRunner()
     {
         player.transform.localRotation = Quaternion.identity;
+
+        player.transform.position = player.Data.townPos;
 
         player.Rigid.gravityScale = 0;
 
@@ -65,7 +70,6 @@ public class TapRunnerPlayerController : MonoBehaviour
         switch (parentController.gameState)
         {
             case TapRunnerController.GameState.Start:
-                StartRunner();
                 parentController.StartGame(); 
                 break;
 
@@ -74,7 +78,6 @@ public class TapRunnerPlayerController : MonoBehaviour
                 break;
 
             case TapRunnerController.GameState.End:
-                EndRunner();
                 parentController.EndGame();
                 break;
         }

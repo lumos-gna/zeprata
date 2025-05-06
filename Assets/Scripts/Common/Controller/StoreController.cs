@@ -20,7 +20,7 @@ public class StoreController : MonoBehaviour
     {
         this.playerData = playerData;
 
-        SetStoreItemDatasTypeDict(DataManager.Instance.StoreItemDatas);
+        SetStoreItemDatasTypeDict(GameManager.Instance.StoreItemDatas);
     }
 
     void SetStoreItemDatasTypeDict(List<StoreItemData> storeItemDatas)

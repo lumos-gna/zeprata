@@ -312,6 +312,7 @@ MonoBehaviour:
   obstacleHandlers:
   - {fileID: 149324467}
   - {fileID: 1282423055}
+  playerController: {fileID: 1320069850}
   timerText: {fileID: 361208807}
   guideText: {fileID: 79475846}
 --- !u!1 &79475844
@@ -997,7 +998,6 @@ MonoBehaviour:
   jumpForce: {x: 0, y: 10}
   collisionForce: {x: 10, y: 0}
   startPoint: {fileID: 944649525}
-  parentController: {fileID: 75614738}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1005,7 +1005,7 @@ SceneRoots:
   - {fileID: 725928112}
   - {fileID: 457763086}
   - {fileID: 75614737}
+  - {fileID: 1320069849}
   - {fileID: 69618762}
   - {fileID: 29924189}
   - {fileID: 944649525}
-  - {fileID: 1320069849}

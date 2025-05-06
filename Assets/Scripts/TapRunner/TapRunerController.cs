@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static TapRunnerController;
 
 public class TapRunnerController : MonoBehaviour
 {
@@ -24,6 +23,8 @@ public class TapRunnerController : MonoBehaviour
     [SerializeField] Vector2 obstaclesEndPos;
 
     [SerializeField] TapRunnerObstacleHandler[] obstacleHandlers;
+    [SerializeField] TapRunnerPlayerController playerController;
+
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] TextMeshProUGUI guideText;
 
@@ -42,7 +43,7 @@ public class TapRunnerController : MonoBehaviour
 
         gameState = GameState.Start;
 
-
+        playerController.Init(this);
     }
 
 
@@ -80,7 +81,7 @@ public class TapRunnerController : MonoBehaviour
 
         guideText.text = $"Game Over..\n {(int)runningTime}";
 
-        DataManager.Instance.TapRunnerScore = (int)runningTime;
+        GameManager.Instance.TapRunnerScore = (int)runningTime;
     }
 
 
@@ -102,11 +103,12 @@ public class TapRunnerController : MonoBehaviour
         timerText.enabled = true;
 
         guideText.enabled = false;
+
+        playerController.StartRunner();
     }
 
     public void EndGame()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneLoadManager.Instance.LoadScene("MainScene", playerController.EndRunner);
     }
-    
 }

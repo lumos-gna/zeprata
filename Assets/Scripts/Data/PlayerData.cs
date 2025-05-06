@@ -11,6 +11,8 @@ public class PlayerData
  
     public int gold;
 
+    public Vector2 townPos;
+
     public StatData statData;
 
     public AppearanceData appearanceData;

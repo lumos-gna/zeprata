@@ -9131,6 +9131,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621297302}
   m_CullTransparentMesh: 1
+--- !u!1 &1654684008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1654684009}
+  - component: {fileID: 1654684010}
+  m_Layer: 0
+  m_Name: SceneLoadManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1654684009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654684008}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1654684010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654684008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11546a7e81e42d64bb96db1e99134bd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeUIPrefab: {fileID: 6235909417334104550, guid: d25e152774caa034ca3c47596fda103f, type: 3}
 --- !u!1 &1721650329
 GameObject:
   m_ObjectHideFlags: 0
@@ -10097,21 +10142,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2074287445}
   m_CullTransparentMesh: 1
---- !u!4 &441748364760256181
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5317304319274647494}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1380121192384454671
 Transform:
   m_ObjectHideFlags: 0
@@ -10144,23 +10174,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &5317304319274647494
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 441748364760256181}
-  - component: {fileID: 8751134361738328330}
-  m_Layer: 0
-  m_Name: DataManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &6839233207399156199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10173,6 +10186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28163e3be0d49bc4ca6c6ed11d33e8f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemDataTable: {fileID: 11400000, guid: 0edc2f7ff8a1e4f43be825f906e757de, type: 2}
 --- !u!1 &7835145263453040492
 GameObject:
   m_ObjectHideFlags: 0
@@ -10224,26 +10238,13 @@ MonoBehaviour:
   canvasPopup: {fileID: 1468690162}
   appearanceUI: {fileID: 257056344}
   storeUI: {fileID: 761110264}
---- !u!114 &8751134361738328330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5317304319274647494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf30de66d254d1241858ed9b7ee78365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemDataTable: {fileID: 11400000, guid: 0edc2f7ff8a1e4f43be825f906e757de, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 132543345}
-  - {fileID: 441748364760256181}
   - {fileID: 1380121192384454671}
+  - {fileID: 1654684009}
   - {fileID: 519420032}
   - {fileID: 567028117}
   - {fileID: 1896116215}

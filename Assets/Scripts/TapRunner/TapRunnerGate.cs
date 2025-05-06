@@ -17,12 +17,13 @@ public class TapRunnerGate : MonoBehaviour, ITriggerEventable, IInteractable
 
     private void Start()
     {
-        scoreText.text = "Best : " + DataManager.Instance.TapRunnerScore.ToString();
+        scoreText.text = "Best : " + GameManager.Instance.TapRunnerScore.ToString();
     }
 
     public void Interact(GameObject source)
     {
-        SceneManager.LoadScene("TapRunnerScene");
+        SceneLoadManager.Instance.LoadScene("TapRunnerScene",
+            () => GameManager.Instance.PlayerData.townPos = source.transform.position);
     }
 
     public void OnTriggerEntered(GameObject source)

@@ -48,16 +48,16 @@ public class Player : MonoBehaviour
 
     PlayerData data;
 
-    DataManager dataManager;
+    GameManager gameManager;
 
     IInteractable interactTarget;
 
 
     private void Awake()
     {
-        dataManager = DataManager.Instance;
+        gameManager = GameManager.Instance;
 
-        data = dataManager.PlayerData;
+        data = gameManager.PlayerData;
 
 
         ridingController.Init(animator, rendererController);
