@@ -57,6 +57,8 @@ public class StoreController : MonoBehaviour
 
             var targetData = saveManager.SaveData.storeItems.Find(item => item.itemName == targetItem.ItemData.ItemName);
 
+            saveManager.SaveData.playerGold = playerData.gold;
+
             if (targetData != null)
             {
                 targetData.itemName = targetItem.ItemData.ItemName;

@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -39,6 +37,12 @@ public class GameManager : MonoBehaviour
 
         player = Instantiate(playerPrefab);
 
+        playerData.statData = new()
+        {
+            moveSpeed = 4
+        };
+
+
         var saveManager = SaveManager.Instance;
 
         if (saveManager.TryLoadData(out SaveData saveData))
@@ -56,25 +60,13 @@ public class GameManager : MonoBehaviour
     {
         playerData.gold = saveData.playerGold;
         playerData.tapRunnerScore = saveData.tapRunnerScore;
-        playerData.statData = saveData.playerStatData;
-
+     
         player.Init(playerData);
 
 
         if (appearanceDataTable.TryGetAppearanceData(saveData.appearanceDataName, out AppearanceData appearanceData))
         {
             player.AppearanceController.ToggleAppearance(appearanceData);
-        }
-
-        foreach (var item in saveData.equippedDataNames)
-        {
-            if (itemDataTable.TryGetItemData(item, out var itemData))
-            {
-                if (itemData is EquipmentItemData equipData)
-                {
-                    player.EquipmentController.Equip(equipData);
-                }
-            }
         }
 
         foreach (var item in saveData.storeItems)
@@ -94,13 +86,8 @@ public class GameManager : MonoBehaviour
     void InitNewGame()
     {
         playerData.gold = 2000;
-        playerData.statData = new()
-        {
-            moveSpeed = 4
-        };
 
         player.Init(playerData);
-
 
 
         var randAppearance = appearanceDataTable.Datas[Random.Range(0, appearanceDataTable.Datas.Length)];
@@ -122,7 +109,6 @@ public class GameManager : MonoBehaviour
 
         var saveData = SaveManager.Instance.SaveData;
 
-        saveData.playerStatData = playerData.statData;
         saveData.playerGold = playerData.gold;
 
         foreach (var item in StoreItemDatas)

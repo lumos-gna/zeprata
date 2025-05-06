@@ -111,22 +111,6 @@ public class Player : MonoBehaviour
             {
                 case RidingItemData ridingItemData: ridingController.ToggleMount(isEquip, ridingItemData); break;
             }
-
-
-            var saveEquippedDatas = saveManager.SaveData.equippedDataNames;
-
-            var targetName = saveEquippedDatas.Find(name => name == targetData.ItemName);
-
-            if (targetName != null)
-            {
-                targetName = targetData.ItemName;
-            }
-            else
-            {
-                saveEquippedDatas.Add(targetData.ItemName);
-            }
-
-            saveManager.Save();
         };
     }
 
