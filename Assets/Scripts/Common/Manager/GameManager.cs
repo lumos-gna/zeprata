@@ -9,13 +9,15 @@ public class GameManager : MonoBehaviour
     static GameManager instance;
     public static GameManager Instance => instance;
 
-    public int TapRunnerScore { get; set; }
-    public PlayerData PlayerData { get; private set; }
     public List<StoreItemData> StoreItemDatas { get; private set; } = new();
 
 
     [SerializeField] ItemDataTable itemDataTable;
+    [SerializeField] AppearanceDataTable appearanceDataTable;
+    [SerializeField] Player playerPrefab;
 
+    Player player;
+    PlayerData playerData = new();
 
     protected virtual void Awake()
     {
@@ -35,19 +37,76 @@ public class GameManager : MonoBehaviour
         }
 
 
-        StartNewGame();
+        player = Instantiate(playerPrefab);
+
+        var saveManager = SaveManager.Instance;
+
+        if (saveManager.TryLoadData(out SaveData saveData))
+        {
+            InitLoadGame(saveData);
+        }
+        else
+        {
+            InitNewGame();
+        }
     }
 
-    void StartNewGame()
+
+    void InitLoadGame(SaveData saveData)
     {
-        PlayerData = new()
+        playerData.gold = saveData.playerGold;
+        playerData.tapRunnerScore = saveData.tapRunnerScore;
+        playerData.statData = saveData.playerStatData;
+
+        player.Init(playerData);
+
+
+        if (appearanceDataTable.TryGetAppearanceData(saveData.appearanceDataName, out AppearanceData appearanceData))
         {
-            gold = 2000,
-            statData = new()
+            player.AppearanceController.ToggleAppearance(appearanceData);
+        }
+
+        foreach (var item in saveData.equippedDataNames)
+        {
+            if (itemDataTable.TryGetItemData(item, out var itemData))
             {
-                moveSpeed = 4
+                if (itemData is EquipmentItemData equipData)
+                {
+                    player.EquipmentController.Equip(equipData);
+                }
             }
+        }
+
+        foreach (var item in saveData.storeItems)
+        {
+            if (itemDataTable.TryGetItemData(item.itemName, out var itemData))
+            {
+                StoreItemDatas.Add(
+                   new StoreItemData()
+                   {
+                       ItemData = itemData,
+                       IsPurchased = item.isPurchased
+                   });
+            }
+        }
+    }
+
+    void InitNewGame()
+    {
+        playerData.gold = 2000;
+        playerData.statData = new()
+        {
+            moveSpeed = 4
         };
+
+        player.Init(playerData);
+
+
+
+        var randAppearance = appearanceDataTable.Datas[Random.Range(0, appearanceDataTable.Datas.Length)];
+
+        player.AppearanceController.ToggleAppearance(randAppearance);
+
 
 
         for (int i = 0; i < itemDataTable.Datas.Length; i++)
@@ -57,7 +116,23 @@ public class GameManager : MonoBehaviour
                 {
                     ItemData = itemDataTable.Datas[i],
                     IsPurchased = false
-                }); ;
+                });
+        }
+
+
+        var saveData = SaveManager.Instance.SaveData;
+
+        saveData.playerStatData = playerData.statData;
+        saveData.playerGold = playerData.gold;
+
+        foreach (var item in StoreItemDatas)
+        {
+            saveData.storeItems.Add(
+                 new StoreItemSaveData()
+                 {
+                     itemName = item.ItemData.ItemName,
+                     isPurchased = item.IsPurchased
+                 });
         }
     }
 }

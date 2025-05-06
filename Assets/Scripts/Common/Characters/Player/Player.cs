@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -49,17 +50,21 @@ public class Player : MonoBehaviour
 
     PlayerData data;
 
-    GameManager gameManager;
+    SaveManager saveManager;
 
     IInteractable interactTarget;
 
 
-    private void Awake()
+    void FixedUpdate()
     {
-        gameManager = GameManager.Instance;
+        movementController.Move(data.statData.moveSpeed);
+    }
 
-        data = gameManager.PlayerData;
+    public void Init(PlayerData playerData)
+    {
+        saveManager = SaveManager.Instance;
 
+        data = playerData;
 
         ridingController.Init(animator, rendererController);
 
@@ -79,18 +84,15 @@ public class Player : MonoBehaviour
     }
 
 
-    void FixedUpdate()
-    {
-        movementController.Move(data.statData.moveSpeed);
-    }
-
-
-
     void InitAppearacneController()
     {
         appearanceController.OnToggleAppearanceEvent += (appearanceData) =>
         {
             rendererController.ChangeLibraryAsset(appearanceData.Type.ToString(), appearanceData.LibraryAsset);
+
+            saveManager.SaveData.appearanceDataName = appearanceData.DataName;
+
+            saveManager.Save();
         };
     }
 
@@ -109,6 +111,22 @@ public class Player : MonoBehaviour
             {
                 case RidingItemData ridingItemData: ridingController.ToggleMount(isEquip, ridingItemData); break;
             }
+
+
+            var saveEquippedDatas = saveManager.SaveData.equippedDataNames;
+
+            var targetName = saveEquippedDatas.Find(name => name == targetData.ItemName);
+
+            if (targetName != null)
+            {
+                targetName = targetData.ItemName;
+            }
+            else
+            {
+                saveEquippedDatas.Add(targetData.ItemName);
+            }
+
+            saveManager.Save();
         };
     }
 

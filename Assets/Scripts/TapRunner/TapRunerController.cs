@@ -81,7 +81,19 @@ public class TapRunnerController : MonoBehaviour
 
         guideText.text = $"Game Over..\n {(int)runningTime}";
 
-        GameManager.Instance.TapRunnerScore = (int)runningTime;
+        var playerData = playerController.Player.Data;
+
+        if (playerData.tapRunnerScore < runningTime)
+        {
+            playerData.tapRunnerScore = (int)runningTime;
+
+
+            var saveManager = SaveManager.Instance;
+
+            saveManager.SaveData.tapRunnerScore = playerData.tapRunnerScore;
+
+            saveManager.Save();
+        };
     }
 
 

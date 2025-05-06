@@ -13,8 +13,6 @@ public class TownController : MonoBehaviour
 
     [SerializeField] TownCameraController cameraController;
 
-
-    [SerializeField] Player playerPrefab;
     [SerializeField] AppearanceDataTable appearanceDataTable;
 
     Player player;
@@ -22,25 +20,10 @@ public class TownController : MonoBehaviour
     private void Awake()
     {
         player = FindAnyObjectByType<Player>();
-
-        if (player == null)
-        {
-            player = Instantiate(playerPrefab);
-
-            if (player.AppearanceController.EquipData == null)
-            {
-                var randAppearance = appearanceDataTable.Datas[Random.Range(0, appearanceDataTable.Datas.Length)];
-
-                player.AppearanceController.ToggleAppearance(randAppearance);
-            }
-        }
-
-
         player.InputController.SwitchInputType(GameEnum.InputType.Player);
 
         uiController.Init(player);
     }
-
 
 
     private void LateUpdate()

@@ -25,7 +25,7 @@ public class TapRunnerGate : MonoBehaviour, ITriggerEventable, IInteractable
     {
         if(source.TryGetComponent(out Player player))
         {
-            uiController.ShowGameUI("TapRunner", GameManager.Instance.TapRunnerScore, "TapRunnerScene");
+            uiController.ShowGameUI("TapRunner", player.Data.tapRunnerScore, "TapRunnerScene");
         }
     }
 

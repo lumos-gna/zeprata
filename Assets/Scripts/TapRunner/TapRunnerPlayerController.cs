@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class TapRunnerPlayerController : MonoBehaviour
 {
+    public Player Player => player;
+
     [SerializeField] Vector2 jumpForce;
     [SerializeField] Vector2 collisionForce;
 

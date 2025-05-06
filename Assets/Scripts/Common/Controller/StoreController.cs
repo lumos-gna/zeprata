@@ -52,6 +52,28 @@ public class StoreController : MonoBehaviour
 
             playerData.gold -= itemPrice;
 
+
+            var saveManager = SaveManager.Instance;
+
+            var targetData = saveManager.SaveData.storeItems.Find(item => item.itemName == targetItem.ItemData.ItemName);
+
+            if (targetData != null)
+            {
+                targetData.itemName = targetItem.ItemData.ItemName;
+                targetData.isPurchased = true;
+            }
+            else
+            {
+                saveManager.SaveData.storeItems.Add(
+                    new()
+                    {
+                        itemName = targetItem.ItemData.ItemName,
+                        isPurchased = true
+                    });
+            }
+
+            saveManager.Save();
+
             return true;
         }
 
