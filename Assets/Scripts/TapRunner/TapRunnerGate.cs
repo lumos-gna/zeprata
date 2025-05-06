@@ -8,7 +8,7 @@ public class TapRunnerGate : MonoBehaviour, ITriggerEventable, IInteractable
 {
     [SerializeField] SpriteRenderer spriteRenderer;
 
-    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] Canvas canvas;
 
     [SerializeField] Sprite openSprite;
     [SerializeField] Sprite closeSprite;
@@ -31,14 +31,14 @@ public class TapRunnerGate : MonoBehaviour, ITriggerEventable, IInteractable
 
     public void OnTriggerEntered(GameObject source)
     {
-        scoreText.enabled = true;
+        canvas.enabled = true;
 
         spriteRenderer.sprite = openSprite;
     }
 
     public void OnTriggerExited(GameObject source)
     {
-        scoreText.enabled = false;
+        canvas.enabled = false;
 
         spriteRenderer.sprite = closeSprite;
     }

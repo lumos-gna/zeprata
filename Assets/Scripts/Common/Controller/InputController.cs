@@ -7,8 +7,8 @@ using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
-    public event UnityAction<bool> OnUIToggleEvent;
-    public event UnityAction OnUIPlayDialogueEvent;
+    public event UnityAction OnUIDisableEvent;
+    public event UnityAction OnUIEnableEvent;
 
     public event UnityAction<Vector2> OnMoveEvent;
     public event UnityAction OnInteractEvent;
@@ -47,9 +47,8 @@ public class InputController : MonoBehaviour
     }
 
 
-    void OnUIEnable() => OnUIToggleEvent?.Invoke(true);
-    void OnUIDisable() => OnUIToggleEvent?.Invoke(false);
-    void OnUIPlayDialogue() => OnUIPlayDialogueEvent?.Invoke();
+    void OnUIEnable() => OnUIEnableEvent?.Invoke();
+    void OnUIDisable() => OnUIDisableEvent?.Invoke();
 
     void OnMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
     void OnInteract() => OnInteractEvent?.Invoke();

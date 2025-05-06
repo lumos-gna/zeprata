@@ -21,7 +21,7 @@ public class TownGameUI : MonoBehaviour, IPopupUI
 
     public void Init(TownUIController townUIController)
     {
-        closeButton.onClick.AddListener(() => townUIController.DisablePopup(false));
+        closeButton.onClick.AddListener(() => townUIController.DisablePopup());
 
         startButton.onClick.AddListener(() => SceneLoadManager.Instance.LoadScene(targetScene));
     }

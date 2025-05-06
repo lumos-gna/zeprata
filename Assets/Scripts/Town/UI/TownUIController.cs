@@ -27,18 +27,18 @@ public class TownUIController : MonoBehaviour
 
     void OnEnable()
     {
-        player.InputController.OnUIToggleEvent += DisablePopup;
+        player.InputController.OnUIDisableEvent += DisablePopup;
 
-        player.InputController.OnUIPlayDialogueEvent += PlayerDialogue;
+        player.InputController.OnUIEnableEvent += PlayerDialogue;
 
         player.AppearanceController.OnToggleAppearanceEvent += ChangeUIIcon;
     }
 
     void OnDisable()
     {
-        player.InputController.OnUIToggleEvent -= DisablePopup;
+        player.InputController.OnUIDisableEvent -= DisablePopup;
 
-        player.InputController.OnUIPlayDialogueEvent -= PlayerDialogue;
+        player.InputController.OnUIEnableEvent -= PlayerDialogue;
 
         player.AppearanceController.OnToggleAppearanceEvent -= ChangeUIIcon;
     }
@@ -70,7 +70,7 @@ public class TownUIController : MonoBehaviour
     }
 
 
-    public void DisablePopup(bool enabled)
+    public void DisablePopup()
     {
         popupUIStack.Pop().Disable();
 
@@ -104,11 +104,14 @@ public class TownUIController : MonoBehaviour
 
     void PlayerDialogue()
     {
-        dialogueUI.PlayDialogue(out bool isFinish);
-
-        if (isFinish)
+        if(dialogueUI.gameObject.activeSelf)
         {
-            DisablePopup(true);
+            dialogueUI.PlayDialogue(out bool isFinish);
+
+            if (isFinish)
+            {
+                DisablePopup();
+            }
         }
     }
 }

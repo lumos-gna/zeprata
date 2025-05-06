@@ -37,6 +37,9 @@ public class DialogueUI : MonoBehaviour, IPopupUI
     {
         isFinish = false;
 
+        if (!gameObject.activeSelf) return;
+
+
         dialogueIndex++;
 
         if (dialogueIndex == currentDialogueData.DialogueList.Count)

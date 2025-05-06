@@ -203,15 +203,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "UIPlayDialogue",
-                    "type": "Button",
-                    "id": "5d1845ff-f6df-43be-92f8-09bfc995815f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -239,23 +230,12 @@
                 },
                 {
                     "name": "",
-                    "id": "f4869024-9c15-4e62-ac63-eb3c9faff327",
+                    "id": "fd68ff3c-da17-4756-b746-74f0e49f79b6",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UIPlayDialogue",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "770ca2b1-b213-464d-935e-c9a177a7c2b5",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UIPlayDialogue",
+                    "action": "UIEnable",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

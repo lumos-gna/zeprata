@@ -67,7 +67,7 @@ public class TownAppearanceUI : MonoBehaviour, IPopupUI
 
         applyButton.onClick.AddListener(ApplyData);
 
-        closeButton.onClick.AddListener(() => townUIController.DisablePopup(false));
+        closeButton.onClick.AddListener(() => townUIController.DisablePopup());
 
         OnSelectSlotAction = (slot) =>
         {

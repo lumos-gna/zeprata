@@ -27,11 +27,9 @@ public class TownController : MonoBehaviour
         {
             player = Instantiate(playerPrefab);
 
-            if (player.Data.appearanceData == null)
+            if (player.AppearanceController.EquipData == null)
             {
                 var randAppearance = appearanceDataTable.Datas[Random.Range(0, appearanceDataTable.Datas.Length)];
-
-                player.Data.appearanceData = randAppearance;
 
                 player.AppearanceController.ToggleAppearance(randAppearance);
             }
