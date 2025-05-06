@@ -25,14 +25,17 @@ public class PlayerMovementController : MonoBehaviour
     {
         float moveSpeed = moveDir != Vector2.zero ? speedData : 0;
 
-        if (moveSpeed > 0 && moveDir.x != 0)
-        {
-            rendererController.SetRenderersFlipX(moveDir.x < 0);
-        }
-
         animator.SetFloat("Speed", moveSpeed);
 
-        rigid.MovePosition(rigid.position + (moveDir * moveSpeed * Time.fixedDeltaTime));
+        if(moveSpeed > 0)
+        {
+            rigid.MovePosition(rigid.position + (moveDir * moveSpeed * Time.fixedDeltaTime));
+
+            if(moveDir.x != 0)
+            {
+                rendererController.SetRenderersFlipX(moveDir.x < 0);
+            }
+        }
     }
 
 

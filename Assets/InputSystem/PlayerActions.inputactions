@@ -179,7 +179,7 @@
             "id": "00238441-940d-44f8-8fcd-5ca2f64ee2f6",
             "actions": [
                 {
-                    "name": "TapRunnerJump",
+                    "name": "TapRunnerTap",
                     "type": "Button",
                     "id": "58ef7793-b876-4aa1-a878-9703bd2c0607",
                     "expectedControlType": "Button",
@@ -196,7 +196,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TapRunnerJump",
+                    "action": "TapRunnerTap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

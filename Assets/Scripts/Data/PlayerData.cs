@@ -13,4 +13,7 @@ public class PlayerData
 
     public StatData statData;
 
+    public AppearanceData appearanceData;
+
+    public Dictionary<GameEnum.ItemType, EquipmentItemData> equippedDatas;
 }

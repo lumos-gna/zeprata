@@ -2,11 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInteractTriggerable
+public interface IInteractable
 {
     public void Interact(GameObject source);
-
-    public void TriggerEnter(GameObject source);
-
-    public void TriggerExit(GameObject source);
 }

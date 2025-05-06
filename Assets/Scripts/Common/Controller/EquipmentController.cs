@@ -8,10 +8,10 @@ public class EquipmentController : MonoBehaviour
 {
     public event UnityAction<bool, EquipmentItemData> OnToggleEquipEvent;
 
-    public Dictionary<GameEnum.ItemType, EquipmentItemData> EquippedSlot => equippedSlot;
+    public Dictionary<GameEnum.ItemType, EquipmentItemData> EquippedDatas => equippedDatas;
 
 
-    Dictionary<GameEnum.ItemType, EquipmentItemData> equippedSlot = new();
+    Dictionary<GameEnum.ItemType, EquipmentItemData> equippedDatas = new();
 
     StatData targetStat;
 
@@ -20,7 +20,7 @@ public class EquipmentController : MonoBehaviour
     {
         this.targetStat = targetStat;
 
-        equippedSlot.Add(GameEnum.ItemType.Riding, null);
+        equippedDatas.Add(GameEnum.ItemType.Riding, null);
     }
 
 
@@ -28,12 +28,12 @@ public class EquipmentController : MonoBehaviour
     {
         GameEnum.ItemType type = targetData.Type;
 
-        if (equippedSlot[type] != null)
+        if (equippedDatas[type] != null)
         {
-            UnEquip(equippedSlot[type]);
+            UnEquip(equippedDatas[type]);
         }
 
-        equippedSlot[type] = targetData;
+        equippedDatas[type] = targetData;
 
         targetStat.ApplyTarget(true, targetData.StatData);
 
@@ -42,7 +42,7 @@ public class EquipmentController : MonoBehaviour
 
     public void UnEquip(EquipmentItemData targetData)
     {
-        equippedSlot[targetData.Type] = null;
+        equippedDatas[targetData.Type] = null;
 
         targetStat.ApplyTarget(false, targetData.StatData);
 

@@ -4,13 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TapRunnerGate : MonoBehaviour
+public class TapRunnerGate : MonoBehaviour, ITriggerEventable, IInteractable
 {
     [SerializeField] SpriteRenderer spriteRenderer;
 
     [SerializeField] TextMeshProUGUI scoreText;
-
-    [SerializeField] InteractTrigger interactTrigger;
 
 
     [SerializeField] Sprite openSprite;
@@ -20,11 +18,21 @@ public class TapRunnerGate : MonoBehaviour
     private void Start()
     {
         scoreText.text = "Best : " + DataManager.Instance.TapRunnerScore.ToString();
-
-        interactTrigger.OnInteract = (source) => SceneManager.LoadScene("GameTapRunnerScene");
-        
-        interactTrigger.OnTriggerEnter = (source) => spriteRenderer.sprite = openSprite;
-
-        interactTrigger.OnTriggerEixt = (source) => spriteRenderer.sprite = closeSprite;
     }
+
+    public void Interact(GameObject source)
+    {
+        SceneManager.LoadScene("TapRunnerScene");
+    }
+
+    public void OnTriggerEntered(GameObject source)
+    {
+        spriteRenderer.sprite = openSprite;
+    }
+
+    public void OnTriggerExited(GameObject source)
+    {
+        spriteRenderer.sprite = closeSprite;
+    }
+
 }

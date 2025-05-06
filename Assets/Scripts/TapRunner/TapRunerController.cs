@@ -1,20 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using static TapRunnerController;
 
 public class TapRunnerController : MonoBehaviour
 {
-    bool isPlay;
-    bool isEnd;
-    float runningTime;
-    float currentSpeed;
-
-    //InputManager inputManager;
-
+    public enum GameState
+    {
+        Start,
+        Play,
+        End
+    }
+    public GameState gameState;
 
     [SerializeField] int obstacleNeedCount;
 
@@ -28,49 +27,29 @@ public class TapRunnerController : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] TextMeshProUGUI guideText;
 
-    [SerializeField] TapRunner runner;
+
+    float runningTime;
+    float currentSpeed;
 
 
-    private void Start()
+    private void Awake()
     {
-        guideText.text = "Press To Start!";
+        guideText.text = "Press Any Key!";
 
         timerText.enabled = false;
 
         guideText.enabled = true;
 
+        gameState = GameState.Start;
 
-      /*  inputManager = InputManager.Instance;
 
-        inputManager.OnTapRunnerJumpEvent = () =>
-        {
-            if (isEnd)
-            {
-                EndGame();
-            }
-            else
-            {
-                if (!isPlay)
-                {
-                    StartGame();
-
-                    runner.StartPlay();
-
-                }
-                else
-                {
-                    runner.Jump();
-                }
-            }
-        };*/
-
-        StartCoroutine(InputBlockDelay());
     }
+
 
 
     private void Update()
     {
-        if (isPlay)
+        if (gameState == GameState.Play)
         {
             runningTime += Time.deltaTime;
 
@@ -91,10 +70,23 @@ public class TapRunnerController : MonoBehaviour
         }
     }
 
-
-    void StartGame()
+    public void GameOver()
     {
-        isPlay = true;
+        gameState = GameState.End;
+
+        timerText.enabled = false;
+
+        guideText.enabled = true;
+
+        guideText.text = $"Game Over..\n {(int)runningTime}";
+
+        DataManager.Instance.TapRunnerScore = (int)runningTime;
+    }
+
+
+    public void StartGame()
+    {
+        gameState = GameState.Play;
 
         runningTime = 0;
 
@@ -112,37 +104,9 @@ public class TapRunnerController : MonoBehaviour
         guideText.enabled = false;
     }
 
-    void EndGame()
+    public void EndGame()
     {
         SceneManager.LoadScene("MainScene");
-
     }
-
-
-    IEnumerator InputBlockDelay()
-    {
-        //inputManager.SwitchInputType(GameEnum.InputType.None);
-
-        yield return new WaitForSeconds(0.33f);
-
-        //inputManager.SwitchInputType(GameEnum.InputType.TapRunner);
-    }
-
-
-
-    public void GameOver()
-    {
-        isPlay = false;
-        isEnd = true;
-
-        timerText.enabled = false;
-
-        guideText.enabled = true;
-
-        guideText.text = $"Game Over..\n {(int)runningTime}";
-
-        DataManager.Instance.TapRunnerScore = (int)runningTime;
-
-        StartCoroutine(InputBlockDelay());
-    }
+    
 }

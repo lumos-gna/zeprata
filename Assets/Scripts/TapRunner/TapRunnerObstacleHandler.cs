@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Transform))]
 
-public class TapRunnerObstacleHandler : MonoBehaviour
+public class TapRunnerObstacleHandler : MonoBehaviour, ICollisionEventable
 {
     [SerializeField] Transform topObstaclesParent;
     [SerializeField] Transform bottomObstaclesParent;
@@ -63,4 +62,8 @@ public class TapRunnerObstacleHandler : MonoBehaviour
             obstaclesParent.GetChild(i).gameObject.SetActive(true);
         }
     }
+
+    public void OnCollisionEntered(GameObject source) { }
+    public void OnCollisionExited(GameObject source) { }
+   
 }

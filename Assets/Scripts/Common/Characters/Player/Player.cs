@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XInput;
 
 
 public class Player : MonoBehaviour
 {
     public PlayerData Data => data;
+
+    public Rigidbody2D Rigid => rigid;
     public InputController InputController => inputController;
     public AppearanceController AppearanceController => appearanceController;
     public EquipmentController EquipmentController => equipmentController;  
+    public CollisionEventController CollisionEventController => collisionEventController;
+    public ObjectSpriteRendererController RendererController => rendererController;
 
 
     [SerializeField] Canvas interactGuideCanvas;
@@ -38,21 +41,19 @@ public class Player : MonoBehaviour
 
     [SerializeField] InputController inputController;
 
-    [SerializeField] InteractTriggerController triggerController;
+    [SerializeField] TriggerEventController triggerEventController;
+
+    [SerializeField] CollisionEventController collisionEventController;
 
 
     PlayerData data;
 
     DataManager dataManager;
 
-
-    void FixedUpdate()
-    {
-        movementController.Move(data.statData.moveSpeed);
-    }
+    IInteractable interactTarget;
 
 
-    public void Init()
+    private void Awake()
     {
         dataManager = DataManager.Instance;
 
@@ -69,10 +70,19 @@ public class Player : MonoBehaviour
 
         InitTriggerController();
 
+        InitCollisionController();
+
         InitInputController();
 
         DontDestroyOnLoad(gameObject);
     }
+
+
+    void FixedUpdate()
+    {
+        movementController.Move(data.statData.moveSpeed);
+    }
+
 
 
     void InitAppearacneController()
@@ -104,11 +114,44 @@ public class Player : MonoBehaviour
 
     void InitTriggerController()
     {
-        triggerController.Init(gameObject);
+        triggerEventController.OnTriggerEnter += (target) =>
+        {
+            target.OnTriggerEntered(gameObject);
 
-        triggerController.OnTriggerEnter += () => interactGuideCanvas.enabled = true;
+            if (target is IInteractable interactable)
+            {
+                interactTarget = interactable;
 
-        triggerController.OnTriggerEixt += () => interactGuideCanvas.enabled = false;
+                interactGuideCanvas.enabled = true;
+            }
+        };
+
+        triggerEventController.OnTriggerExit += (target) =>
+        {
+            target.OnTriggerExited(gameObject);
+
+            if (target is IInteractable interactable)
+            {
+                if(interactTarget == interactable)
+                {
+                    interactTarget = null;
+                }
+
+                interactGuideCanvas.enabled = false;
+            }
+        };
+    }
+
+    void InitCollisionController()
+    {
+        collisionEventController.OnCollisionEnter += (target) => 
+        {
+            target.OnCollisionEntered(gameObject);
+        }; 
+        collisionEventController.OnCollisionExit += (target) => 
+        {
+            target.OnCollisionExited(gameObject);
+        }; 
     }
 
 
@@ -122,9 +165,10 @@ public class Player : MonoBehaviour
 
         inputController.OnInteractEvent += () =>
         {
-            if (triggerController.InteractTarget != null)
+            if (interactTarget != null)
             {
-                triggerController.InteractTarget?.Interact(gameObject);
+                interactTarget?.Interact(gameObject);
+
                 interactGuideCanvas.enabled = false;
             }
         };

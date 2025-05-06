@@ -12,7 +12,7 @@ public class InputController : MonoBehaviour
     public event UnityAction OnJumpEvent;
     public event UnityAction OnInteractEvent;
 
-    public UnityAction OnTapRunnerJumpEvent { private get; set; }
+    public event UnityAction OnTapRunnerTapEvent;
 
     GameEnum.InputType previousInputType;
     GameEnum.InputType currentInputType;
@@ -53,6 +53,6 @@ public class InputController : MonoBehaviour
     void OnInteract() => OnInteractEvent?.Invoke();
     void OnJump() => OnJumpEvent?.Invoke();
 
-    void OnTapRunnerJump() => OnTapRunnerJumpEvent?.Invoke();
+    void OnTapRunnerTap() => OnTapRunnerTapEvent?.Invoke();
 
 }

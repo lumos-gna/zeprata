@@ -76,7 +76,7 @@ public class TownStoreUI : MonoBehaviour, IPopupUI
             }
 
 
-            var equipSlot = equipmentController.EquippedSlot[targetType];
+            var equipSlot = equipmentController.EquippedDatas[targetType];
 
             if(equipSlot != null)
             {
@@ -155,7 +155,7 @@ public class TownStoreUI : MonoBehaviour, IPopupUI
         switch (itemData.Type)
         {
             case GameEnum.ItemType.Riding: 
-                text = equipmentController.EquippedSlot[itemData.Type] == itemData ?  "Dismount" : "Mount";
+                text = equipmentController.EquippedDatas[itemData.Type] == itemData ?  "Dismount" : "Mount";
                 break;
 
             default: text = ""; 
@@ -204,7 +204,7 @@ public class TownStoreUI : MonoBehaviour, IPopupUI
     {
         if (currentSlot.StoreItemData.ItemData is EquipmentItemData targetData)
         {
-            var targetSlot = equipmentController.EquippedSlot[targetData.Type];
+            var targetSlot = equipmentController.EquippedDatas[targetData.Type];
 
             if (targetSlot == currentSlot.StoreItemData.ItemData)
             {

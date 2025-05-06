@@ -5655,6 +5655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 878909857647199727}
   - component: {fileID: 1468428644017160551}
+  - component: {fileID: 2688244317013939830}
   m_Layer: 0
   m_Name: ObstacleParent
   m_TagString: Untagged
@@ -5694,6 +5695,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topObstaclesParent: {fileID: 3395708730994891961}
   bottomObstaclesParent: {fileID: 9121900179959266654}
+--- !u!50 &2688244317013939830
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844895659757695432}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2143726557672207103
 GameObject:
   m_ObjectHideFlags: 0
