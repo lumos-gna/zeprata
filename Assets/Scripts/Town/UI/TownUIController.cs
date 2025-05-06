@@ -17,6 +17,7 @@ public class TownUIController : MonoBehaviour
     [SerializeField] Canvas canvasPopup;
     [SerializeField] TownAppearanceUI appearanceUI;
     [SerializeField] TownStoreUI storeUI;
+    [SerializeField] TownGameUI gameUI;
     [SerializeField] DialogueUI dialogueUI;
 
     Stack<IPopupUI> popupUIStack = new();
@@ -52,6 +53,8 @@ public class TownUIController : MonoBehaviour
         appearanceUI.Init(this, player.AppearanceController);
 
         storeUI.Init(this, player);
+
+        gameUI.Init(this);
 
         appearanceUIIcon.sprite = player.AppearanceController.EquipData.IconSprite;
 
@@ -91,6 +94,12 @@ public class TownUIController : MonoBehaviour
         dialogueUI.InitDialogue(dialogueData);
 
         EnablePopup(dialogueUI);
+    }
+
+    public void ShowGameUI(string titleText, int targetScore, string targetScene)
+    {
+        gameUI.Show(titleText, targetScore, targetScene);
+        EnablePopup(gameUI);
     }
 
     void PlayerDialogue()

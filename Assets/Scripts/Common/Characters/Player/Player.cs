@@ -162,8 +162,6 @@ public class Player : MonoBehaviour
         
         inputController.OnMoveEvent += (moveKey) => movementController.SetMoveDir(moveKey.normalized);
 
-        inputController.OnJumpEvent += movementController.Jump;
-
         inputController.OnInteractEvent += () =>
         {
             if (interactTarget != null)

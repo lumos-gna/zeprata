@@ -40,25 +40,4 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-
-    public void Jump()
-    {
-        if (!isJumping)
-        {
-            isJumping = true;
-
-            animator.SetBool("isJump", isJumping);
-
-            StartCoroutine(FinishJump());
-        }
-    }
-
-    IEnumerator FinishJump()
-    {
-        yield return new WaitForSeconds(0.33f);
-
-        isJumping = false;
-
-        animator.SetBool("isJump", isJumping);
-    }
 }

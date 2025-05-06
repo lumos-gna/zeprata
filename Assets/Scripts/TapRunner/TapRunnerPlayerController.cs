@@ -74,6 +74,7 @@ public class TapRunnerPlayerController : MonoBehaviour
                 break;
 
             case TapRunnerController.GameState.Play:
+                player.Animator.SetTrigger("Jump");
                 player.Rigid.AddForce(jumpForce, ForceMode2D.Impulse);
                 break;
 
@@ -81,7 +82,6 @@ public class TapRunnerPlayerController : MonoBehaviour
                 parentController.EndGame();
                 break;
         }
-       
     }
 
 

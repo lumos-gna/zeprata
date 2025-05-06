@@ -13,9 +13,13 @@ public class DialogueUI : MonoBehaviour, IPopupUI
 
     DialogueData currentDialogueData;
 
+
+
     public void Disable() => gameObject.SetActive(false);
 
     public void Enable() => gameObject.SetActive(true);
+
+
    
     public void InitDialogue(DialogueData dialogueData)
     {
@@ -26,6 +30,8 @@ public class DialogueUI : MonoBehaviour, IPopupUI
         nameText.text = dialogueData.DialogueList[dialogueIndex].speakerName;
         dialogueText.text = dialogueData.DialogueList[dialogueIndex].text;
     }
+
+
 
     public void PlayDialogue(out bool isFinish)
     {

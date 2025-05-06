@@ -11,7 +11,6 @@ public class InputController : MonoBehaviour
     public event UnityAction OnUIPlayDialogueEvent;
 
     public event UnityAction<Vector2> OnMoveEvent;
-    public event UnityAction OnJumpEvent;
     public event UnityAction OnInteractEvent;
 
     public event UnityAction OnTapRunnerTapEvent;
@@ -54,8 +53,6 @@ public class InputController : MonoBehaviour
 
     void OnMove(InputValue value) => OnMoveEvent?.Invoke(value.Get<Vector2>());
     void OnInteract() => OnInteractEvent?.Invoke();
-    void OnJump() => OnJumpEvent?.Invoke();
 
     void OnTapRunnerTap() => OnTapRunnerTapEvent?.Invoke();
-
 }
